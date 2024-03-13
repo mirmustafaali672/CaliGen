@@ -24,18 +24,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
- 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
- 
-// import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from './screens/HomeScreen';
 import TestScreen from './screens/TestScreen';
+import ChatScreen from './screens/ChatScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { FontAwesome } from '@expo/vector-icons';
+import { PrimaryColor } from "./styles/primaryScreenColors";
 
 
 // const Stack = createStackNavigator();
@@ -79,13 +75,13 @@ function MyTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} options={{
       tabBarLabel: 'Home',
-      tabBarIcon: ({ color, size }) => (<FontAwesome name="home" color={color} size={size} 
+      tabBarIcon: ({ color, size }) => (<FontAwesome name="home" color={PrimaryColor} size={size} 
         />
       ),
     }}/>
-      <Tab.Screen name="Chat" component={HomeScreen} options={{
+      <Tab.Screen name="Chat" component={ChatScreen} options={{
       tabBarLabel: 'Chat',
-      tabBarIcon: ({ color, size }) => (<Ionicons name="chatbubble" color={color} size={size} 
+      tabBarIcon: ({ color, size }) => (<Ionicons name="chatbubble" color={PrimaryColor} size={size} 
         />
       ),
     }}/>
@@ -93,7 +89,7 @@ function MyTabs() {
       <Tab.Screen name="Others" component={HomeScreen} />
       <Tab.Screen name="Menu" component={TestScreen} options={{
       tabBarLabel: 'More',
-      tabBarIcon: ({ color, size }) => (<Ionicons name="menu" color={color} size={size} 
+      tabBarIcon: ({ color, size }) => (<Ionicons name="menu" color={PrimaryColor} size={size} 
         />
       ),
     }}/>
