@@ -107,6 +107,7 @@ function ChatScreen() {
     //Invoked when an error occurs.
     console.log('onSpeechError: ', e);
     setError(JSON.stringify(e.error));
+    setRecordingStarted(false);
   };
 
   const onSpeechResults = (e) => {
@@ -114,6 +115,7 @@ function ChatScreen() {
     console.log('onSpeechResults: ', e);
     setResults(e.value);
     setMessage(e.value[0]);
+    setRecordingStarted(false);
   };
 
   const onSpeechPartialResults = (e) => {
@@ -145,6 +147,7 @@ function ChatScreen() {
       setResults([]);
       setPartialResults([]);
       setEnd('');
+      setRecordingStarted(false);
     } catch (e) {
       //eslint-disable-next-line
       console.error(e);
