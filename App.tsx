@@ -29,6 +29,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import TestScreen from './screens/TestScreen';
 import ChatScreen from './screens/ChatScreen';
+import  SpeecToTextScreen  from './screens/SpeecToTextScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { PrimaryColor } from "./styles/primaryScreenColors";
@@ -85,7 +86,7 @@ function MyTabs() {
         />
       ),
     }}/>
-      <Tab.Screen name="Files" component={HomeScreen} />
+      <Tab.Screen name="Speech" component={SpeecToTextScreen} />
       <Tab.Screen name="Others" component={HomeScreen} />
       <Tab.Screen name="Menu" component={TestScreen} options={{
       tabBarLabel: 'More',
