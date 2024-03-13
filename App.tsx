@@ -30,8 +30,11 @@ import HomeScreen from './screens/HomeScreen';
 import TestScreen from './screens/TestScreen';
 import ChatScreen from './screens/ChatScreen';
 import  SpeecToTextScreen  from './screens/SpeecToTextScreen';
+import LoginScreen from './screens/LoginScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PrimaryColor } from "./styles/primaryScreenColors";
 
 
@@ -86,8 +89,19 @@ function MyTabs() {
         />
       ),
     }}/>
-      <Tab.Screen name="Speech" component={SpeecToTextScreen} />
-      <Tab.Screen name="Others" component={HomeScreen} />
+      <Tab.Screen name="Speech" component={SpeecToTextScreen} options={{
+      tabBarLabel: 'Voice',
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons
+        name="text-to-speech" color={PrimaryColor} size={size} 
+        />
+      ),
+    }}/>
+      <Tab.Screen name="Profile" component={LoginScreen} options={{
+      tabBarLabel: 'Profile',
+      tabBarIcon: ({ color, size }) => (<FontAwesome name="user" color={PrimaryColor} size={size} 
+        />
+      ),
+    }}/>
       <Tab.Screen name="Menu" component={TestScreen} options={{
       tabBarLabel: 'More',
       tabBarIcon: ({ color, size }) => (<Ionicons name="menu" color={PrimaryColor} size={size} 
