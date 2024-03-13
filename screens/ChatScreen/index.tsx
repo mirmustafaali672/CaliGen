@@ -27,7 +27,7 @@ function ChatScreen() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
-  const [recordingStarted, setRrecordigngStarted] = useState(false);
+  const [recordingStarted, setRecordingStarted] = useState(false);
   const [text, setText] = useState('');
 
 
@@ -93,12 +93,14 @@ function ChatScreen() {
     //Invoked when .start() is called without error
     console.log('onSpeechStart: ', e);
     setStarted('√');
+    setRecordingStarted(true);
   };
 
   const onSpeechEnd = (e) => {
     //Invoked when SpeechRecognizer stops recognition
     console.log('onSpeechEnd: ', e);
     setEnd('√');
+    setRecordingStarted(false);
   };
 
   const onSpeechError = (e) => {
@@ -127,12 +129,19 @@ function ChatScreen() {
   };
 
   const startRecognizing = async () => {
+    if(recordingStarted)
+    {
+      await cancelRecognizing();
+      setRecordingStarted(false);
+      return; 
+    }
     //Starts listening for speech for a specific locale
     try {
       await Voice.start('en-US');
       setPitch('');
       setError('');
       setStarted('');
+      setRecordingStarted(true);
       setResults([]);
       setPartialResults([]);
       setEnd('');
@@ -291,20 +300,13 @@ function ChatScreen() {
             </View>
             <View style={{flex: 1, marginRight: 4}}>
               <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: PrimaryColor,
-                  borderRadius: 10,
-                  height: '80%',
-                  width: '100%',
-                }}
+                style={ [styles.microphoneButtonNotListening, { borderColor: recordingStarted ?  "red" :  PrimaryColor }] }
                 onPress={startRecognizing}>
                 <FontAwesome
-                  name="microphone"
+                  name= {recordingStarted ? "microphone-slash" : "microphone" } 
                   style={{alignItems: 'center', justifyContent: 'center'}}
                   size={24}
-                  color={'white'}
+                  color={ recordingStarted ? "red" :  PrimaryColor}
                 />
               </Pressable>
             </View>
@@ -429,6 +431,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 10,
   },
+  microphoneButtonNotListening: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "white",
+    borderRadius: 10,
+    height: '80%',
+    width: '100%',
+    // borderColor: PrimaryColor,
+    borderWidth: 2
+  }
 });
 
 export default ChatScreen;
