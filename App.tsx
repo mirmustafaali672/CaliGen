@@ -24,6 +24,23 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+ 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+ 
+// import { Ionicons } from '@expo/vector-icons';
+import HomeScreen from './screens/HomeScreen';
+import TestScreen from './screens/TestScreen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { FontAwesome } from '@expo/vector-icons';
+
+
+// const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -55,6 +72,36 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
+
+function MyTabs() {
+ 
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} options={{
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ color, size }) => (<FontAwesome name="home" color={color} size={size} 
+        />
+      ),
+    }}/>
+      <Tab.Screen name="Chat" component={HomeScreen} options={{
+      tabBarLabel: 'Chat',
+      tabBarIcon: ({ color, size }) => (<Ionicons name="chatbubble" color={color} size={size} 
+        />
+      ),
+    }}/>
+      <Tab.Screen name="Files" component={HomeScreen} />
+      <Tab.Screen name="Others" component={HomeScreen} />
+      <Tab.Screen name="Menu" component={TestScreen} options={{
+      tabBarLabel: 'More',
+      tabBarIcon: ({ color, size }) => (<Ionicons name="menu" color={color} size={size} 
+        />
+      ),
+    }}/>
+    </Tab.Navigator>
+  );
+ 
+}
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -63,36 +110,39 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+    // <SafeAreaView style={backgroundStyle}>
+    //   <StatusBar
+    //     barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+    //     backgroundColor={backgroundStyle.backgroundColor}
+    //   />
+    //   <ScrollView
+    //     contentInsetAdjustmentBehavior="automatic"
+    //     style={backgroundStyle}>
+    //     <Header />
+    //     <View
+    //       style={{
+    //         backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    //       }}>
+    //       <Section title="Step One">
+    //         Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+    //         screen and then come back to see your edits.
+    //       </Section>
+    //       <Section title="See Your Changes">
+    //         <ReloadInstructions />
+    //       </Section>
+    //       <Section title="Debug">
+    //         <DebugInstructions />
+    //       </Section>
+    //       <Section title="Learn More">
+    //         Read the docs to discover what to do next:
+    //       </Section>
+    //       <LearnMoreLinks />
+    //     </View>
+    //   </ScrollView>
+    // </SafeAreaView>
   );
 }
 
