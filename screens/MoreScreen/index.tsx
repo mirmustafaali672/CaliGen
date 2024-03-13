@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {MenuList} from '../../data/MenuData';
 import { PrimaryColor, PrimaryBGColor } from '../../styles/primaryScreenColors';
-
+import PrimaryButton  from '../../components/Buttons/PrimaryButtonComponent';
 function MenuScreen({navigation}) {
 
     function navigateTo({ route })
@@ -24,10 +24,8 @@ function MenuScreen({navigation}) {
           data={MenuList}
           renderItem={({item}) => {
             return (
-              <View>
-                <TouchableOpacity style={styles.MenuButtonStyle} onPress={ () => navigateTo(item.navigationRouteName)}>
-                  <Text style={{color: "white", fontWeight: 'bold' }}>{item.name}</Text>
-                </TouchableOpacity>
+              <View  style={styles.MenuButtonStyle}>
+                <PrimaryButton  buttonClicked={ () => navigateTo(item.navigationRouteName)} buttonTitle={item.name}/>
               </View>
             );
           }}
