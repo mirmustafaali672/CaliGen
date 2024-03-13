@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -24,23 +24,26 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
-import TestScreen from './screens/TestScreen';
 import ChatScreen from './screens/ChatScreen';
-import  SpeecToTextScreen  from './screens/SpeecToTextScreen';
+import SpeecToTextScreen from './screens/SpeecToTextScreen';
 import LoginScreen from './screens/LoginScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import MenuScreen from './screens/MoreScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { PrimaryColor } from "./styles/primaryScreenColors";
-
+import {
+  PrimaryColor,
+  SecondaryColor,
+  LightPrimaryColor,
+} from './styles/primaryScreenColors';
 
 // const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -72,45 +75,99 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
-
 function MyTabs() {
- 
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} options={{
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ color, size }) => (<FontAwesome name="home" color={PrimaryColor} size={size} 
-        />
-      ),
-    }}/>
-      <Tab.Screen name="Chat" component={ChatScreen} options={{
-      tabBarLabel: 'Chat',
-      tabBarIcon: ({ color, size }) => (<Ionicons name="chatbubble" color={PrimaryColor} size={size} 
-        />
-      ),
-    }}/>
-      <Tab.Screen name="Speech" component={SpeecToTextScreen} options={{
-      tabBarLabel: 'Voice',
-      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons
-        name="text-to-speech" color={PrimaryColor} size={size} 
-        />
-      ),
-    }}/>
-      <Tab.Screen name="Profile" component={LoginScreen} options={{
-      tabBarLabel: 'Profile',
-      tabBarIcon: ({ color, size }) => (<FontAwesome name="user" color={PrimaryColor} size={size} 
-        />
-      ),
-    }}/>
-      <Tab.Screen name="Menu" component={TestScreen} options={{
-      tabBarLabel: 'More',
-      tabBarIcon: ({ color, size }) => (<Ionicons name="menu" color={PrimaryColor} size={size} 
-        />
-      ),
-    }}/>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function UserLoggedIn() {
+    console.log(' User Logged In.');
+    setIsLoggedIn(true);
+  }
+
+  return isLoggedIn ? (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: PrimaryColor,
+          borderRadius: 15,
+          marginVertical: 4,
+          marginHorizontal: 6,
+          padding: 0,
+        },
+        headerStyle: {
+          backgroundColor: PrimaryColor,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        tabBarActiveBackgroundColor: "#fff",
+        tabBarItemStyle: {
+          borderRadius: 8,
+          margin: 3
+        },
+        tabBarActiveTintColor: PrimaryColor,
+        tabBarInactiveTintColor: 'white',
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          tabBarLabel: 'Chat',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="chatbubble" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Speech"
+        component={SpeecToTextScreen}
+        options={{
+          tabBarLabel: 'Voice',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons
+              name="text-to-speech"
+              color={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Menu"
+        component={MenuScreen}
+        options={{
+          tabBarLabel: 'More',
+          tabBarIcon: ({color, size}) => (
+            <Ionicons name="menu" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        children={props => (
+          <ProfileScreen {...props} logout={() => setIsLoggedIn(false)} />
+        )}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome name="user" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
+  ) : (
+    <LoginScreen UserLoggedIn={UserLoggedIn} />
   );
- 
 }
 
 function App(): React.JSX.Element {

@@ -14,11 +14,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {PrimaryColor, SecondaryColor} from '../../styles/primaryScreenColors';
 import {login} from '../../api/AccountAPI';
+import * as Keychain from "react-native-keychain";
 
 let screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
 
-function LoginScreen() {
+function LoginScreen( {UserLoggedIn} ) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
   const [errorModal, setErrorModal] = useState(false);
@@ -36,6 +37,21 @@ function LoginScreen() {
         setErrorModal(true);
       });
   };
+
+
+  const handleLogin = async () => {
+    // login api call here
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+    const username = "Akshay";
+    console.log("Line 47")
+    await Keychain.setGenericPassword(username, token);
+    // setIsLoggedIn(true);
+    // setUserDetails({token, username});
+    console.log("saved");
+    UserLoggedIn()
+  };
+
 
   return (
     <View style={styles.loginFullMainScreen}>
@@ -99,7 +115,8 @@ function LoginScreen() {
                   style={styles.loginButton}
                   onPress={() =>
                     // startLogin(username, password)
-                    navigation.navigate('Home')
+                    // navigation.navigate('Home')
+                    handleLogin()
                   }>
                   <Text style={{color: 'white'}}>Login</Text>
                 </Pressable>
@@ -166,6 +183,8 @@ const styles = StyleSheet.create({
     // left:"%"
   },
   loginInputFields: {
+    justifyContent: ':"center',
+    alignItems:"center",
     margin: '1%',
     // marginVertical: "%",
     flexDirection: 'row',

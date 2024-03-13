@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   PrimaryColor,
   LightPrimaryColor,
+  PrimaryBGColor
 } from '../../styles/primaryScreenColors';
 import { SendUserMessageToApi } from "../../api/ChatScreenAPI";
 import Voice from '@react-native-voice/voice';
@@ -180,7 +181,7 @@ function ChatScreen() {
 
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: PrimaryBGColor}}>
       <ScrollView
         horizontal
         scrollEnabled={false}
@@ -247,7 +248,7 @@ function ChatScreen() {
                 )}
             </SafeAreaView>
           </View>
-          <View style={{flex: 1, flexDirection: 'row', gap: 10}}>
+          <View style={{flex: 1, flexDirection: 'row', gap: 10, marginHorizontal: 10}}>
             <View style={{flex: 5}}>
               <TextInput
                 // autoCapitalize="none"
