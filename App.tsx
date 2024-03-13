@@ -86,11 +86,12 @@ function MyTabs() {
   return isLoggedIn ? (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: PrimaryColor,
-          borderRadius: 15,
+          borderRadius: 100,
           marginVertical: 4,
-          marginHorizontal: 6,
+          marginHorizontal: 10,
           padding: 0,
         },
         headerStyle: {
@@ -102,8 +103,8 @@ function MyTabs() {
         },
         tabBarActiveBackgroundColor: "#fff",
         tabBarItemStyle: {
-          borderRadius: 8,
-          margin: 3
+          borderRadius: 100,
+          margin: 1,
         },
         tabBarActiveTintColor: PrimaryColor,
         tabBarInactiveTintColor: 'white',
@@ -128,7 +129,7 @@ function MyTabs() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Speech"
         component={SpeecToTextScreen}
         options={{
@@ -141,7 +142,7 @@ function MyTabs() {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Menu"
         component={MenuScreen}

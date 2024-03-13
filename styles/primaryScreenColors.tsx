@@ -1,4 +1,4 @@
-export const PrimaryColor: string = "#7C4DFF";
+export const PrimaryColor: string = "#5E4ED7";
 export const PrimaryBGColor: string = 'white';
 export const LightPrimaryColor: string = "#CFD8DC";
 export const SecondaryColor: string = '#E1BEE7';
