@@ -20,6 +20,7 @@ import {
 } from '../../styles/primaryScreenColors';
 import { SendUserMessageToApi } from "../../api/ChatScreenAPI";
 import Voice from '@react-native-voice/voice';
+import * as MaterialColors from '../../styles/materialColors';
 
 const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
     const translation = useRef(new Animated.Value(0)).current;
@@ -61,7 +62,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
             width: 10,
             height: 10,
             borderRadius: 100,
-            backgroundColor: PrimaryColor,
+            backgroundColor: MaterialColors.MaterialDeepPurple,
             transform: [{ translateY: translation }],
             marginLeft: 2,
           },
@@ -82,7 +83,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
     },
     Header: {
       flex: 3,
-      backgroundColor: PrimaryColor,
+      backgroundColor: MaterialColors.MaterialDeepPurple,
     },
     Body: {
       flex: 20,
@@ -131,7 +132,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
       backgroundColor: '#F194FF',
     },
     buttonClose: {
-      backgroundColor: PrimaryColor,
+      backgroundColor: MaterialColors.MaterialDeepPurple,
     },
     textStyle: {
       color: 'white',
@@ -150,7 +151,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
       padding: '1%',
       borderRadius: 100,
       borderWidth: 2,
-      borderColor: PrimaryColor,
+      borderColor: MaterialColors.MaterialDeepPurple,
       // width: 50,
       height: 54,
     },
@@ -167,7 +168,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
       color: '#000000',
     },
     chatResponseMessageClass: {
-      backgroundColor: PrimaryColor,
+      backgroundColor: MaterialColors.MaterialDeepPurple,
       color: 'white',
       borderBottomLeftRadius: 0,
     },

@@ -19,7 +19,8 @@ import {
 } from '../../styles/primaryScreenColors';
 import { SendUserMessageToApi } from "../../api/ChatScreenAPI";
 import Voice from '@react-native-voice/voice';
-import ResponseLoadingComponent from '../../components/Loader/ResponseLoadingComponent'
+import ResponseLoadingComponent from '../../components/Loader/ResponseLoadingComponent';
+import * as MaterialColors from '../../styles/materialColors';
 
 function ChatScreen() {
   const [optionSelected, setOptionSelected] = useState(false);
@@ -271,7 +272,7 @@ function ChatScreen() {
                   marginHorizontal: 4,
                   borderWidth: 2,
                   borderRadius: 10,
-                  borderColor: PrimaryColor,
+                  borderColor: MaterialColors.MaterialDeepPurple,
                 }}
                   onChangeText={(value) => setMessage(value)}
                   value={message}
@@ -282,7 +283,7 @@ function ChatScreen() {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: PrimaryColor,
+                  backgroundColor: MaterialColors.MaterialDeepPurple,
                   borderRadius: 10,
                   height: '80%',
                   width: '100%',
@@ -303,13 +304,13 @@ function ChatScreen() {
             </View>
             <View style={{flex: 1, marginRight: 4}}>
               <Pressable
-                style={ [styles.microphoneButtonNotListening, { borderColor: recordingStarted ?  "red" :  PrimaryColor }] }
+                style={ [styles.microphoneButtonNotListening, { borderColor: recordingStarted ?  MaterialColors.MaterialRed :  MaterialColors.MaterialDeepPurple }] }
                 onPress={startRecognizing}>
                 <FontAwesome
                   name= {recordingStarted ? "microphone-slash" : "microphone" } 
                   style={{alignItems: 'center', justifyContent: 'center'}}
                   size={24}
-                  color={ recordingStarted ? "red" :  PrimaryColor}
+                  color={ recordingStarted ? "red" :  MaterialColors.MaterialDeepPurple}
                 />
               </Pressable>
             </View>
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
   },
   Header: {
     flex: 3,
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
   },
   Body: {
     flex: 20,
@@ -380,7 +381,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
   },
   textStyle: {
     color: 'white',
@@ -399,7 +400,7 @@ const styles = StyleSheet.create({
     padding: '1%',
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: PrimaryColor,
+    borderColor: MaterialColors.MaterialDeepPurple,
     // width: 50,
     height: 54,
   },
@@ -407,8 +408,8 @@ const styles = StyleSheet.create({
     padding: '1%',
   },
   chatUserMessageClass: {
-    backgroundColor: LightPrimaryColor,
-    color: 'black',
+    backgroundColor: MaterialColors.MaterialLightDeepPurple,
+    color: MaterialColors.MaterialBlueGreyLight,
     borderBottomRightRadius: 0,
     // alignItems: "flex-end",
   },
@@ -416,7 +417,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   chatResponseMessageClass: {
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
     color: 'white',
     borderBottomLeftRadius: 0,
   },
@@ -441,7 +442,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: '80%',
     width: '100%',
-    // borderColor: PrimaryColor,
+    // borderColor: MaterialColors.MaterialDeepPurple,
     borderWidth: 2
   }
 });

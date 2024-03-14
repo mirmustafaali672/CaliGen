@@ -37,11 +37,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  PrimaryColor,
   SecondaryColor,
   LightPrimaryColor,
 } from './styles/primaryScreenColors';
 import  MoreScreenNavigator  from './screens/MoreScreenNavigator';
+import * as MaterialColors from './styles/materialColors';
 
 // const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -89,14 +89,14 @@ function MyTabs() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: PrimaryColor,
-          borderRadius: 100,
-          marginVertical: 4,
-          marginHorizontal: 10,
-          padding: 0,
+          // backgroundColor: MaterialColors.MaterialDeepPurple,
+          // borderRadius: 100,
+          // marginVertical: 4,
+          // marginHorizontal: 10,
+          // padding: 0,
         },
         headerStyle: {
-          backgroundColor: PrimaryColor,
+          backgroundColor: MaterialColors.MaterialDeepPurple,
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -107,8 +107,8 @@ function MyTabs() {
           borderRadius: 100,
           margin: 1,
         },
-        tabBarActiveTintColor: PrimaryColor,
-        tabBarInactiveTintColor: 'white',
+        tabBarActiveTintColor: MaterialColors.MaterialDeepPurple,
+        tabBarInactiveTintColor: MaterialColors.MaterialBlueGreyLight,
       }}>
       <Tab.Screen
         name="Home"
@@ -116,7 +116,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
-            <FontAwesome name="home" color={color} size={size} />
+            <AntDesign name="home" color={color} size={size} />
           ),
         }}
       />
@@ -126,7 +126,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Chat',
           tabBarIcon: ({color, size}) => (
-            <Ionicons name="chatbubble" color={color} size={size} />
+            <Ionicons name="chatbubble-outline" color={color} size={size} />
           ),
         }}
       />
@@ -150,7 +150,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'More',
           tabBarIcon: ({color, size}) => (
-            <Ionicons name="menu" color={color} size={size} />
+            <AntDesign name="profile" color={color} size={size} />
           ),
         }}
       />
@@ -162,7 +162,7 @@ function MyTabs() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
-            <FontAwesome name="user" color={color} size={size} />
+            <AntDesign name="user" color={color} size={size} />
           ),
         }}
       />
