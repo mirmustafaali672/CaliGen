@@ -9,28 +9,28 @@ export type MenuListInterface = {
 export const MenuList: MenuListInterface = [
   {
     name: 'Menu Item One',
-    navigationRouteName: 'none',
+    navigationRouteName: 'HomeScreen',
     icons: 'none',
     isParent: 1,
     parentName: 'none',
   },
   {
     name: 'Menu Item Two',
-    navigationRouteName: 'none',
+    navigationRouteName: 'HomeScreen',
     icons: 'none',
     isParent: 1,
     parentName: 'none',
   },
   {
     name: 'Menu Item Three',
-    navigationRouteName: 'none',
+    navigationRouteName: 'HomeScreen',
     icons: 'none',
     isParent: 1,
     parentName: 'none',
   },
   {
     name: 'Menu Item Four',
-    navigationRouteName: 'none',
+    navigationRouteName: 'HomeScreen',
     icons: 'none',
     isParent: 1,
     parentName: 'none',

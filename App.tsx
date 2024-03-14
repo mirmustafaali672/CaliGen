@@ -41,6 +41,7 @@ import {
   SecondaryColor,
   LightPrimaryColor,
 } from './styles/primaryScreenColors';
+import  MoreScreenNavigator  from './screens/MoreScreenNavigator';
 
 // const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -145,7 +146,7 @@ function MyTabs() {
       /> */}
       <Tab.Screen
         name="Menu"
-        component={MenuScreen}
+        component={MoreScreenNavigator}
         options={{
           tabBarLabel: 'More',
           tabBarIcon: ({color, size}) => (

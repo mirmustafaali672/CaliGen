@@ -14,7 +14,7 @@ function MenuScreen({navigation}) {
 
     function navigateTo({ route })
     {
-        navigation.navigate('Home');
+        navigation.navigate('HomeScreen');
     }
   return (
     <View style={{flex: 1, margin: 5, backgroundColor: PrimaryBGColor}}>
