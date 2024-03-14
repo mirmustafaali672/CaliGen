@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {PrimaryColor, SecondaryColor} from '../../styles/primaryScreenColors';
 import {login} from '../../api/AccountAPI';
 import * as Keychain from 'react-native-keychain';
 import * as MaterialColors from '../../styles/materialColors';
@@ -105,7 +104,7 @@ function LoginScreen({UserLoggedIn}) {
                   <AntDesign
                     name="user"
                     size={24}
-                    color={PrimaryColor}
+                    color={MaterialColors.MaterialDeepPurple}
                     style={{marginRight: '5%'}}
                   />
                   <TextInput
@@ -137,7 +136,7 @@ function LoginScreen({UserLoggedIn}) {
                     style={{marginRight: '5%'}}
                     name="password"
                     size={24}
-                    color={PrimaryColor}
+                    color={MaterialColors.MaterialDeepPurple}
                   />
                   <TextInput
                     onBlur={() =>
@@ -284,7 +283,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F194FF',
   },
   buttonClose: {
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
   },
   textStyle: {
     color: 'white',
