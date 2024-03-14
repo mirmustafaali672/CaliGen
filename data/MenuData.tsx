@@ -87,4 +87,18 @@ export const MenuList: MenuListInterface = [
     isParent: false,
     parentName: 'none',
   },
+  {
+    name: 'saas',
+    navigationRouteName: 'none',
+    icons: 'info-circle',
+    isParent: false,
+    parentName: 'none',
+  },
+  {
+    name: 'Administration',
+    navigationRouteName: 'none',
+    icons: 'info-circle',
+    isParent: false,
+    parentName: 'none',
+  },
 ];

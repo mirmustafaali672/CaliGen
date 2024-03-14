@@ -18,7 +18,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 function GetMenuView() {
   return MenuList.map(item => (
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
-      <SafeAreaView style={{flex: 1, margin: 6}}>
+      <SafeAreaView style={{flex: 1, margin: 6 }}>
         <View>
           <TouchableOpacity>
             <View
@@ -107,7 +107,7 @@ function MenuScreen({navigation}) {
     navigation.navigate('HomeScreen');
   }
   return (
-    <View>
+    <View style={{flex: 1, padding: 6, backgroundColor: MaterialColors.MaterialWhite }}>
       <ScrollView>
         <GetMenuView />
       </ScrollView>
