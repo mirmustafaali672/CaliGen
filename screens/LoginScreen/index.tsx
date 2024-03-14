@@ -214,9 +214,7 @@ function LoginScreen({UserLoggedIn}) {
               </ScrollView>
             </View>
           </View>
-        </ScrollView>
-      </View>
-      <View
+          <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
@@ -237,6 +235,8 @@ function LoginScreen({UserLoggedIn}) {
             fontWeight: 'bold',
           }}
         />
+      </View>
+        </ScrollView>
       </View>
     </View>
   );
