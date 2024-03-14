@@ -173,6 +173,21 @@ function LoginScreen({UserLoggedIn}) {
                     }}
                   />
                 </Pressable>
+                <Pressable
+                  style={styles.forgotPasswordButton}
+                  onPress={() =>{}
+                    // startLogin(username, password)
+                    // navigation.navigate('Home')
+                    // handleLogin()
+                  }>
+                  <RobotoText
+                    text="Forgot Password?"
+                    textStyle={{
+                      color: MaterialColors.MaterialDeepPurple,
+                      fontWeight: 'bold',
+                    }}
+                  />
+                </Pressable>
                 <View>
                   <Modal
                     animationType="slide"
@@ -200,6 +215,28 @@ function LoginScreen({UserLoggedIn}) {
             </View>
           </View>
         </ScrollView>
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: 10,
+        }}>
+        <RobotoText
+          text="Don't have an account? "
+          textStyle={{
+            color: MaterialColors.MaterialBlueGreyLight,
+            fontWeight: 'bold',
+          }}
+        />
+        <RobotoText
+          text=" Register"
+          textStyle={{
+            color: MaterialColors.MaterialDeepPurple,
+            fontWeight: 'bold',
+          }}
+        />
       </View>
     </View>
   );
@@ -251,6 +288,21 @@ const styles = StyleSheet.create({
     elevation: 5,
     shadowColor: 'white',
     shadowColor: 'black',
+  },
+  forgotPasswordButton: {
+    // margin: '1%',
+    // marginVertical: '5%',
+    marginHorizontal: '25%',
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // backgroundColor: MaterialColors.MaterialDeepPurple,
+    // padding: '5%',
+    // borderRadius: 100,
+    // elevation: 5,
+    // shadowColor: 'white',
+    // shadowColor: 'black',
   },
   inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
   centeredView: {
