@@ -9,17 +9,21 @@ import {
   Button,
   Modal,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {PrimaryColor, SecondaryColor} from '../../styles/primaryScreenColors';
 import {login} from '../../api/AccountAPI';
-import * as Keychain from "react-native-keychain";
+import * as Keychain from 'react-native-keychain';
+import * as MaterialColors from '../../styles/materialColors';
+import RobotoText from '../../components/Text/RobotoText';
 
 let screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
+// let inputFieldOnFocusBorderColor = {};
 
-function LoginScreen( {UserLoggedIn} ) {
+function LoginScreen({UserLoggedIn}) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
   const [errorModal, setErrorModal] = useState(false);
@@ -38,29 +42,46 @@ function LoginScreen( {UserLoggedIn} ) {
       });
   };
 
-
   const handleLogin = async () => {
     // login api call here
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-    const username = "Akshay";
-    console.log("Line 47")
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+    const username = 'Akshay';
+    console.log('Line 47');
     await Keychain.setGenericPassword(username, token);
     // setIsLoggedIn(true);
     // setUserDetails({token, username});
-    console.log("saved");
-    UserLoggedIn()
+    console.log('saved');
+    UserLoggedIn();
   };
 
+  const [inputFieldOnFocusBorderColor, setinputFieldOnFocusBorderColor] =
+    useState({});
+  const [
+    inputFieldOnFocusBorderColorUsername,
+    setinputFieldOnFocusBorderColorUsername,
+  ] = useState({});
 
   return (
     <View style={styles.loginFullMainScreen}>
       <View style={styles.topPart}>
-        <View style={[styles.imageSetter, {flexDirection: 'row'}]}>
-          {/* <CaliberImageComponent style={{alignItems:"center"}}/> */}
-          <Text style={{color: 'white', fontSize: 80, marginTop: '30%'}}>
-            CaliGen
-          </Text>
+        <View style={[{alignItems: 'center'}]}>
+          <RobotoText
+            isBold={true}
+            text="CaliGen"
+            textStyle={{
+              color: MaterialColors.MaterialBlack,
+              fontSize: 60,
+              marginTop: '30%',
+            }}
+          />
+          <RobotoText
+            text="Login to continue"
+            textStyle={{
+              color: MaterialColors.MaterialBlueGreyLight,
+              fontSize: 30,
+            }}
+          />
         </View>
       </View>
       <View style={styles.bottomPart}>
@@ -69,17 +90,18 @@ function LoginScreen( {UserLoggedIn} ) {
           keyboardShouldPersistTaps="handled"
           automaticallyAdjustKeyboardInsets={true}>
           <View style={styles.bottomPart}>
-            <Text style={{fontSize: 60, margin: '10%', color: PrimaryColor}}>
-              Login
-            </Text>
             <View style={{flex: 1}}>
               <ScrollView
                 style={{
-                  marginVertical: '1%',
-                  marginHorizontal: '5%',
+                  marginVertical: '3%',
+                  marginHorizontal: '0%',
                   flex: 1,
                 }}>
-                <View style={styles.loginInputFields}>
+                <View
+                  style={[
+                    styles.loginInputFields,
+                    inputFieldOnFocusBorderColorUsername,
+                  ]}>
                   <AntDesign
                     name="user"
                     size={24}
@@ -87,6 +109,17 @@ function LoginScreen( {UserLoggedIn} ) {
                     style={{marginRight: '5%'}}
                   />
                   <TextInput
+                    onBlur={() =>
+                      setinputFieldOnFocusBorderColorUsername({
+                        borderWidth: 0,
+                      })
+                    }
+                    onFocus={() =>
+                      setinputFieldOnFocusBorderColorUsername({
+                        borderWidth: 1,
+                        borderColor: MaterialColors.MaterialDeepPurple,
+                      })
+                    }
                     autoCapitalize="none"
                     autoComplete="password-new"
                     autoCorrect={false}
@@ -95,7 +128,11 @@ function LoginScreen( {UserLoggedIn} ) {
                     onChangeText={value => setUsername(value)}
                     value={username}></TextInput>
                 </View>
-                <View style={styles.loginInputFields}>
+                <View
+                  style={[
+                    styles.loginInputFields,
+                    inputFieldOnFocusBorderColor,
+                  ]}>
                   <MaterialIcons
                     style={{marginRight: '5%'}}
                     name="password"
@@ -103,6 +140,17 @@ function LoginScreen( {UserLoggedIn} ) {
                     color={PrimaryColor}
                   />
                   <TextInput
+                    onBlur={() =>
+                      setinputFieldOnFocusBorderColor({
+                        borderWidth: 0,
+                      })
+                    }
+                    onFocus={() =>
+                      setinputFieldOnFocusBorderColor({
+                        borderWidth: 1,
+                        borderColor: MaterialColors.MaterialDeepPurple,
+                      })
+                    }
                     autoCapitalize="none"
                     autoComplete="password-new"
                     autoCorrect={false}
@@ -118,7 +166,13 @@ function LoginScreen( {UserLoggedIn} ) {
                     // navigation.navigate('Home')
                     handleLogin()
                   }>
-                  <Text style={{color: 'white'}}>Login</Text>
+                  <RobotoText
+                    text="Login"
+                    textStyle={{
+                      color: MaterialColors.MaterialWhite,
+                      fontWeight: 'bold',
+                    }}
+                  />
                 </Pressable>
                 <View>
                   <Modal
@@ -155,42 +209,34 @@ function LoginScreen( {UserLoggedIn} ) {
 const styles = StyleSheet.create({
   loginFullMainScreen: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: 'center',
     width: '100%',
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialWhite,
   },
   topPart: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: PrimaryColor,
   },
   bottomPart: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: 'white',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
   loginCard: {},
-  imageSetter: {
-    // position: "absolute",
-    // bottom: "10%",
-    // left:"%"
-  },
+  imageSetter: {},
   loginInputFields: {
     justifyContent: ':"center',
-    alignItems:"center",
+    alignItems: 'center',
     margin: '1%',
-    // marginVertical: "%",
     flexDirection: 'row',
-    backgroundColor: '#eceff7',
+    backgroundColor: MaterialColors.MaterialIndigo,
     padding: '5%',
-    borderRadius: 10,
+    borderRadius: 20,
+    height: 65,
   },
   loginButton: {
     margin: '1%',
@@ -200,11 +246,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
     padding: '5%',
     borderRadius: 100,
+    elevation: 5,
+    shadowColor: 'white',
+    shadowColor: 'black',
   },
-  inputFieldIcon: {marginRight: '5%'},
+  inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
   centeredView: {
     flex: 1,
     justifyContent: 'center',
