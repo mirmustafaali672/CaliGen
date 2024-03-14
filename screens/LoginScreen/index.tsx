@@ -33,7 +33,9 @@ function LoginScreen({UserLoggedIn}) {
     await login({username, password})
       .then(data => {
         console.log('data', data);
-        navigation.navigate('Home');
+        Keychain.setGenericPassword(username, data.access_token);
+        UserLoggedIn();
+        // navigation.navigate('Home');
       })
       .catch(error => {
         console.log(error);
@@ -41,18 +43,14 @@ function LoginScreen({UserLoggedIn}) {
       });
   };
 
-  const handleLogin = async () => {
-    // login api call here
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-    const username = 'Akshay';
-    console.log('Line 47');
-    await Keychain.setGenericPassword(username, token);
-    // setIsLoggedIn(true);
-    // setUserDetails({token, username});
-    console.log('saved');
-    UserLoggedIn();
-  };
+  // const handleLogin = async ({username, token}) => {
+  //   console.log('Line 47');
+  //   await Keychain.setGenericPassword(username, token);
+  //   // setIsLoggedIn(true);
+  //   // setUserDetails({token, username});
+  //   console.log('saved');
+  //   UserLoggedIn();
+  // };
 
   const [inputFieldOnFocusBorderColor, setinputFieldOnFocusBorderColor] =
     useState({});
@@ -161,9 +159,7 @@ function LoginScreen({UserLoggedIn}) {
                 <Pressable
                   style={styles.loginButton}
                   onPress={() =>
-                    // startLogin(username, password)
-                    // navigation.navigate('Home')
-                    handleLogin()
+                    startLogin(username, password)
                   }>
                   <RobotoText
                     text="Login"
@@ -176,9 +172,6 @@ function LoginScreen({UserLoggedIn}) {
                 <Pressable
                   style={styles.forgotPasswordButton}
                   onPress={() =>{}
-                    // startLogin(username, password)
-                    // navigation.navigate('Home')
-                    // handleLogin()
                   }>
                   <RobotoText
                     text="Forgot Password?"
