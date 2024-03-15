@@ -32,7 +32,7 @@ function GetMenuView({navigation}) {
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
       <SafeAreaView style={{flex: 1, margin: 6}}>
         <View>
-          <TouchableOpacity>
+          <TouchableOpacity  disabled={item.isParent} onPress={()=>{navigation.navigate(item.navigationRouteName)}}>
             <View
               style={{
                 alignItems: 'center',
@@ -63,7 +63,7 @@ function GetMenuView({navigation}) {
             </View>
           </TouchableOpacity>
           {item.isParent && (
-            <SafeAreaView style={{flex: 1, margin: 10}}>
+            <SafeAreaView style={{flex: 1, margin: 10, marginTop: 0}}>
               {item.ChildComponents.map(childItem => (
                 <View
                   style={{
@@ -73,7 +73,7 @@ function GetMenuView({navigation}) {
                   <SafeAreaView style={{flex: 1, marginHorizontal: 30}}>
                     <View>
                       <TouchableOpacity
-                        onPress={()=>{}}>
+                        onPress={()=>{navigation.navigate(childItem.navigationRouteName)}}>
                         <View
                           style={{
                             alignItems: 'center',
