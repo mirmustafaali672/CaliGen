@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -15,10 +15,22 @@ import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-function GetMenuView() {
+
+function GetMenuView({navigation}) {
+
+  // function NavigateToScreen({navigationRouteName}) {
+  //   console.log("navigate")
+  //   if (navigationRouteName) {
+  //     useEffect(() => {
+  //         console.log('navigationRouteName sf', navigationRouteName);
+  //         navigation.navigate(navigationRouteName);
+  //     }, []);
+  //   }
+  // }
+  
   return MenuList.map(item => (
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
-      <SafeAreaView style={{flex: 1, margin: 6 }}>
+      <SafeAreaView style={{flex: 1, margin: 6}}>
         <View>
           <TouchableOpacity>
             <View
@@ -60,26 +72,28 @@ function GetMenuView() {
                   }}>
                   <SafeAreaView style={{flex: 1, marginHorizontal: 30}}>
                     <View>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={()=>{}}>
                         <View
                           style={{
                             alignItems: 'center',
                             justifyContent: 'center',
                             width: '100%',
                             height: 30,
-                            marginVertical: 5,
+                            marginVertical: 2,
+                            marginHorizontal: 10,
                             borderBottomWidth: 0,
                             borderColor: MaterialColors.MaterialBlueGreyLight,
                             flexDirection: 'row',
                             flex: 1,
                           }}>
-                          <View style={{flex: 1}}>
+                          {/* <View style={{flex: 1}}>
                             <FontAwesome5
                               name={childItem.icons}
                               color={MaterialColors.MaterialBlueGreyLight}
                               size={12}
                             />
-                          </View>
+                          </View> */}
                           <View style={{flex: 10}}>
                             <RobotoText
                               text={childItem.name}
@@ -107,9 +121,14 @@ function MenuScreen({navigation}) {
     navigation.navigate('HomeScreen');
   }
   return (
-    <View style={{flex: 1, padding: 6, backgroundColor: MaterialColors.MaterialWhite }}>
+    <View
+      style={{
+        flex: 1,
+        padding: 6,
+        backgroundColor: MaterialColors.MaterialWhite,
+      }}>
       <ScrollView>
-        <GetMenuView />
+        <GetMenuView navigation={navigation} />
       </ScrollView>
     </View>
   );

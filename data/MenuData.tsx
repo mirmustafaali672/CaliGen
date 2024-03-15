@@ -101,4 +101,20 @@ export const MenuList: MenuListInterface = [
     isParent: false,
     parentName: 'none',
   },
+  {
+    name: 'User',
+    navigationRouteName: 'HomeScreen',
+    icons: 'user',
+    isParent: true,
+    parentName: 'none',
+    ChildComponents: [
+      {
+        name: 'Create User',
+        navigationRouteName: 'CreateUserScreen',
+        icons: '',
+        isParent: false,
+        parentName: 'none',
+      }
+    ],
+  },
 ];
