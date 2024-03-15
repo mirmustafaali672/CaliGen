@@ -1,5 +1,12 @@
-import React from 'react';
-import {View, Text, ScrollView, StyleSheet, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import {BarChart, PieChart} from 'react-native-gifted-charts';
@@ -12,11 +19,19 @@ const screenHeader = {
 };
 
 function AppIntroComponent() {
+  const [aboutApp, setAboutApp] = useState(5);
   console.log('sdfa', AboutText);
   return (
     <View>
       <RobotoText text="About" textStyle={screenHeader} isBold={true} />
-      <RobotoText text={AboutText} textStyle={{marginHorizontal: 20}} />
+      <RobotoText
+        numberOfLines={aboutApp}
+        text={AboutText}
+        textStyle={{marginHorizontal: 20}}
+      />
+      <TouchableOpacity onPress={() => { aboutApp == 0 ? setAboutApp(5): setAboutApp(0)}}>
+        <RobotoText  textStyle={{marginHorizontal: 20, color: MaterialColors.MaterialBlack}} text={aboutApp == 0 ? 'Less' : 'More'} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -149,8 +164,13 @@ function HomeScreenHeader() {
 function HomeScreen() {
   return (
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
-        <View style={{ shadowColor: 'black', borderBottomWidth: 2, borderColor: MaterialColors.MaterialDeepPurple }}>
-      <HomeScreenHeader />
+      <View
+        style={{
+          shadowColor: 'black',
+          borderBottomWidth: 2,
+          borderColor: MaterialColors.MaterialDeepPurple,
+        }}>
+        <HomeScreenHeader />
       </View>
       <ScrollView overScrollMode="never">
         <AppIntroComponent />
