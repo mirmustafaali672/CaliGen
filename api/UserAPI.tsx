@@ -12,7 +12,7 @@ import { CreateUserInterface } from "./interfaces/CreateUserInterface.tsx";
 // };
 
 
-export async function GetUsers()
+export async function GetUsers(filter:string)
 {
     const credentials = await Keychain.getGenericPassword();
     if(credentials)
@@ -24,7 +24,8 @@ export async function GetUsers()
             method: "GET",
             url: "api/identity/users",
             baseURL: EnvSettings.HostURL,
-            headers: headers
+            headers: headers,
+            params: {filter: filter}
         });
     }
     else {
