@@ -1,17 +1,30 @@
 import React from 'react';
-import { View, Button, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Button, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 
-function PrimaryButton(props : {buttonClicked: any, buttonTitle: string, buttonIcon: any, iconAtEnd: boolean}) {
+interface PrimaryButtonInterface {
+  buttonClicked: any,
+  buttonTitle: string,
+  buttonIcon: any,
+  iconAtEnd: boolean,
+  isActivityOnButton?: boolean
+}
+
+function PrimaryButton(props: PrimaryButtonInterface) {
   return (
     <View>
-      <TouchableOpacity style={[styles.container]} onPress={() => props.buttonClicked()}>
-        {!props.iconAtEnd && props.buttonIcon }
-        <View>
-          <RobotoText textStyle={{color: MaterialColors.MaterialWhite}} text={props.buttonTitle} />
-        </View>
-        {props.iconAtEnd && props.buttonIcon }
+      <TouchableOpacity disabled={props.isActivityOnButton} style={[styles.container]} onPress={() => props.buttonClicked()}>
+        {!props.isActivityOnButton && <View>
+          {!props.iconAtEnd && props.buttonIcon}
+          <View>
+            <RobotoText textStyle={{ color: MaterialColors.MaterialWhite }} text={props.buttonTitle} isBold={false} numberOfLines={0} />
+          </View>
+          {props.iconAtEnd && props.buttonIcon}
+        </View>}
+        {props.isActivityOnButton && 
+        <ActivityIndicator size="small" color={MaterialColors.MaterialWhite} />
+        }
       </TouchableOpacity>
     </View>
   );

@@ -19,6 +19,7 @@ function CreateUserScreen({ navigation }) {
   const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
+  const [createUserActivity, setCreateUserActivity] = useState(false);
 
   async function SubmitForm() {
     const formData: CreateUserInterface = {
@@ -35,14 +36,17 @@ function CreateUserScreen({ navigation }) {
       password: password,
       sendConfirmationEmail: false
     }
-
+    setCreateUserActivity(true);
     await CreateUser(formData).then(
       data => {
         setTransactionModalState(1);
       }
     ).catch(error => {
       setTransactionModalState(-1);
-    })
+    }).then(data => 
+      {
+        setCreateUserActivity(false);
+      })
 
   }
 
@@ -53,8 +57,7 @@ function CreateUserScreen({ navigation }) {
       setTransactionStatusMessage("Success.");
       setIsTransactionModelVisible(true)
     }
-    else if(errorState == -1)
-    {
+    else if (errorState == -1) {
       setIsTransactionModelVisible(true)
       setTransactionModalStatus(0);
       setTransactionStatusMessage("Something went wrong.");
@@ -139,7 +142,7 @@ function CreateUserScreen({ navigation }) {
                 <PrimaryButton
                   buttonClicked={() => SubmitForm()}
                   buttonTitle="Create"
-                  buttonIcon={<View></View>} iconAtEnd={false} />
+                  buttonIcon={<View></View>} iconAtEnd={false} isActivityOnButton={createUserActivity} />
               </View>
             </View>
             <View>

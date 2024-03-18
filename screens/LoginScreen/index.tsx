@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ScrollView,
   View,
   TextInput,
   StyleSheet,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {login} from '../../api/AccountAPI';
+import { login } from '../../api/AccountAPI';
 import * as Keychain from 'react-native-keychain';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
@@ -18,12 +19,13 @@ import TransactionModal from '../../components/Modals/TransactionModal';
 // let screenWidth = Dimensions.get('window').width;
 // let inputFieldOnFocusBorderColor = {};
 
-function LoginScreen({UserLoggedIn}) {
+function LoginScreen({ UserLoggedIn }) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
   const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
+  const [loginActivity, setLoginActivity] = useState(false);
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
@@ -32,8 +34,7 @@ function LoginScreen({UserLoggedIn}) {
       setTransactionStatusMessage("Success.");
       setIsTransactionModelVisible(true)
     }
-    else if(errorState == 0)
-    {
+    else if (errorState == 0) {
       setIsTransactionModelVisible(true)
       setTransactionModalStatus(0);
       setTransactionStatusMessage("Something went wrong.");
@@ -49,9 +50,8 @@ function LoginScreen({UserLoggedIn}) {
 
 
   const startLogin = async (username: string, password: string) => {
-    console.log('{ username, password }', {username, password});
-
-    await login({username, password})
+    setLoginActivity(true);
+    await login({ username, password })
       .then(data => {
         console.log('data', data);
         Keychain.setGenericPassword(username, data.access_token);
@@ -60,7 +60,12 @@ function LoginScreen({UserLoggedIn}) {
       })
       .catch(error => {
         setTransactionModalState(0);
-      });
+      }).then(
+        data => 
+        {
+          setLoginActivity(false);
+        }
+      );
   };
 
   // const handleLogin = async ({username, token}) => {
@@ -82,7 +87,7 @@ function LoginScreen({UserLoggedIn}) {
   return (
     <View style={styles.loginFullMainScreen}>
       <View style={styles.topPart}>
-        <View style={[{alignItems: 'center'}]}>
+        <View style={[{ alignItems: 'center' }]}>
           <RobotoText
             isBold={true}
             text="CaliGen"
@@ -90,13 +95,13 @@ function LoginScreen({UserLoggedIn}) {
               color: MaterialColors.MaterialBlack,
               fontSize: 60,
               marginTop: '30%',
-            }} numberOfLines={0}          />
+            }} numberOfLines={0} />
           <RobotoText
             text="Login to continue"
             textStyle={{
               color: MaterialColors.MaterialBlueGreyLight,
               fontSize: 30,
-            }} isBold={false} numberOfLines={0}          />
+            }} isBold={false} numberOfLines={0} />
         </View>
       </View>
       <View style={styles.bottomPart}>
@@ -105,7 +110,7 @@ function LoginScreen({UserLoggedIn}) {
           keyboardShouldPersistTaps="handled"
           automaticallyAdjustKeyboardInsets={true}>
           <View style={styles.bottomPart}>
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <ScrollView
                 style={{
                   marginVertical: '3%',
@@ -121,7 +126,7 @@ function LoginScreen({UserLoggedIn}) {
                     name="user"
                     size={24}
                     color={MaterialColors.MaterialDeepPurple}
-                    style={{marginRight: '5%'}}
+                    style={{ marginRight: '5%' }}
                   />
                   <TextInput
                     onBlur={() =>
@@ -149,7 +154,7 @@ function LoginScreen({UserLoggedIn}) {
                     inputFieldOnFocusBorderColor,
                   ]}>
                   <MaterialIcons
-                    style={{marginRight: '5%'}}
+                    style={{ marginRight: '5%' }}
                     name="password"
                     size={24}
                     color={MaterialColors.MaterialDeepPurple}
@@ -179,53 +184,55 @@ function LoginScreen({UserLoggedIn}) {
                   onPress={() =>
                     startLogin(username, password)
                   }>
-                  <RobotoText
+                  {!loginActivity && <RobotoText
                     text="Login"
                     textStyle={{
                       color: MaterialColors.MaterialWhite,
                       fontWeight: 'bold',
-                    }} isBold={false} numberOfLines={0}                  />
+                    }} isBold={false} numberOfLines={0} />}
+
+                  {loginActivity && <ActivityIndicator size="small" color={MaterialColors.MaterialWhite} />}
                 </Pressable>
                 <Pressable
                   style={styles.forgotPasswordButton}
-                  onPress={() =>{}
+                  onPress={() => { }
                   }>
                   <RobotoText
                     text="Forgot Password?"
                     textStyle={{
                       color: MaterialColors.MaterialDeepPurple,
                       fontWeight: 'bold',
-                    }} isBold={false} numberOfLines={0}                  />
+                    }} isBold={false} numberOfLines={0} />
                 </Pressable>
                 <View>
-                <TransactionModal visible={isTransactionModelVisible}
-                onRequestClose={() => setIsTransactionModelVisible(false)}
-                transactionModalStatus={transactionModalStatus}
-                transactionStatusMessage={transactionStatusMessage} />
+                  <TransactionModal visible={isTransactionModelVisible}
+                    onRequestClose={() => setIsTransactionModelVisible(false)}
+                    transactionModalStatus={transactionModalStatus}
+                    transactionStatusMessage={transactionStatusMessage} />
                 </View>
               </ScrollView>
             </View>
           </View>
           <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          margin: 10,
-        }}>
-        <RobotoText
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: 10,
+            }}>
+            <RobotoText
               text="Don't have an account? "
               textStyle={{
                 color: MaterialColors.MaterialBlueGreyLight,
                 fontWeight: 'bold',
-              }} isBold={false} numberOfLines={0}        />
-        <RobotoText
+              }} isBold={false} numberOfLines={0} />
+            <RobotoText
               text=" Register"
               textStyle={{
                 color: MaterialColors.MaterialDeepPurple,
                 fontWeight: 'bold',
-              }} isBold={false} numberOfLines={0}        />
-      </View>
+              }} isBold={false} numberOfLines={0} />
+          </View>
         </ScrollView>
       </View>
     </View>
@@ -269,6 +276,7 @@ const styles = StyleSheet.create({
     marginVertical: '5%',
     marginHorizontal: '25%',
     width: '50%',
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -294,7 +302,7 @@ const styles = StyleSheet.create({
     // shadowColor: 'white',
     // shadowColor: 'black',
   },
-  inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
+  inputFieldIcon: { borderColor: 'black', width: '80%', height: 50 },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
