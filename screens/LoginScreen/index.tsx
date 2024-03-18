@@ -1,15 +1,10 @@
 import React, {useState} from 'react';
 import {
-  Text,
   ScrollView,
   View,
   TextInput,
   StyleSheet,
-  Dimensions,
-  Button,
-  Modal,
   Pressable,
-  ImageBackground,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -17,17 +12,43 @@ import {login} from '../../api/AccountAPI';
 import * as Keychain from 'react-native-keychain';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import TransactionModal from '../../components/Modals/TransactionModal';
 
-let screenHeight = Dimensions.get('window').height;
-let screenWidth = Dimensions.get('window').width;
+// let screenHeight = Dimensions.get('window').height;
+// let screenWidth = Dimensions.get('window').width;
 // let inputFieldOnFocusBorderColor = {};
 
 function LoginScreen({UserLoggedIn}) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
-  const [errorModal, setErrorModal] = useState(false);
+  const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
+  const [transactionModalStatus, setTransactionModalStatus] = useState(0);
+  const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
 
-  const startLogin = async (username, password) => {
+  function setTransactionModalState(errorState: number) {
+    if (errorState == 1) {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(1);
+      setTransactionStatusMessage("Success.");
+      setIsTransactionModelVisible(true)
+    }
+    else if(errorState == 0)
+    {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(0);
+      setTransactionStatusMessage("Something went wrong.");
+      setIsTransactionModelVisible(true)
+    }
+    else {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(-1);
+      setTransactionStatusMessage("Warning");
+      setIsTransactionModelVisible(true)
+    }
+  }
+
+
+  const startLogin = async (username: string, password: string) => {
     console.log('{ username, password }', {username, password});
 
     await login({username, password})
@@ -38,8 +59,7 @@ function LoginScreen({UserLoggedIn}) {
         // navigation.navigate('Home');
       })
       .catch(error => {
-        console.log(error);
-        setErrorModal(true);
+        setTransactionModalState(0);
       });
   };
 
@@ -70,15 +90,13 @@ function LoginScreen({UserLoggedIn}) {
               color: MaterialColors.MaterialBlack,
               fontSize: 60,
               marginTop: '30%',
-            }}
-          />
+            }} numberOfLines={0}          />
           <RobotoText
             text="Login to continue"
             textStyle={{
               color: MaterialColors.MaterialBlueGreyLight,
               fontSize: 30,
-            }}
-          />
+            }} isBold={false} numberOfLines={0}          />
         </View>
       </View>
       <View style={styles.bottomPart}>
@@ -166,8 +184,7 @@ function LoginScreen({UserLoggedIn}) {
                     textStyle={{
                       color: MaterialColors.MaterialWhite,
                       fontWeight: 'bold',
-                    }}
-                  />
+                    }} isBold={false} numberOfLines={0}                  />
                 </Pressable>
                 <Pressable
                   style={styles.forgotPasswordButton}
@@ -178,31 +195,13 @@ function LoginScreen({UserLoggedIn}) {
                     textStyle={{
                       color: MaterialColors.MaterialDeepPurple,
                       fontWeight: 'bold',
-                    }}
-                  />
+                    }} isBold={false} numberOfLines={0}                  />
                 </Pressable>
                 <View>
-                  <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={errorModal}
-                    onRequestClose={() => {
-                      Alert.alert('Modal has been closed.');
-                      setErrorModal(!errorModal);
-                    }}>
-                    <View style={styles.centeredView}>
-                      <View style={styles.modalView}>
-                        <Text style={styles.modalText}>
-                          Something went wrong
-                        </Text>
-                        <Pressable
-                          style={[styles.button, styles.buttonClose]}
-                          onPress={() => setErrorModal(!errorModal)}>
-                          <Text style={styles.textStyle}>Close</Text>
-                        </Pressable>
-                      </View>
-                    </View>
-                  </Modal>
+                <TransactionModal visible={isTransactionModelVisible}
+                onRequestClose={() => setIsTransactionModelVisible(false)}
+                transactionModalStatus={transactionModalStatus}
+                transactionStatusMessage={transactionStatusMessage} />
                 </View>
               </ScrollView>
             </View>
@@ -215,19 +214,17 @@ function LoginScreen({UserLoggedIn}) {
           margin: 10,
         }}>
         <RobotoText
-          text="Don't have an account? "
-          textStyle={{
-            color: MaterialColors.MaterialBlueGreyLight,
-            fontWeight: 'bold',
-          }}
-        />
+              text="Don't have an account? "
+              textStyle={{
+                color: MaterialColors.MaterialBlueGreyLight,
+                fontWeight: 'bold',
+              }} isBold={false} numberOfLines={0}        />
         <RobotoText
-          text=" Register"
-          textStyle={{
-            color: MaterialColors.MaterialDeepPurple,
-            fontWeight: 'bold',
-          }}
-        />
+              text=" Register"
+              textStyle={{
+                color: MaterialColors.MaterialDeepPurple,
+                fontWeight: 'bold',
+              }} isBold={false} numberOfLines={0}        />
       </View>
         </ScrollView>
       </View>

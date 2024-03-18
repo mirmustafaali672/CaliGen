@@ -1,19 +1,23 @@
 import {Text, StyleSheet} from 'react-native';
 
-function RobotoText({text, textStyle, isBold, numberOfLines}) {
+interface RobotoTextInterface {
+  text: string,
+  textStyle: any,
+  isBold: boolean,
+  numberOfLines: number
+}
+function RobotoText(props: RobotoTextInterface) {
   return (
     <Text
-      numberOfLines={numberOfLines ? numberOfLines : 0}
+      numberOfLines={props.numberOfLines ? props.numberOfLines : 0}
       style={[
-        styles.title,
-        textStyle,
-        {fontFamily: isBold ? 'Roboto-Bold' : 'Roboto-Regular'},
+        props.textStyle,
+        {fontFamily: props.isBold ? 'Roboto-Bold' : 'Roboto-Regular'},
       ]}>
-      {text}
+      {props.text}
     </Text>
   );
 }
 
-const styles = StyleSheet.create({});
 
 export default RobotoText;
