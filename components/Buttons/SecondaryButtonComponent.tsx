@@ -1,17 +1,30 @@
 import React from 'react';
-import { View, Button, TouchableOpacity, StyleSheet} from 'react-native';
+import { View, Button, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 
-function SecondaryButton(props : {buttonClicked: any, buttonTitle: string, buttonIcon: any, iconAtEnd: boolean}) {
+interface SecondaryButtonInterface {
+  buttonClicked: any,
+  buttonTitle: string,
+  buttonIcon: any,
+  iconAtEnd: boolean,
+  isActivityOnButton?: boolean
+}
+
+function SecondaryButton(props: SecondaryButtonInterface) {
   return (
     <View>
       <TouchableOpacity style={[styles.container]} onPress={() => props.buttonClicked()}>
-        {!props.iconAtEnd && props.buttonIcon }
-        <View>
-          <RobotoText textStyle={{color: MaterialColors.MaterialBlueGreyLight}} text={props.buttonTitle} />
-        </View>
-        {props.iconAtEnd && props.buttonIcon }
+        {!props.isActivityOnButton && <View>
+          {!props.iconAtEnd && props.buttonIcon}
+          <View>
+            <RobotoText textStyle={{ color: MaterialColors.MaterialDeepPurple }} text={props.buttonTitle} isBold={false} numberOfLines={0} />
+          </View>
+        </View>}
+        {props.iconAtEnd && props.buttonIcon}
+        {props.isActivityOnButton &&
+          <ActivityIndicator size="small" color={MaterialColors.MaterialWhite} />
+        }
       </TouchableOpacity>
     </View>
   );
@@ -19,7 +32,7 @@ function SecondaryButton(props : {buttonClicked: any, buttonTitle: string, butto
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: MaterialColors.MaterialLightestDeepPurple,
+    backgroundColor: MaterialColors.MaterialWhite,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',

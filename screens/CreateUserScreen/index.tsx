@@ -43,10 +43,9 @@ function CreateUserScreen({ navigation }) {
       }
     ).catch(error => {
       setTransactionModalState(-1);
-    }).then(data => 
-      {
-        setCreateUserActivity(false);
-      })
+    }).then(data => {
+      setCreateUserActivity(false);
+    })
 
   }
 
@@ -91,6 +90,7 @@ function CreateUserScreen({ navigation }) {
             automaticallyAdjustKeyboardInsets={true}>
             <View>
               <InputFieldComponent
+              label='Username'
                 onChangeText={(value: any) => { setUserName(value) }}
                 value={userName}
                 placeholder="Enter Username"
@@ -98,6 +98,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
+              label='Name'
                 onChangeText={(value: any) => { setName(value) }}
                 value={name}
                 placeholder="Enter Name"
@@ -105,6 +106,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
+              label='Surname'
                 onChangeText={(value: any) => { setSurname(value) }}
                 value={surname}
                 placeholder="Enter Surname"
@@ -112,6 +114,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
+              label='Email'
                 onChangeText={(value: any) => { setEmail(value) }}
                 value={email}
                 placeholder="Enter Email"
@@ -119,6 +122,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
+              label='Phone Number'
                 onChangeText={(value: any) => { setPhoneNumber(value) }}
                 value={phoneNumber}
                 placeholder="Enter Phone Number"
@@ -126,6 +130,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
+              label='Password'
                 onChangeText={(value: any) => { setPassword(value) }}
                 value={password}
                 placeholder="Enter Password"
