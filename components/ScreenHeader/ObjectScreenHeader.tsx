@@ -20,18 +20,18 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
                 textStyle={{
                     fontSize: 40,
                     margin: 10,
-                    marginVertical: 40,
+                    marginVertical: 20,
                     color: MaterialColors.MaterialBlack,
                 }} isBold={true} numberOfLines={0} /></View>
         <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 20, marginRight: 10 }}>
             <SecondaryButton buttonClicked={() => props.navigation.goBack()} buttonTitle={""} buttonIcon={
-                <AntDesign name="back" color={MaterialColors.MaterialDeepPurple} size={20} />
+                <AntDesign name="arrowleft" color={MaterialColors.MaterialDeepPurple} size={20} />
             } iconAtEnd={true} />
-            { props.showCreateEntityButton && 
-            <SecondaryButton buttonClicked={() => props.navigation.navigate(props.createBuutonClickNavigationRoute)} buttonTitle={""} buttonIcon={
-                <AntDesign name="plus" color={MaterialColors.MaterialDeepPurple} size={20} />
-            } iconAtEnd={true} />
-        }
+            {props.showCreateEntityButton &&
+                <SecondaryButton buttonClicked={() => props.navigation.navigate(props.createBuutonClickNavigationRoute)} buttonTitle={""} buttonIcon={
+                    <AntDesign name="plus" color={MaterialColors.MaterialDeepPurple} size={20} />
+                } iconAtEnd={true} />
+            }
         </View>
     </View>
 }
