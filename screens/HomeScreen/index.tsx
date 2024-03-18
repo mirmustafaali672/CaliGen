@@ -27,7 +27,7 @@ function AppIntroComponent() {
       {/* CaliGen by Caliber is is specifically designed to empower the
        Pharma Industry by providing a transformative tool
        with Gen AI capabilities for effectively managing the Quality Value Chain.`; */}
-      <RobotoText text="About" textStyle={screenHeader} isBold={true} />
+      <RobotoText text="About" textStyle={screenHeader} isBold={true} numberOfLines={0} />
       <SafeAreaView>
         <Text style={{marginHorizontal: 20}}>
           <Text style={{fontWeight: 'bold'}}>CaliGen</Text>
@@ -148,12 +148,11 @@ function InsightComponent() {
 
   return (
     <View>
-      <RobotoText text="Insight" textStyle={screenHeader} isBold={true} />
+      <RobotoText text="Insight" textStyle={screenHeader} isBold={true} numberOfLines={0} />
       <View style={styles.mainCardContainer}>
         <RobotoText
           text="Daily Sample Collection"
-          textStyle={styles.chartHeader}
-        />
+          textStyle={styles.chartHeader} isBold={false} numberOfLines={0}        />
         <BarChart
           barWidth={22}
           noOfSections={3}
@@ -165,7 +164,7 @@ function InsightComponent() {
         />
       </View>
       <View style={styles.mainCardContainer}>
-        <RobotoText text="Some Sample Data" textStyle={styles.chartHeader} />
+        <RobotoText text="Some Sample Data" textStyle={styles.chartHeader} isBold={false} numberOfLines={0} />
         <BarChart
           width={340}
           rotateLabel
@@ -178,8 +177,7 @@ function InsightComponent() {
       <View style={styles.mainCardContainer}>
         <RobotoText
           text="Daily Sample Collection"
-          textStyle={styles.chartHeader}
-        />
+          textStyle={styles.chartHeader} isBold={false} numberOfLines={0}        />
         <PieChart
           showText
           textColor="black"
@@ -201,7 +199,7 @@ function HomeScreenHeader() {
         height: 60,
         backgroundColor: MaterialColors.MaterialWhite,
         flexDirection: 'row',
-        margin: 5,
+        margin: 0,
       }}>
       <View>
         <RobotoText
@@ -211,8 +209,7 @@ function HomeScreenHeader() {
             fontSize: 30,
             color: MaterialColors.MaterialBlack,
           }}
-          isBold={true}
-        />
+          isBold={true} numberOfLines={0}        />
       </View>
       <Image
         style={styles.tinyLogo}
@@ -224,7 +221,7 @@ function HomeScreenHeader() {
 
 function HomeScreen() {
   return (
-    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
+    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialIndigo}}>
       <View
         style={{
           shadowColor: 'black',
