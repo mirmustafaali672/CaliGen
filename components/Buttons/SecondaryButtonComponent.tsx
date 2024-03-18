@@ -3,13 +3,13 @@ import { View, Button, TouchableOpacity, StyleSheet} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 
-function PrimaryButton(props : {buttonClicked: any, buttonTitle: string, buttonIcon: any, iconAtEnd: boolean}) {
+function SecondaryButton(props : {buttonClicked: any, buttonTitle: string, buttonIcon: any, iconAtEnd: boolean}) {
   return (
     <View>
       <TouchableOpacity style={[styles.container]} onPress={() => props.buttonClicked()}>
         {!props.iconAtEnd && props.buttonIcon }
         <View>
-          <RobotoText textStyle={{color: MaterialColors.MaterialWhite}} text={props.buttonTitle} />
+          <RobotoText textStyle={{color: MaterialColors.MaterialBlueGreyLight}} text={props.buttonTitle} />
         </View>
         {props.iconAtEnd && props.buttonIcon }
       </TouchableOpacity>
@@ -19,13 +19,15 @@ function PrimaryButton(props : {buttonClicked: any, buttonTitle: string, buttonI
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
+    backgroundColor: MaterialColors.MaterialLightestDeepPurple,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    flexDirection: "row"
+    flexDirection: "row",
+    borderWidth: 2,
+    borderColor: MaterialColors.MaterialDeepPurple
   },
 });
 
-export default PrimaryButton;
+export default SecondaryButton;

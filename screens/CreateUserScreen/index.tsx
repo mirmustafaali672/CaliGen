@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
+import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
 
 //   userName: string;
 //   name: string;
@@ -18,7 +19,7 @@ import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 //   password: string;
 //   sendConfirmationEmail: boolean;
 
-function CreateUserScreen({navigation}) {
+function CreateUserScreen({ navigation }) {
   const [name, setName] = useState('');
   const [userName, setUserName] = useState('');
   const [surname, setSurname] = useState('');
@@ -30,7 +31,7 @@ function CreateUserScreen({navigation}) {
     console.log('formSubmited');
   }
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
       <ScrollView overScrollMode="never">
         <View>
           <RobotoText
@@ -43,7 +44,7 @@ function CreateUserScreen({navigation}) {
             }}
           />
         </View>
-        <View style={{margin: 20}}>
+        <View style={{ margin: 20 }}>
           <ScrollView
             keyboardShouldPersistTaps="handled"
             automaticallyAdjustKeyboardInsets={true}>
@@ -82,21 +83,21 @@ function CreateUserScreen({navigation}) {
                 placeholder="Enter Password"
               />
             </View>
-            <View style={{flexDirection: 'row', flex: 1, gap: 40}}>
-                <View style={{ flex: 1 }}>
-                  <PrimaryButton
-                    buttonClicked={() => SubmitForm()}
-                    buttonTitle="Back"
-                    buttonIcon={<View></View>}
-                  />
-                </View>
-                <View style={{flex: 1}}>
-                  <PrimaryButton
-                    buttonClicked={() => SubmitForm()}
-                    buttonTitle="Create"
-                    buttonIcon={<View></View>}
-                  />
-                </View>
+            <View style={{ flexDirection: 'row', flex: 1, gap: 40 }}>
+              <View style={{ flex: 1 }}>
+                <SecondaryButton
+                  buttonClicked={() => navigation.goBack()}
+                  buttonTitle="Back"
+                  buttonIcon={<View></View>}
+                />
+              </View>
+              <View style={{ flex: 1 }}>
+                <PrimaryButton
+                  buttonClicked={() => SubmitForm()}
+                  buttonTitle="Create"
+                  buttonIcon={<View></View>}
+                />
+              </View>
             </View>
           </ScrollView>
         </View>
