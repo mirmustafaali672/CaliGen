@@ -20,7 +20,7 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
                 textStyle={{
                     fontSize: 40,
                     margin: 10,
-                    marginVertical: 50,
+                    marginVertical: 40,
                     color: MaterialColors.MaterialBlack,
                 }} isBold={true} numberOfLines={0} /></View>
         <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 20, marginRight: 10 }}>

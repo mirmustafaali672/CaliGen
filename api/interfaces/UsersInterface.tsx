@@ -1,11 +1,15 @@
-export interface CurrentUserDetailsInterface   {
+export interface UsersInterface {
+    items: Item[];
+    totalCount: number;
+  }
+  interface Item {
     accessFailedCount: number;
     concurrencyStamp: string;
     creationTime: string;
-    creatorId?: any;
+    creatorId?: string;
     email: string;
     emailConfirmed: boolean;
-    extraProperties: any;
+    extraProperties: any[] | string;
     id: string;
     isActive: boolean;
     isLockedOut: boolean;
@@ -13,14 +17,14 @@ export interface CurrentUserDetailsInterface   {
     lastModifierId: string;
     lastPasswordChangeTime: string;
     lockoutEnabled: boolean;
-    lockoutEnd: string;
+    lockoutEnd?: any;
     name: string;
-    phoneNumber?: any;
+    phoneNumber?: string;
     phoneNumberConfirmed: boolean;
-    roleNames?: any;
+    roleNames: any[];
     shouldChangePasswordOnNextLogin: boolean;
     supportTwoFactor: boolean;
-    surname?: any;
+    surname?: string;
     tenantId?: any;
     twoFactorEnabled: boolean;
     userName: string;
