@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View, Button, TouchableOpacity, StyleSheet} from 'react-native';
-import {PrimaryColor} from '../../styles/primaryScreenColors';
+import { View, Button, TouchableOpacity, StyleSheet} from 'react-native';
+import * as MaterialColors from '../../styles/materialColors';
+import RobotoText from '../../components/Text/RobotoText';
 
 function PrimaryButton({buttonClicked, buttonTitle, buttonIcon, iconAtEnd}) {
   return (
@@ -8,7 +9,7 @@ function PrimaryButton({buttonClicked, buttonTitle, buttonIcon, iconAtEnd}) {
       <TouchableOpacity style={[styles.container]} onPress={() => buttonClicked()}>
         {!iconAtEnd && buttonIcon }
         <View>
-          <Text style={{color: 'white'}}>{buttonTitle ? buttonTitle : ''}</Text>
+          <RobotoText textStyle={{color: 'white'}} text={buttonTitle} />
         </View>
         {iconAtEnd && buttonIcon }
       </TouchableOpacity>
@@ -18,7 +19,7 @@ function PrimaryButton({buttonClicked, buttonTitle, buttonIcon, iconAtEnd}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: PrimaryColor,
+    backgroundColor: MaterialColors.MaterialDeepPurple,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',

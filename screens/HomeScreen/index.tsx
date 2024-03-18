@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
@@ -23,15 +24,75 @@ function AppIntroComponent() {
   console.log('sdfa', AboutText);
   return (
     <View>
+      {/* CaliGen by Caliber is is specifically designed to empower the
+       Pharma Industry by providing a transformative tool
+       with Gen AI capabilities for effectively managing the Quality Value Chain.`; */}
       <RobotoText text="About" textStyle={screenHeader} isBold={true} />
-      <RobotoText
+      <SafeAreaView>
+        <Text style={{marginHorizontal: 20}}>
+          <Text style={{fontWeight: 'bold'}}>CaliGen</Text>
+          <Text> by</Text>
+          <Text style={{fontWeight: 'bold'}}> Caliber</Text>
+          <Text> is specifically designed to</Text>
+          <Text style={{fontWeight: 'bold'}}> empower</Text>
+          <Text> the</Text>
+          <Text style={{fontWeight: 'bold'}}> Pharma Industry</Text>
+          <Text> by providing a </Text>
+          <Text style={{fontWeight: 'bold'}}> transformative tool</Text>
+          <Text> with </Text>
+          <Text style={{fontWeight: 'bold'}}>Gen AI </Text>
+          <Text>
+            capabilities for effectively managing the Quality Value Chain.
+          </Text>
+        </Text>
+        {/* <View style={{flexDirection: 'row', width: 100}}>
+        <RobotoText
+          numberOfLines={aboutApp}
+          text="CaliGen"
+          textStyle={{}}
+          isBold={true}
+        />
+        <RobotoText
+          numberOfLines={aboutApp}
+          text=" is"
+          textStyle={{}}
+          isBold={false}
+        />
+        <RobotoText
+          numberOfLines={aboutApp}
+          text=" Caliber"
+          textStyle={{}}
+          isBold={true}
+        />
+        <RobotoText
+          numberOfLines={aboutApp}
+          text=" is specifically designed to empower the"
+          textStyle={{}}
+          isBold={false}
+        />
+        <RobotoText
+          numberOfLines={aboutApp}
+          text="Pharma Industry"
+          textStyle={{}}
+          isBold={true}
+        />
+        <RobotoText
+          numberOfLines={aboutApp}
+          text=" by providing a transformative tool
+          with Gen AI capabilities for effectively managing the Quality Value Chain. "
+          textStyle={{}}
+          isBold={false}
+        />
+      </View> */}
+      </SafeAreaView>
+      {/* <RobotoText
         numberOfLines={aboutApp}
         text={AboutText}
         textStyle={{marginHorizontal: 20}}
-      />
-      <TouchableOpacity onPress={() => { aboutApp == 0 ? setAboutApp(5): setAboutApp(0)}}>
+      /> */}
+      {/* <TouchableOpacity onPress={() => { aboutApp == 0 ? setAboutApp(5): setAboutApp(0)}}>
         <RobotoText  textStyle={{marginHorizontal: 20, color: MaterialColors.MaterialBlack}} text={aboutApp == 0 ? 'Less' : 'More'} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
