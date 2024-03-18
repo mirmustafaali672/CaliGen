@@ -10,4 +10,5 @@ export const MaterialBlue: string = "#536DFE"; // default blue
 export const MaterialGreen: string = "#00C853"; // default Green
 export const MaterialOrange: string = "#FFC400"; // default Orange
 export const MaterialLightestDeepPurple: string = "#EDE7F6" // use as secondary button background
+export const MaterialAmberLight: string = "#FFC107"; //used for warining stff
 

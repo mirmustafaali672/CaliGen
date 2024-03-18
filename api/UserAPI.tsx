@@ -2,6 +2,7 @@ import api from "./API.tsx";
 import EnvSettings from "../env.tsx";
 
 import * as Keychain from 'react-native-keychain';
+import { CreateUserInterface } from "./interfaces/CreateUserInterface.tsx";
 
 // const HostURL = `http://172.20.10.2:44335`;
 // const HostConfig = {
@@ -29,5 +30,24 @@ export async function GetCurrentUserDetailsByUsername()
     }
     else {
         return null;
+    }
+}
+
+export async function CreateUser( data: CreateUserInterface)
+{
+    const credentials = await Keychain.getGenericPassword();
+    if(credentials)
+    {
+        const headers = {
+            Authorization: 'Bearer ' + credentials.password
+        }
+        console.log("at create user api ");
+        return api({
+            method: "POST",
+            url: "/api/identity/users",
+            baseURL: EnvSettings.HostURL,
+            headers: headers,
+            data: data
+        })
     }
 }

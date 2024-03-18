@@ -5,19 +5,9 @@ import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
-
-//   userName: string;
-//   name: string;
-//   surname: string;
-//   email: string;
-//   phoneNumber: string;
-//   isActive: boolean;
-//   shouldChangePasswordOnNextLogin: boolean;
-//   lockoutEnabled: boolean;
-//   roleNames: string[];
-//   organizationUnitIds: string[];
-//   password: string;
-//   sendConfirmationEmail: boolean;
+import { CreateUser } from '../../api/UserAPI';
+import { CreateUserInterface } from '../../api/interfaces/CreateUserInterface';
+import TransactionModal from '../../components/Modals/TransactionModal';
 
 function CreateUserScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -26,10 +16,59 @@ function CreateUserScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
+  const [transactionModalStatus, setTransactionModalStatus] = useState(0);
+  const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
 
-  function SubmitForm() {
-    console.log('formSubmited');
+  async function SubmitForm() {
+    const formData: CreateUserInterface = {
+      userName: userName,
+      name: name,
+      surname: surname,
+      email: email,
+      phoneNumber: phoneNumber,
+      isActive: true,
+      shouldChangePasswordOnNextLogin: false,
+      lockoutEnabled: false,
+      roleNames: [],
+      organizationUnitIds: [],
+      password: password,
+      sendConfirmationEmail: false
+    }
+
+    await CreateUser(formData).then(
+      data => {
+        setTransactionModalState(1);
+      }
+    ).catch(error => {
+      setTransactionModalState(-1);
+    })
+
   }
+
+  function setTransactionModalState(errorState: number) {
+    if (errorState == 1) {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(1);
+      setTransactionStatusMessage("Success.");
+      setIsTransactionModelVisible(true)
+    }
+    else if(errorState == -1)
+    {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(0);
+      setTransactionStatusMessage("Something went wrong.");
+      setIsTransactionModelVisible(true)
+    }
+    else {
+      setIsTransactionModelVisible(true)
+      setTransactionModalStatus(-1);
+      setTransactionStatusMessage("Warning");
+      setIsTransactionModelVisible(true)
+    }
+  }
+
+
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
       <ScrollView overScrollMode="never">
@@ -41,8 +80,7 @@ function CreateUserScreen({ navigation }) {
               margin: 10,
               marginVertical: 50,
               color: MaterialColors.MaterialBlack,
-            }}
-          />
+            }} isBold={false} numberOfLines={0} />
         </View>
         <View style={{ margin: 20 }}>
           <ScrollView
@@ -50,35 +88,42 @@ function CreateUserScreen({ navigation }) {
             automaticallyAdjustKeyboardInsets={true}>
             <View>
               <InputFieldComponent
-                onChangeText={value => setUserName(value)}
+                onChangeText={(value: any) => { setUserName(value) }}
                 value={userName}
                 placeholder="Enter Username"
               />
             </View>
             <View>
               <InputFieldComponent
-                onChangeText={value => setName(value)}
+                onChangeText={(value: any) => { setName(value) }}
                 value={name}
                 placeholder="Enter Name"
               />
             </View>
             <View>
               <InputFieldComponent
-                onChangeText={value => setEmail(value)}
+                onChangeText={(value: any) => { setSurname(value) }}
+                value={surname}
+                placeholder="Enter Surname"
+              />
+            </View>
+            <View>
+              <InputFieldComponent
+                onChangeText={(value: any) => { setEmail(value) }}
                 value={email}
                 placeholder="Enter Email"
               />
             </View>
             <View>
               <InputFieldComponent
-                onChangeText={value => setPhoneNumber(value)}
+                onChangeText={(value: any) => { setPhoneNumber(value) }}
                 value={phoneNumber}
                 placeholder="Enter Phone Number"
               />
             </View>
             <View>
               <InputFieldComponent
-                onChangeText={value => setPassword(value)}
+                onChangeText={(value: any) => { setPassword(value) }}
                 value={password}
                 placeholder="Enter Password"
               />
@@ -88,16 +133,20 @@ function CreateUserScreen({ navigation }) {
                 <SecondaryButton
                   buttonClicked={() => navigation.goBack()}
                   buttonTitle="Back"
-                  buttonIcon={<View></View>}
-                />
+                  buttonIcon={<View></View>} iconAtEnd={false} />
               </View>
               <View style={{ flex: 1 }}>
                 <PrimaryButton
                   buttonClicked={() => SubmitForm()}
                   buttonTitle="Create"
-                  buttonIcon={<View></View>}
-                />
+                  buttonIcon={<View></View>} iconAtEnd={false} />
               </View>
+            </View>
+            <View>
+              <TransactionModal visible={isTransactionModelVisible}
+                onRequestClose={() => setIsTransactionModelVisible(false)}
+                transactionModalStatus={transactionModalStatus}
+                transactionStatusMessage={transactionStatusMessage} />
             </View>
           </ScrollView>
         </View>
