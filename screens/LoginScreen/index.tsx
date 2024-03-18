@@ -53,7 +53,6 @@ function LoginScreen({ UserLoggedIn }) {
     setLoginActivity(true);
     await login({ username, password })
       .then(data => {
-        console.log('data', data);
         Keychain.setGenericPassword(username, data.access_token);
         UserLoggedIn();
         // navigation.navigate('Home');
@@ -68,14 +67,6 @@ function LoginScreen({ UserLoggedIn }) {
       );
   };
 
-  // const handleLogin = async ({username, token}) => {
-  //   console.log('Line 47');
-  //   await Keychain.setGenericPassword(username, token);
-  //   // setIsLoggedIn(true);
-  //   // setUserDetails({token, username});
-  //   console.log('saved');
-  //   UserLoggedIn();
-  // };
 
   const [inputFieldOnFocusBorderColor, setinputFieldOnFocusBorderColor] =
     useState({});

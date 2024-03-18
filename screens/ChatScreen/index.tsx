@@ -34,7 +34,6 @@ function ChatScreen() {
 
   useEffect(() => {
     if (chatHistory.length != 0) {
-      console.log("-1", chatHistory[chatHistory.length - 1]);
       if (chatHistory[chatHistory.length - 1].messageType == 1) {
         setLoading(true);
         sendUserMessageToApi(message);
@@ -44,8 +43,6 @@ function ChatScreen() {
   }, [chatHistory]);
 
   const sendUserMessageToApi = async (message) => {
-    console.log("{ username, password }", message);
-
     await SendUserMessageToApi(message)
       .then((data) => {
         setChatHistory([
@@ -55,13 +52,11 @@ function ChatScreen() {
         setLoading(false);
       })
       .catch((error) => {
-        console.log("chatHistory", chatHistory, "b");
         setChatHistory([
           ...chatHistory,
           { message: "Something went wrong.", messageType: 2 },
         ]);
         setLoading(false);
-        console.log("chat ad", chatHistory);
       })
       .then(() => {
         setLoading(false);
@@ -92,28 +87,24 @@ function ChatScreen() {
 
   const onSpeechStart = (e) => {
     //Invoked when .start() is called without error
-    console.log('onSpeechStart: ', e);
     setStarted('√');
     setRecordingStarted(true);
   };
 
   const onSpeechEnd = (e) => {
     //Invoked when SpeechRecognizer stops recognition
-    console.log('onSpeechEnd: ', e);
     setEnd('√');
     setRecordingStarted(false);
   };
 
   const onSpeechError = (e) => {
     //Invoked when an error occurs.
-    console.log('onSpeechError: ', e);
     setError(JSON.stringify(e.error));
     setRecordingStarted(false);
   };
 
   const onSpeechResults = (e) => {
     //Invoked when SpeechRecognizer is finished recognizing
-    console.log('onSpeechResults: ', e);
     setResults(e.value);
     setMessage(e.value[0]);
     setRecordingStarted(false);
@@ -121,13 +112,11 @@ function ChatScreen() {
 
   const onSpeechPartialResults = (e) => {
     //Invoked when any results are computed
-    console.log('onSpeechPartialResults: ', e);
     setPartialResults(e.value);
   };
 
   const onSpeechVolumeChanged = (e) => {
     //Invoked when pitch that is recognized changed
-    console.log('onSpeechVolumeChanged: ', e);
     setPitch(e.value);
   };
 

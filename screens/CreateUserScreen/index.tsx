@@ -8,6 +8,7 @@ import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
 import { CreateUser } from '../../api/UserAPI';
 import { CreateUserInterface } from '../../api/interfaces/CreateUserInterface';
 import TransactionModal from '../../components/Modals/TransactionModal';
+import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 
 function CreateUserScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -73,8 +74,9 @@ function CreateUserScreen({ navigation }) {
 
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
+      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={navigation} />
       <ScrollView overScrollMode="never">
-        <View>
+        {/* <View>
           <RobotoText
             text="Create User"
             textStyle={{
@@ -83,7 +85,7 @@ function CreateUserScreen({ navigation }) {
               marginVertical: 50,
               color: MaterialColors.MaterialBlack,
             }} isBold={false} numberOfLines={0} />
-        </View>
+        </View> */}
         <View style={{ margin: 20 }}>
           <ScrollView
             keyboardShouldPersistTaps="handled"

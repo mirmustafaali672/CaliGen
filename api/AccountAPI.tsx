@@ -14,7 +14,6 @@ interface loginInterface {
 
 export const login = ( loginDetails: loginInterface ) => {
   let data = `grant_type=password&scope=${EnvSettings.OAuthConfig_Scope}&username=${loginDetails.username}&password=${loginDetails.password}&client_id=${EnvSettings.OAuthConfig_ClientId}`;
-  console.log("username and password", loginDetails.username, loginDetails.password)
   return api({
     method: "POST",
     url: "/connect/token",

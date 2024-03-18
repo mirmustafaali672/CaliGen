@@ -18,15 +18,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 function GetMenuView({navigation}) {
 
-  // function NavigateToScreen({navigationRouteName}) {
-  //   console.log("navigate")
-  //   if (navigationRouteName) {
-  //     useEffect(() => {
-  //         console.log('navigationRouteName sf', navigationRouteName);
-  //         navigation.navigate(navigationRouteName);
-  //     }, []);
-  //   }
-  // }
   
   return MenuList.map(item => (
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>

@@ -28,16 +28,13 @@ function ProfileScreen({navigation, logout}) {
     await GetCurrentUserDetailsByUsername()
       .then(data => {
         setCurrentUser(data.data);
-        console.log('data.data', data.data);
       })
       .catch(error => {
-        console.log(error);
       });
   }
 
   useEffect(() => {
     GetUserDetails();
-    console.log('currentUser', currentUser);
   }, []);
 
   return (

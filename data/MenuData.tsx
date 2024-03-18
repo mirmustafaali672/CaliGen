@@ -95,22 +95,29 @@ export const MenuList: MenuListInterface = [
     parentName: 'none',
   },
   {
-    name: 'Administration',
-    navigationRouteName: 'HomeScreen',
-    icons: 'info-circle',
-    isParent: false,
-    parentName: 'none',
-  },
-  {
-    name: 'User',
+    name: 'Admin',
     navigationRouteName: 'HomeScreen',
     icons: 'user',
     isParent: true,
     parentName: 'none',
     ChildComponents: [
       {
-        name: 'Create User',
+        name: 'Users',
+        navigationRouteName: 'UsersScreen',
+        icons: '',
+        isParent: false,
+        parentName: 'none',
+      },
+      {
+        name: 'Roles',
         navigationRouteName: 'CreateUserScreen',
+        icons: '',
+        isParent: false,
+        parentName: 'none',
+      },
+      {
+        name: 'Add User Permission',
+        navigationRouteName: 'UsersScreen',
         icons: '',
         isParent: false,
         parentName: 'none',

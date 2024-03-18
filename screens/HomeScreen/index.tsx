@@ -21,7 +21,6 @@ const screenHeader = {
 
 function AppIntroComponent() {
   const [aboutApp, setAboutApp] = useState(5);
-  console.log('sdfa', AboutText);
   return (
     <View>
       {/* CaliGen by Caliber is is specifically designed to empower the

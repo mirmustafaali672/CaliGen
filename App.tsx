@@ -80,7 +80,6 @@ function MyTabs() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function UserLoggedIn() {
-    console.log(' User Logged In.');
     setIsLoggedIn(true);
   }
 
