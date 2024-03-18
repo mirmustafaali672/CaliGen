@@ -41,7 +41,7 @@ function UsersScreen({ navigation }) {
 
     return <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
         <ObjectScreenHeader showCreateEntityButton={true} headerTitle="Users" navigation={navigation} createBuutonClickNavigationRoute={"CreateUserScreen"} />
-        <View>
+        <View style={{marginHorizontal: 6}}>
             <SearchInputField value={search} onChangeText={(value: any) => {
                 setSearch(value)
             }} />
