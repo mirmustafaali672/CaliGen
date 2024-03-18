@@ -273,6 +273,7 @@ function ChatScreen() {
                   borderWidth: 2,
                   borderRadius: 10,
                   borderColor: MaterialColors.MaterialDeepPurple,
+                  height: 50
                 }}
                   onChangeText={(value) => setMessage(value)}
                   value={message}
@@ -285,8 +286,8 @@ function ChatScreen() {
                   justifyContent: 'center',
                   backgroundColor: MaterialColors.MaterialDeepPurple,
                   borderRadius: 10,
-                  height: '80%',
-                  width: '100%',
+                  height: 50,
+                  width: 50,
                 }}
                 onPress={() => {
                   setChatHistory([
@@ -401,8 +402,8 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: MaterialColors.MaterialDeepPurple,
-    // width: 50,
-    height: 54,
+    width: 50,
+    height: 50,
   },
   container: {
     padding: '1%',
@@ -440,8 +441,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: "white",
     borderRadius: 10,
-    height: '80%',
-    width: '100%',
+    height: 50,
+    width: 50,
     // borderColor: MaterialColors.MaterialDeepPurple,
     borderWidth: 2
   }

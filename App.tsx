@@ -87,6 +87,7 @@ function MyTabs() {
   return isLoggedIn ? (
     <Tab.Navigator
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
           // backgroundColor: MaterialColors.MaterialDeepPurple,
