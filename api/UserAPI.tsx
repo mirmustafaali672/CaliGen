@@ -1,13 +1,14 @@
-import api from "./API";
+import api from "./API.tsx";
+import EnvSettings from "../env.tsx";
 
 import * as Keychain from 'react-native-keychain';
 
-const HostURL = `http://172.20.10.2:44335`;
-const HostConfig = {
-  host: HostURL,
-  clientId: "FileUploader_Mobile",
-  scope: "offline_access FileUploader",
-};
+// const HostURL = `http://172.20.10.2:44335`;
+// const HostConfig = {
+//   host: HostURL,
+//   clientId: "FileUploader_Mobile",
+//   scope: "offline_access FileUploader",
+// };
 
 
 export async function GetCurrentUserDetailsByUsername()
@@ -22,7 +23,7 @@ export async function GetCurrentUserDetailsByUsername()
         return api({
             method: "GET",
             url: "/api/identity/users/by-username/admin",
-            baseURL: HostConfig.host,
+            baseURL: EnvSettings.HostURL,
             headers: headers
         });
     }

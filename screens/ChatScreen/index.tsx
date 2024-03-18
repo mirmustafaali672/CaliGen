@@ -46,7 +46,7 @@ function ChatScreen() {
   const sendUserMessageToApi = async (message) => {
     console.log("{ username, password }", message);
 
-    await SendUserMessageToApi({ message })
+    await SendUserMessageToApi(message)
       .then((data) => {
         setChatHistory([
           ...chatHistory,
