@@ -18,7 +18,7 @@ function TernaryButton(props: TernaryButtonInterface) {
         {!props.isActivityOnButton && <View>
           {!props.iconAtEnd && props.buttonIcon}
           <View>
-            <RobotoText textStyle={{ color: MaterialColors.MaterialDeepPurple }} text={props.buttonTitle} isBold={false} numberOfLines={0} />
+            <RobotoText textStyle={{ color: MaterialColors.MaterialRed }} text={props.buttonTitle} isBold={false} numberOfLines={0} />
           </View>
         </View>}
         {props.iconAtEnd && props.buttonIcon}

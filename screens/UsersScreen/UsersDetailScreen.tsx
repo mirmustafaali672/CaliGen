@@ -10,6 +10,7 @@ import { CreateUserInterface } from '../../interfaces/CreateUserInterface';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import { UpdateUserInterface } from '../../interfaces/UsersInterface';
+import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter';
 
 interface CreateUserScreenInterface {
   navigation: any,
@@ -81,7 +82,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
 
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={props.navigation} showDeleteEntityButton={data.id} />
+      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={props.navigation} showDeleteEntityButton={data.id ? true : false} />
       <ScrollView overScrollMode="never">
         {/* <View>
           <RobotoText
@@ -145,7 +146,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 placeholder="Enter Password"
               />
             </View>
-            <View style={{ flexDirection: 'row', flex: 1, gap: 40 }}>
+            <ObjectScreenFooter navigation={props.navigation} operationType={ data.id? 2 : 1 } createButtonClicked={() => SubmitForm()} deleteButtonClicked={undefined} isActivityOnButton={createUserActivity} />
+            {/* <View style={{ flexDirection: 'row', flex: 1, gap: 40 }}>
               <View style={{ flex: 1 }}>
                 <SecondaryButton
                   buttonClicked={() => props.navigation.goBack()}
@@ -158,7 +160,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   buttonTitle="Create"
                   buttonIcon={<View></View>} iconAtEnd={false} isActivityOnButton={createUserActivity} />
               </View>
-            </View>
+            </View> */}
             <View>
               <TransactionModal visible={isTransactionModelVisible}
                 onRequestClose={() => setIsTransactionModelVisible(false)}
