@@ -5,6 +5,7 @@ export interface MenuListInterface  {
   isParent: boolean,
   parentName: string,
   ChildComponents: any[],
+  key: string
 };
 
 export const MenuList: MenuListInterface[] = [
@@ -14,7 +15,8 @@ export const MenuList: MenuListInterface[] = [
     icons: 'stream',
     isParent: false,
     parentName: 'none',
-    ChildComponents: []
+    ChildComponents: [],
+    key: "Application Setup"
   },
   // {
   //   name: 'Data Auto Exploration',
@@ -97,10 +99,11 @@ export const MenuList: MenuListInterface[] = [
   // },
   {
     name: 'Admin',
-    navigationRouteName: 'HomeScreen',
+    navigationRouteName: 'null',
     icons: 'user',
     isParent: true,
     parentName: 'none',
+    key: "Admin",
     ChildComponents: [
       {
         name: 'Users',
@@ -108,6 +111,7 @@ export const MenuList: MenuListInterface[] = [
         icons: '',
         isParent: false,
         parentName: 'none',
+        key: "Users"
       },
       {
         name: 'Roles',
@@ -115,13 +119,15 @@ export const MenuList: MenuListInterface[] = [
         icons: '',
         isParent: false,
         parentName: 'none',
+        key: "Roles"
       },
       {
-        name: 'Add User Permission',
-        navigationRouteName: 'UsersScreen',
+        name: 'Permission',
+        navigationRouteName: 'PermissionScreen',
         icons: '',
         isParent: false,
         parentName: 'none',
+        key: "Permission"
       }
     ],
   },

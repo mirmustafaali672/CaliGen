@@ -3,27 +3,28 @@ import {
   View,
   Text,
   SafeAreaView,
-  FlatList,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
 } from 'react-native';
 import {MenuList} from '../../data/MenuData';
 import {PrimaryColor, PrimaryBGColor} from '../../styles/primaryScreenColors';
-import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
-function GetMenuView({navigation}) {
+interface GetMenuViewInterface 
+{
+  navigation: any
+}
+function GetMenuView(props: GetMenuViewInterface) {
 
   
-  return MenuList.map(item => (
-    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
+  return MenuList.map((item, indexi) => (
+    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}} key={indexi}>
       <SafeAreaView style={{flex: 1, margin: 6}}>
         <View>
-          <TouchableOpacity  disabled={item.isParent} onPress={()=>{navigation.navigate(item.navigationRouteName)}}>
+          <TouchableOpacity  disabled={item.isParent} onPress={()=>{props.navigation.navigate(item.navigationRouteName)}}>
             <View
               style={{
                 alignItems: 'center',
@@ -48,15 +49,14 @@ function GetMenuView({navigation}) {
                   text={item.name}
                   textStyle={{
                     color: MaterialColors.MaterialBlack,
-                  }}
-                />
+                  }} isBold={false} numberOfLines={0}                />
               </View>
             </View>
           </TouchableOpacity>
           {item.isParent && (
             <SafeAreaView style={{flex: 1, margin: 10, marginTop: 0}}>
-              {item.ChildComponents.map(childItem => (
-                <View
+              {item.ChildComponents.map((childItem, indexj) => (
+                <View key={indexj}
                   style={{
                     flex: 1,
                     backgroundColor: MaterialColors.MaterialWhite,
@@ -64,7 +64,7 @@ function GetMenuView({navigation}) {
                   <SafeAreaView style={{flex: 1, marginHorizontal: 30}}>
                     <View>
                       <TouchableOpacity
-                        onPress={()=>{navigation.navigate(childItem.navigationRouteName)}}>
+                        onPress={()=>{props.navigation.navigate(childItem.navigationRouteName)}}>
                         <View
                           style={{
                             alignItems: 'center',
@@ -90,8 +90,7 @@ function GetMenuView({navigation}) {
                               text={childItem.name}
                               textStyle={{
                                 color: MaterialColors.MaterialBlack,
-                              }}
-                            />
+                              }} isBold={false} numberOfLines={0}                            />
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -107,10 +106,11 @@ function GetMenuView({navigation}) {
   ));
 }
 
-function MenuScreen({navigation}) {
-  function navigateTo({route}) {
-    navigation.navigate('HomeScreen');
-  }
+interface MenuScreenInterface 
+{
+  navigation : any
+}
+function MenuScreen(props: MenuScreenInterface) {
   return (
     <View
       style={{
@@ -119,7 +119,7 @@ function MenuScreen({navigation}) {
         backgroundColor: MaterialColors.MaterialWhite,
       }}>
       <ScrollView>
-        <GetMenuView navigation={navigation} />
+        <GetMenuView navigation={props.navigation} />
       </ScrollView>
     </View>
   );
