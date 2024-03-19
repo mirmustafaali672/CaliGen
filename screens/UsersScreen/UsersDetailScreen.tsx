@@ -11,6 +11,7 @@ import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader
 import { CreateUserInterface, UpdateUserInterface, UserDetailsInterface } from '../../interfaces/UsersInterface';
 import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter';
 import { useIsFocused } from '@react-navigation/native';
+import ConfirmationModal from '../../components/Modals/ConfirmationModal';
 
 interface CreateUserScreenInterface {
   navigation: any,
@@ -31,6 +32,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
   const [createUserActivity, setCreateUserActivity] = useState(false);
   const [deleteUserActivity, setDeleteUserActivity] = useState(false);
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState(false);
+  const [confirmationModalMessage, setConfirmationModalMessage] = useState('');
   const isFocused = useIsFocused();
 
   // useEffect(() => {
@@ -126,10 +129,21 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     }
   }
 
+  function OpenConfiramtionDialog()
+  {
+    // deleteItem(data.id)
+    setConfirmationModalMessage('Are you sure you want to delte this record?')
+    setIsConfirmationModalVisible(true);
+  }
+
 
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={props.navigation} showDeleteEntityButton={data.id ? true : false} />
+      <ObjectScreenHeader headerTitle={'Create User'} 
+      showCreateEntityButton={false} 
+      createBuutonClickNavigationRoute={undefined} 
+      navigation={props.navigation} 
+      showDeleteEntityButton={data.id ? true : false} />
       <ScrollView overScrollMode="never">
         {/* <View>
           <RobotoText
@@ -194,9 +208,16 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
               />
             </View>}
             <ObjectScreenFooter navigation={props.navigation} operationType={data.id ? 2 : 1}
-              createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => deleteItem(data.id)}
+              createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => OpenConfiramtionDialog()}
               isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity} />
             <View>
+              <ConfirmationModal visible={isConfirmationModalVisible} 
+              onRequestClose={undefined} confirmationMessage={confirmationModalMessage} 
+              confirmButtonClicked={() => {
+                deleteItem(data.id);
+                setIsConfirmationModalVisible(false)
+              }} 
+              cancelButtonClicked={() => setIsConfirmationModalVisible(false)} />
               <TransactionModal visible={isTransactionModelVisible}
                 onRequestClose={() => setIsTransactionModelVisible(false)}
                 transactionModalStatus={transactionModalStatus}
