@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import SearchInputField from "../../components/InputFields/SearchField";
 import { useIsFocused } from "@react-navigation/native";
 import { GetRoles } from "../../api/RolesAPI";
+import EntityDetailCardComponent from "../../components/EntityDetailCardComponent/EntityDetailCardComponent";
 
 interface RolesScreenInterface {
     navigation: any
@@ -69,22 +70,11 @@ function RolesScreen(props: RolesScreenInterface) {
                             keyExtractor={item => item.id}
                             data={roles?.items}
                             renderItem={({ item }) => {
-                                return (<View style={{ flexDirection: "row", backgroundColor: MaterialColors.MaterialIndigo, padding: 10, marginHorizontal: 6, marginVertical: 5, borderRadius: 10 }}>
-                                    <View style={{ flex: 6, alignItems: "flex-start" }}>
-                                        <RobotoText text={item.name.length < 10
-                                            ? `${item.name}`
-                                            : `${item.name.substring(0, 10)}...`} textStyle={{ fontSize: 25, color: MaterialColors.MaterialBlack }} isBold={true} numberOfLines={0} />
-                                        <RobotoText text={`Name: ${item.name}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`Is default: ${item.isDefault}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`Is public: ${item.isPublic}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`User Count: ${item.userCount}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                    </View>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate("CreateRoleScreen", { item })}>
-                                        <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
-                                            <AntDesign name="edit" size={30} />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>)
+                                return (<EntityDetailCardComponent navigation={props.navigation} item={item} 
+                                    cardTitle={item.name} value1={`Name: ${item.name}`} 
+                                    value2={`Is default: ${item.isDefault}`} value3={`Is public: ${item.isPublic}`} 
+                                    value4={`User Count: ${item.userCount}`} showUserProfile={false} navigationScreenName={"CreateRoleScreen"}/>
+                                )
                             }} />
                     </View>
                 </View>

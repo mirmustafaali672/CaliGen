@@ -1,14 +1,14 @@
 import { View, Text, ActivityIndicator, ScrollView, FlatList, TouchableOpacity } from "react-native";
 import * as MaterialColors from "../../styles/materialColors";
-import PrimaryButton from "../../components/Buttons/PrimaryButtonComponent";
 import RobotoText from "../../components/Text/RobotoText";
 import ObjectScreenHeader from "../../components/ScreenHeader/ObjectScreenHeader";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetUsers } from "../../api/UsersAPI";
 import { UsersInterface } from "../../interfaces/UsersInterface";
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import SearchInputField from "../../components/InputFields/SearchField";
 import { useIsFocused } from "@react-navigation/native";
+import EntityDetailCardComponent from "../../components/EntityDetailCardComponent/EntityDetailCardComponent";
 
 interface UsersScreenInterface {
     navigation: any
@@ -71,26 +71,10 @@ function UsersScreen(props: UsersScreenInterface) {
                             keyExtractor={item => item.id}
                             data={users?.items}
                             renderItem={({ item }) => {
-                                return (<View style={{ flexDirection: "row", backgroundColor: MaterialColors.MaterialIndigo, padding: 10, marginHorizontal: 6, marginVertical: 5, borderRadius: 10 }}>
-                                    <View style={{ flex: 1.5, alignItems: "flex-start", justifyContent: "center", marginHorizontal: 10 }}>
-                                        <AntDesign name="user" size={60} color={MaterialColors.MaterialBlack} />
-
-                                    </View>
-                                    <View style={{ flex: 6, alignItems: "flex-start" }}>
-                                        <RobotoText text={item.userName.length < 8
-                                            ? `${item.userName}`
-                                            : `${item.userName.substring(0, 8)}...`} textStyle={{ fontSize: 25, color: MaterialColors.MaterialBlack }} isBold={true} numberOfLines={0} />
-                                        <RobotoText text={`Name: ${item.name}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`Surname: ${item.surname}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`Email: ${item.email}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                        <RobotoText text={`Phone Number: ${item.phoneNumber}`} textStyle={undefined} isBold={false} numberOfLines={0} />
-                                    </View>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate("CreateUserScreen", { item })}>
-                                        <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
-                                            <AntDesign name="edit" size={30} />
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>)
+                                return (<EntityDetailCardComponent navigation={props.navigation} item={item} 
+                                    cardTitle={item.userName} value1={`Name: ${item.name}`} 
+                                    value2={`Surname: ${item.surname}`} value3={`Email: ${item.email}`} 
+                                    value4={`Phone Number: ${item.phoneNumber}`} showUserProfile={true} navigationScreenName="CreateUserScreen"/>)
                             }} />
                     </View>
                 </View>
