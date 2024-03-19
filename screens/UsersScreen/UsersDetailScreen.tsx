@@ -5,12 +5,12 @@ import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
-import { CreateUser, DeleteUser } from '../../api/UserAPI';
-import { CreateUserInterface } from '../../interfaces/CreateUserInterface';
+import { CreateUser, DeleteUser, GetUserById, UpdateUser } from '../../api/UserAPI';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
-import { UpdateUserInterface } from '../../interfaces/UsersInterface';
+import { CreateUserInterface, UpdateUserInterface, UserDetailsInterface } from '../../interfaces/UsersInterface';
 import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter';
+import { useIsFocused } from '@react-navigation/native';
 
 interface CreateUserScreenInterface {
   navigation: any,
@@ -18,7 +18,8 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
-  const data: UpdateUserInterface = props.route.params?.item ?? {};
+  let itemInfo: UserDetailsInterface = props.route.params?.item ?? {};
+  const [data, setData] = useState<UserDetailsInterface>(itemInfo);
   const [name, setName] = useState(data.name ?? '');
   const [userName, setUserName] = useState(data.userName ?? '');
   const [surname, setSurname] = useState(data.surname ?? '');
@@ -30,6 +31,22 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
   const [createUserActivity, setCreateUserActivity] = useState(false);
   const [deleteUserActivity, setDeleteUserActivity] = useState(false);
+  const isFocused = useIsFocused();
+
+  // useEffect(() => {
+  //    GetUserDetials();
+  // }, [isFocused]);
+
+
+  // async function GetUserDetials()
+  // {
+  //   await GetUserById(data.id).then(data =>
+  //     {
+
+  //     }).catch(error => {
+
+  //     })
+  // }
 
 
   async function SubmitForm() {
@@ -45,12 +62,30 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       roleNames: [],
       organizationUnitIds: [],
       password: password,
-      sendConfirmationEmail: false
+      sendConfirmationEmail: false,
     }
+
+    const updateData: UpdateUserInterface = {
+      userName: userName,
+      name: name,
+      surname: surname,
+      email: email,
+      phoneNumber: phoneNumber,
+      isActive: true,
+      shouldChangePasswordOnNextLogin: false,
+      lockoutEnabled: false,
+      roleNames: [],
+      organizationUnitIds: [],
+      concurrencyStamp: data.concurrencyStamp ?? null
+    }
+
     setCreateUserActivity(true);
-    await CreateUser(formData).then(
-      data => {
+    const createUserCall = data.id ? UpdateUser(updateData, data.id) : CreateUser(formData);
+    await createUserCall.then(
+      response => {
         setTransactionModalState(1);
+        setData(response?.data)
+        console.log("response", response)
       }
     ).catch(error => {
       setTransactionModalState(-1);
@@ -58,18 +93,16 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       setCreateUserActivity(false);
     })
   }
-  
+
   async function deleteItem(id: string) {
     setDeleteUserActivity(true)
-    await DeleteUser(id).then( data => 
-      {
-      }).catch(error =>{
-        setTransactionModalState(-1);
-      }).then( data =>
-        {
-          setDeleteUserActivity(false);
-          props.navigation.goBack();
-        })
+    await DeleteUser(id).then(data => {
+    }).catch(error => {
+      setTransactionModalState(-1);
+    }).then(data => {
+      setDeleteUserActivity(false);
+      props.navigation.goBack();
+    })
   }
 
   function setTransactionModalState(errorState: number) {
@@ -160,9 +193,9 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 placeholder="Enter Password"
               />
             </View>
-            <ObjectScreenFooter navigation={props.navigation} operationType={data.id ? 2 : 1} 
-            createButtonClicked={() => SubmitForm()} deleteButtonClicked={()=> deleteItem(data.id)} 
-            isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity}/>
+            <ObjectScreenFooter navigation={props.navigation} operationType={data.id ? 2 : 1}
+              createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => deleteItem(data.id)}
+              isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity} />
             <View>
               <TransactionModal visible={isTransactionModelVisible}
                 onRequestClose={() => setIsTransactionModelVisible(false)}

@@ -2,7 +2,7 @@ import api from "./API.tsx";
 import EnvSettings from "../env.tsx";
 
 import * as Keychain from 'react-native-keychain';
-import { CreateUserInterface } from "../interfaces/CreateUserInterface.tsx";
+import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface.tsx";
 
 // const HostURL = `http://172.20.10.2:44335`;
 // const HostConfig = {
@@ -49,6 +49,27 @@ export async function GetCurrentUserDetailsByUsername() {
     }
 }
 
+export async function GetUserById(id: string) {
+    const credentials = await Keychain.getGenericPassword();
+    if(credentials) {
+        const headers = {
+            Authorization: 'Bearer ' + credentials.password
+        }
+        return api({
+            method: "GET",
+            url: `/api/identity/users/${id}`,
+            baseURL: EnvSettings.HostURL,
+            headers: headers
+        })
+    }
+    else 
+    {
+        return null;
+    }
+}
+
+
+
 export async function CreateUser(data: CreateUserInterface) {
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
@@ -62,6 +83,29 @@ export async function CreateUser(data: CreateUserInterface) {
             headers: headers,
             data: data
         })
+    }
+    else 
+    {
+        return null;
+    }
+}
+
+export async function UpdateUser(data:UpdateUserInterface, id: string) {
+    const credentials = await Keychain.getGenericPassword();
+    if(credentials) {
+        const headers = {
+            Authorization: 'Bearer ' + credentials.password
+        }
+        return api({
+            method: "PUT",
+            url: `/api/identity/users/${id}`,
+            baseURL: EnvSettings.HostURL,
+            headers: headers,
+            data: data
+        })
+    }
+    else{
+        return null;
     }
 }
 
