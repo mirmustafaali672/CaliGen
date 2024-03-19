@@ -4,18 +4,15 @@ import RobotoText from "../Text/RobotoText";
 import PrimaryButton from "../Buttons/PrimaryButtonComponent";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SecondaryButton from "../Buttons/SecondaryButtonComponent";
+import { ConfirmationModalInterface } from "../../interfaces/ConfirmationModalInterface";
 
-interface ConfirmationModalInterface {
-    visible: boolean,
-    onRequestClose: any,
-    confirmationMessage: string,
-    confirmButtonClicked: any,
-    cancelButtonClicked: any
-}
-
-//here ConfirmationModalStatus = 1 means success 
-//ConfirmationModalStatus = 0 means error
-//ConfirmationModalStatus = -1 means warning
+// interface ConfirmationModalInterface {
+//     visible: boolean,
+//     onRequestClose: any,
+//     confirmationMessage: string,
+//     confirmButtonClicked: any,
+//     cancelButtonClicked: any
+// }
 
 function ConfirmationModal(props: ConfirmationModalInterface) {
     return (<View>
@@ -30,10 +27,10 @@ function ConfirmationModal(props: ConfirmationModalInterface) {
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <AntDesign name={"warning" } color={MaterialColors.MaterialAmberLight} size={50} />
-                    <RobotoText text={props.confirmationMessage} textStyle={styles.modalText} isBold={false} numberOfLines={0} />
+                    <RobotoText text={props.message} textStyle={styles.modalText} isBold={false} numberOfLines={0} />
                     <View style={{flexDirection: "row", gap: 20, alignItems: "center"}}>
-                    <SecondaryButton buttonClicked={() => props.cancelButtonClicked()} buttonTitle={"No"} buttonIcon={null} iconAtEnd={false} />
-                    <PrimaryButton buttonClicked={() => props.confirmButtonClicked()} buttonTitle={"Yes"} buttonIcon={null} iconAtEnd={false} />
+                    <SecondaryButton buttonClicked={() => props.onCancel()} buttonTitle={"No"} buttonIcon={null} iconAtEnd={false} />
+                    <PrimaryButton buttonClicked={() => props.onConfirm()} buttonTitle={"Yes"} buttonIcon={null} iconAtEnd={false} />
                     </View>
                 </View>
             </View>

@@ -9,6 +9,8 @@ import { useIsFocused } from '@react-navigation/native';
 import ConfirmationModal from '../../components/Modals/ConfirmationModal';
 import { CreateRole, DeleteRole, UpdateRole } from '../../api/RolesAPI';
 import { ConfirmDeletionOfRecord } from '../../data/TemplateStrings';
+import { ConfirmationModalInterface } from '../../interfaces/ConfirmationModalInterface';
+import { TransactionModalStateInterface } from '../../interfaces/TransactionModalStateInterface';
 
 interface CreateRoleScreenInterface {
     navigation: any,
@@ -23,15 +25,10 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
     const [name, setName] = useState(data.name ?? '');
     const [isDefault, setIsDefault] = useState<boolean>(data.isDefault ?? false);
     const [isPublic, setIsPublic] = useState<boolean>(data.isPublic ?? false);
-
-
-    const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
-    const [transactionModalStatus, setTransactionModalStatus] = useState(0);
-    const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
+    const [transactionModal, setTransactionModal] = useState<TransactionModalStateInterface>({ visible: false, message: "", status: 0, onClose: null });
+    const [confirmationModal, setConfirmationModal] = useState<ConfirmationModalInterface>({ visible: false, message: "", onCancel: null, onConfirm: null });
     const [createRoleActivity, setCreateRoleActivity] = useState(false);
     const [deleteRoleActivity, setDeleteRoleActivity] = useState(false);
-    const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState(false);
-    const [confirmationModalMessage, setConfirmationModalMessage] = useState('');
     const isFocused = useIsFocused();
 
     // useEffect(() => {
@@ -92,29 +89,19 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
 
     function setTransactionModalState(errorState: number) {
         if (errorState == 1) {
-            setIsTransactionModelVisible(true)
-            setTransactionModalStatus(1);
-            setTransactionStatusMessage("Success.");
-            setIsTransactionModelVisible(true)
+            setTransactionModal({ ...transactionModal, visible: true, status: 1, message: "Success." });
         }
         else if (errorState == -1) {
-            setIsTransactionModelVisible(true)
-            setTransactionModalStatus(0);
-            setTransactionStatusMessage("Something went wrong.");
-            setIsTransactionModelVisible(true)
+            setTransactionModal({ ...transactionModal, visible: true, status: 0, message: "Something went wrong." })
         }
         else {
-            setIsTransactionModelVisible(true)
-            setTransactionModalStatus(-1);
-            setTransactionStatusMessage("Warning");
-            setIsTransactionModelVisible(true)
+            setTransactionModal({ ...transactionModal, visible: true, status: -1, message: "Warning" })
         }
     }
 
     function OpenConfiramtionDialog() {
         // deleteItem(data.id)
-        setConfirmationModalMessage(ConfirmDeletionOfRecord)
-        setIsConfirmationModalVisible(true);
+        setConfirmationModal({ ...confirmationModal, message: ConfirmDeletionOfRecord, visible: true });
     }
 
 
@@ -158,17 +145,17 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
                             createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => OpenConfiramtionDialog()}
                             isActivityOnButton={createRoleActivity} isActivityOnTernaryButton={deleteRoleActivity} />
                         <View>
-                            <ConfirmationModal visible={isConfirmationModalVisible}
-                                onRequestClose={undefined} confirmationMessage={confirmationModalMessage}
-                                confirmButtonClicked={() => {
+                            <ConfirmationModal visible={confirmationModal.visible}
+                                message={confirmationModal.message}
+                                onConfirm={() => {
                                     deleteItem(data.id);
-                                    setIsConfirmationModalVisible(false)
+                                    setConfirmationModal({ ...confirmationModal, visible: false })
                                 }}
-                                cancelButtonClicked={() => setIsConfirmationModalVisible(false)} />
-                            <TransactionModal visible={isTransactionModelVisible}
-                                onRequestClose={() => setIsTransactionModelVisible(false)}
-                                transactionModalStatus={transactionModalStatus}
-                                transactionStatusMessage={transactionStatusMessage} />
+                                onCancel={() => setConfirmationModal({ ...confirmationModal, visible: false })} />
+                            <TransactionModal visible={transactionModal.visible}
+                                onClose={() => setTransactionModal({ ...transactionModal, visible: false })}
+                                status={transactionModal.status}
+                                message={transactionModal.message} />
                         </View>
                     </ScrollView>
                 </View>

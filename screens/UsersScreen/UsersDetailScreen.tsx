@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
-import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
-import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
-import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
 import { CreateUser, DeleteUser, GetUserById, UpdateUser } from '../../api/UsersAPI';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
@@ -13,6 +10,8 @@ import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter
 import { useIsFocused } from '@react-navigation/native';
 import ConfirmationModal from '../../components/Modals/ConfirmationModal';
 import { ConfirmDeletionOfRecord } from '../../data/TemplateStrings';
+import { TransactionModalStateInterface } from '../../interfaces/TransactionModalStateInterface';
+import { ConfirmationModalInterface } from '../../interfaces/ConfirmationModalInterface';
 
 interface CreateUserScreenInterface {
   navigation: any,
@@ -20,21 +19,12 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
-  let itemInfo: UserDetailsInterface = props.route.params?.item ?? {};
-  const [data, setData] = useState<UserDetailsInterface>(itemInfo);
-  const [name, setName] = useState(data.name ?? '');
-  const [userName, setUserName] = useState(data.userName ?? '');
-  const [surname, setSurname] = useState(data.surname ?? '');
-  const [email, setEmail] = useState(data.email ?? '');
-  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber ?? '');
+  const [data, setData] = useState<UserDetailsInterface>(props.route.params?.item ?? {});
   const [password, setPassword] = useState(data.id ? '*******' : '');
-  const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
-  const [transactionModalStatus, setTransactionModalStatus] = useState(0);
-  const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
+  const [transactionModal, setTransactionModal] = useState<TransactionModalStateInterface>({ visible: false, message: "", status: 0, onClose: null });
   const [createUserActivity, setCreateUserActivity] = useState(false);
   const [deleteUserActivity, setDeleteUserActivity] = useState(false);
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState(false);
-  const [confirmationModalMessage, setConfirmationModalMessage] = useState('');
+  const [confirmationModal, setConfirmationModal] = useState<ConfirmationModalInterface>({ visible: false, message: "", onCancel: null, onConfirm: null });
   const isFocused = useIsFocused();
 
   // useEffect(() => {
@@ -55,11 +45,11 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
 
   async function SubmitForm() {
     const formData: CreateUserInterface = {
-      userName: userName,
-      name: name,
-      surname: surname,
-      email: email,
-      phoneNumber: phoneNumber,
+      userName: data.userName,
+      name: data.name,
+      surname: data.surname,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
       isActive: true,
       shouldChangePasswordOnNextLogin: false,
       lockoutEnabled: false,
@@ -70,11 +60,11 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     }
 
     const updateData: UpdateUserInterface = {
-      userName: userName,
-      name: name,
-      surname: surname,
-      email: email,
-      phoneNumber: phoneNumber,
+      userName: data.userName,
+      name: data.name,
+      surname: data.surname,
+      email: data.email,
+      phoneNumber: data.phoneNumber,
       isActive: true,
       shouldChangePasswordOnNextLogin: false,
       lockoutEnabled: false,
@@ -111,51 +101,30 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
-      setIsTransactionModelVisible(true)
-      setTransactionModalStatus(1);
-      setTransactionStatusMessage("Success.");
-      setIsTransactionModelVisible(true)
+      setTransactionModal({ ...transactionModal, visible: true, status: 1, message: "Success." });
     }
     else if (errorState == -1) {
-      setIsTransactionModelVisible(true)
-      setTransactionModalStatus(0);
-      setTransactionStatusMessage("Something went wrong.");
-      setIsTransactionModelVisible(true)
+      setTransactionModal({ ...transactionModal, visible: true, status: 0, message: "Something went wrong." })
     }
     else {
-      setIsTransactionModelVisible(true)
-      setTransactionModalStatus(-1);
-      setTransactionStatusMessage("Warning");
-      setIsTransactionModelVisible(true)
+      setTransactionModal({ ...transactionModal, visible: true, status: -1, message: "Warning" })
     }
   }
 
-  function OpenConfiramtionDialog()
-  {
+  function OpenConfiramtionDialog() {
     // deleteItem(data.id)
-    setConfirmationModalMessage(ConfirmDeletionOfRecord)
-    setIsConfirmationModalVisible(true);
+    setConfirmationModal({ ...confirmationModal, message: ConfirmDeletionOfRecord, visible: true });
   }
 
 
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-      <ObjectScreenHeader headerTitle={'Create User'} 
-      showCreateEntityButton={false} 
-      createBuutonClickNavigationRoute={undefined} 
-      navigation={props.navigation} 
-      showDeleteEntityButton={data.id ? true : false} />
+      <ObjectScreenHeader headerTitle={'Create User'}
+        showCreateEntityButton={false}
+        createBuutonClickNavigationRoute={undefined}
+        navigation={props.navigation}
+        showDeleteEntityButton={data.id ? true : false} />
       <ScrollView overScrollMode="never">
-        {/* <View>
-          <RobotoText
-            text="Create User"
-            textStyle={{
-              fontSize: 40,
-              margin: 10,
-              marginVertical: 50,
-              color: MaterialColors.MaterialBlack,
-            }} isBold={false} numberOfLines={0} />
-        </View> */}
         <View style={{ margin: 20 }}>
           <ScrollView
             keyboardShouldPersistTaps="handled"
@@ -163,40 +132,40 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
             <View>
               <InputFieldComponent
                 label='Username'
-                onChangeText={(value: any) => { setUserName(value) }}
-                value={userName}
+                onChangeText={(value: any) => { setData({ ...data, userName: value }) }}
+                value={data.userName}
                 placeholder="Enter Username"
               />
             </View>
             <View>
               <InputFieldComponent
                 label='Name'
-                onChangeText={(value: any) => { setName(value) }}
-                value={name}
+                onChangeText={(value: any) => { setData({ ...data, name: value }) }}
+                value={data.name}
                 placeholder="Enter Name"
               />
             </View>
             <View>
               <InputFieldComponent
                 label='Surname'
-                onChangeText={(value: any) => { setSurname(value) }}
-                value={surname}
+                onChangeText={(value: any) => { setData({ ...data, surname: value }) }}
+                value={data.surname}
                 placeholder="Enter Surname"
               />
             </View>
             <View>
               <InputFieldComponent
                 label='Email'
-                onChangeText={(value: any) => { setEmail(value) }}
-                value={email}
+                onChangeText={(value: any) => { setData({ ...data, email: value }) }}
+                value={data.email}
                 placeholder="Enter Email"
               />
             </View>
             <View>
               <InputFieldComponent
                 label='Phone Number'
-                onChangeText={(value: any) => { setPhoneNumber(value) }}
-                value={phoneNumber}
+                onChangeText={(value: any) => { setData({ ...data, phoneNumber: value }) }}
+                value={data.phoneNumber}
                 placeholder="Enter Phone Number"
               />
             </View>
@@ -212,17 +181,17 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
               createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => OpenConfiramtionDialog()}
               isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity} />
             <View>
-              <ConfirmationModal visible={isConfirmationModalVisible} 
-              onRequestClose={undefined} confirmationMessage={confirmationModalMessage} 
-              confirmButtonClicked={() => {
-                deleteItem(data.id);
-                setIsConfirmationModalVisible(false)
-              }} 
-              cancelButtonClicked={() => setIsConfirmationModalVisible(false)} />
-              <TransactionModal visible={isTransactionModelVisible}
-                onRequestClose={() => setIsTransactionModelVisible(false)}
-                transactionModalStatus={transactionModalStatus}
-                transactionStatusMessage={transactionStatusMessage} />
+              <ConfirmationModal visible={confirmationModal.visible}
+                message={confirmationModal.message}
+                onConfirm={() => {
+                  deleteItem(data.id);
+                  setConfirmationModal({ ...confirmationModal, visible: false })
+                }}
+                onCancel={() => setConfirmationModal({ ...confirmationModal, visible: false })} />
+              <TransactionModal visible={transactionModal.visible}
+                onClose={() => setTransactionModal({ ...transactionModal, visible: false })}
+                status={transactionModal.status}
+                message={transactionModal.message} />
             </View>
           </ScrollView>
         </View>
