@@ -63,9 +63,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     setDeleteUserActivity(true)
     await DeleteUser(id).then( data => 
       {
-        console.log("Deleted data", data);
       }).catch(error =>{
-        console.log("error" , error);
         setTransactionModalState(-1);
       }).then( data =>
         {
