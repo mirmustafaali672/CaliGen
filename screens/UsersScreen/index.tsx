@@ -9,8 +9,12 @@ import { UsersInterface } from "../../api/interfaces/UsersInterface";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SearchInputField from "../../components/InputFields/SearchField";
 
+interface UsersScreenInterface {
+    navigation: any 
+}
 
-function UsersScreen({ navigation }) {
+
+function UsersScreen(props: UsersScreenInterface) {
     const [users, setUsers] = useState<UsersInterface>();
     const [usersActivity, setUsersActivity] = useState(false);
     const [search, setSearch] = useState('');
@@ -20,7 +24,6 @@ function UsersScreen({ navigation }) {
         await GetUsers(search)
             .then((data: any) => {
                 setUsers(data.data);
-                console.log("data", data.data)
             })
             .catch(error => {
             }).then(
@@ -36,11 +39,10 @@ function UsersScreen({ navigation }) {
 
     useEffect(() => {
         GetUsersList();
-        console.log("serca", search)
     }, [search]);
 
     return <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-        <ObjectScreenHeader showCreateEntityButton={true} headerTitle="Users" navigation={navigation} createBuutonClickNavigationRoute={"CreateUserScreen"} />
+        <ObjectScreenHeader showCreateEntityButton={true} headerTitle="Users" navigation={props.navigation} createBuutonClickNavigationRoute={"CreateUserScreen"} showDeleteEntityButton={false} />
         <View style={{marginHorizontal: 6}}>
             <SearchInputField value={search} onChangeText={(value: any) => {
                 setSearch(value)
@@ -76,7 +78,7 @@ function UsersScreen({ navigation }) {
                                         <RobotoText text={`Email: ${item.email}`} textStyle={undefined} isBold={false} numberOfLines={0} />
                                         <RobotoText text={`Phone Number: ${item.phoneNumber}`} textStyle={undefined} isBold={false} numberOfLines={0} />
                                     </View>
-                                    <TouchableOpacity onPress={() => navigation.navigate("CreateUserScreen")}>
+                                    <TouchableOpacity onPress={() => props.navigation.navigate("CreateUserScreen", {item})}>
                                         <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
                                             <AntDesign name="edit" size={30} />
                                         </View>

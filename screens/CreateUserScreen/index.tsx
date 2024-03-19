@@ -10,13 +10,20 @@ import { CreateUserInterface } from '../../api/interfaces/CreateUserInterface';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 
-function CreateUserScreen({ navigation }) {
-  const [name, setName] = useState('');
-  const [userName, setUserName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
+interface CreateUserScreenInterface {
+  navigation: any,
+  route: any
+}
+
+function CreateUserScreen(props: CreateUserScreenInterface) {
+  console.log("item", props.route.params)
+  const data: UpdateUserInterface = props.route.params?.item ?? {};
+  const [name, setName] = useState(data.name ?? '');
+  const [userName, setUserName] = useState(data.userName ?? '');
+  const [surname, setSurname] = useState(data.surname ?? '');
+  const [email, setEmail] = useState(data.email ?? '');
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber ?? '');
+  const [password, setPassword] = useState(data.id ? '*******' : '');
   const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
@@ -74,7 +81,7 @@ function CreateUserScreen({ navigation }) {
 
   return (
     <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={navigation} />
+      <ObjectScreenHeader headerTitle={'Create User'} showCreateEntityButton={false} createBuutonClickNavigationRoute={undefined} navigation={props.navigation} showDeleteEntityButton={data.id} />
       <ScrollView overScrollMode="never">
         {/* <View>
           <RobotoText
@@ -92,7 +99,7 @@ function CreateUserScreen({ navigation }) {
             automaticallyAdjustKeyboardInsets={true}>
             <View>
               <InputFieldComponent
-              label='Username'
+                label='Username'
                 onChangeText={(value: any) => { setUserName(value) }}
                 value={userName}
                 placeholder="Enter Username"
@@ -100,7 +107,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
-              label='Name'
+                label='Name'
                 onChangeText={(value: any) => { setName(value) }}
                 value={name}
                 placeholder="Enter Name"
@@ -108,7 +115,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
-              label='Surname'
+                label='Surname'
                 onChangeText={(value: any) => { setSurname(value) }}
                 value={surname}
                 placeholder="Enter Surname"
@@ -116,7 +123,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
-              label='Email'
+                label='Email'
                 onChangeText={(value: any) => { setEmail(value) }}
                 value={email}
                 placeholder="Enter Email"
@@ -124,7 +131,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
-              label='Phone Number'
+                label='Phone Number'
                 onChangeText={(value: any) => { setPhoneNumber(value) }}
                 value={phoneNumber}
                 placeholder="Enter Phone Number"
@@ -132,7 +139,7 @@ function CreateUserScreen({ navigation }) {
             </View>
             <View>
               <InputFieldComponent
-              label='Password'
+                label='Password'
                 onChangeText={(value: any) => { setPassword(value) }}
                 value={password}
                 placeholder="Enter Password"
@@ -141,7 +148,7 @@ function CreateUserScreen({ navigation }) {
             <View style={{ flexDirection: 'row', flex: 1, gap: 40 }}>
               <View style={{ flex: 1 }}>
                 <SecondaryButton
-                  buttonClicked={() => navigation.goBack()}
+                  buttonClicked={() => props.navigation.goBack()}
                   buttonTitle="Back"
                   buttonIcon={<View></View>} iconAtEnd={false} />
               </View>

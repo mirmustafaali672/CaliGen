@@ -4,10 +4,12 @@ import PrimaryButton from "../../components/Buttons/PrimaryButtonComponent";
 import RobotoText from "../../components/Text/RobotoText";
 import SecondaryButton from "../Buttons/SecondaryButtonComponent";
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import TernaryButton from "../Buttons/TerneryButtomComponent";
 
 interface HeaderObjectInterface {
     headerTitle: string,
     showCreateEntityButton: boolean,
+    showDeleteEntityButton: boolean, 
     createBuutonClickNavigationRoute: any,
     navigation: any
 }
@@ -30,6 +32,11 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
             {props.showCreateEntityButton &&
                 <SecondaryButton buttonClicked={() => props.navigation.navigate(props.createBuutonClickNavigationRoute)} buttonTitle={""} buttonIcon={
                     <AntDesign name="plus" color={MaterialColors.MaterialDeepPurple} size={20} />
+                } iconAtEnd={true} />
+            }
+            {props.showDeleteEntityButton &&
+                <TernaryButton buttonClicked={() => props.navigation.navigate(props.createBuutonClickNavigationRoute)} buttonTitle={""} buttonIcon={
+                    <AntDesign name="delete" color={MaterialColors.MaterialRed} size={20} />
                 } iconAtEnd={true} />
             }
         </View>
