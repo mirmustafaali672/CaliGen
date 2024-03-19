@@ -6,9 +6,10 @@ import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
 import { CreateUser } from '../../api/UserAPI';
-import { CreateUserInterface } from '../../api/interfaces/CreateUserInterface';
+import { CreateUserInterface } from '../../interfaces/CreateUserInterface';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
+import { UpdateUserInterface } from '../../interfaces/UsersInterface';
 
 interface CreateUserScreenInterface {
   navigation: any,

@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MoreScreen from '../MoreScreen';
 import HomeScreen from '../HomeScreen';
-import CreateUserScreen from '../CreateUserScreen';
-import UsersScreen from '../UsersScreen';
+import CreateUserScreen from '../UsersScreen/UsersDetailScreen';
+import UsersScreen from '../UsersScreen/UsersMainScreen';
 
 function MoreScreenNavigator(){
     const Stack = createNativeStackNavigator();

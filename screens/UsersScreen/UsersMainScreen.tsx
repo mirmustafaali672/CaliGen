@@ -5,7 +5,7 @@ import RobotoText from "../../components/Text/RobotoText";
 import ObjectScreenHeader from "../../components/ScreenHeader/ObjectScreenHeader";
 import { useEffect, useState } from "react";
 import { GetUsers } from "../../api/UserAPI";
-import { UsersInterface } from "../../api/interfaces/UsersInterface";
+import { UsersInterface } from "../../interfaces/UsersInterface";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SearchInputField from "../../components/InputFields/SearchField";
 

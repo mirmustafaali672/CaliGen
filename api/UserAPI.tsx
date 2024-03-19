@@ -2,7 +2,7 @@ import api from "./API.tsx";
 import EnvSettings from "../env.tsx";
 
 import * as Keychain from 'react-native-keychain';
-import { CreateUserInterface } from "./interfaces/CreateUserInterface.tsx";
+import { CreateUserInterface } from "../interfaces/CreateUserInterface.tsx";
 
 // const HostURL = `http://172.20.10.2:44335`;
 // const HostConfig = {

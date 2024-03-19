@@ -12,7 +12,7 @@ import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {GetCurrentUserDetailsByUsername} from '../../api/UserAPI';
-import {CurrentUserDetailsInterface} from '../../api/interfaces/UserInterface';
+import {CurrentUserDetailsInterface} from '../../interfaces/UserInterface';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 
