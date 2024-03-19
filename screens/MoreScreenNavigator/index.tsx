@@ -7,6 +7,7 @@ import HomeScreen from '../HomeScreen';
 import CreateUserScreen from '../UsersScreen/UsersDetailScreen';
 import UsersScreen from '../UsersScreen/UsersMainScreen';
 import RolesScreen from '../RolesScreen/RolesMainScreen';
+import CreateRoleScreen from '../RolesScreen/RolesDetailScreen';
 
 function MoreScreenNavigator(){
     const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ function MoreScreenNavigator(){
           <Stack.Screen options={{headerShown: false}} name="CreateUserScreen" component={CreateUserScreen} />
           <Stack.Screen options={{headerShown: false}} name="UsersScreen" component={UsersScreen} />
           <Stack.Screen options={{headerShown: false}} name="RolesScreen" component={RolesScreen} />
+          <Stack.Screen options={{headerShown: false}} name="CreateRoleScreen" component={CreateRoleScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

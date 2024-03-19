@@ -132,7 +132,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   function OpenConfiramtionDialog()
   {
     // deleteItem(data.id)
-    setConfirmationModalMessage('Are you sure you want to delte this record?')
+    setConfirmationModalMessage('Are you sure you want to delete this record?')
     setIsConfirmationModalVisible(true);
   }
 

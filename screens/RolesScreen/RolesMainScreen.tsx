@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, ScrollView, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
 import * as MaterialColors from "../../styles/materialColors";
 import RobotoText from "../../components/Text/RobotoText";
 import ObjectScreenHeader from "../../components/ScreenHeader/ObjectScreenHeader";
@@ -47,7 +47,7 @@ function RolesScreen(props: RolesScreenInterface) {
     }, [search]);
 
     return <View style={{ backgroundColor: MaterialColors.MaterialWhite, flex: 1 }}>
-        <ObjectScreenHeader showCreateEntityButton={true} headerTitle="Roles" navigation={props.navigation} createBuutonClickNavigationRoute={"CreateUserScreen"} showDeleteEntityButton={false} />
+        <ObjectScreenHeader showCreateEntityButton={true} headerTitle="Roles" navigation={props.navigation} createBuutonClickNavigationRoute={"CreateRoleScreen"} showDeleteEntityButton={false} />
         <View style={{ marginHorizontal: 6 }}>
             <SearchInputField value={search} onChangeText={(value: any) => {
                 setSearch(value)
@@ -79,7 +79,7 @@ function RolesScreen(props: RolesScreenInterface) {
                                         <RobotoText text={`Is public: ${item.isPublic}`} textStyle={undefined} isBold={false} numberOfLines={0} />
                                         <RobotoText text={`User Count: ${item.userCount}`} textStyle={undefined} isBold={false} numberOfLines={0} />
                                     </View>
-                                    <TouchableOpacity onPress={() => props.navigation.navigate("CreateUserScreen", { item })}>
+                                    <TouchableOpacity onPress={() => props.navigation.navigate("CreateRoleScreen", { item })}>
                                         <View style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}>
                                             <AntDesign name="edit" size={30} />
                                         </View>
