@@ -2,7 +2,7 @@ import api from "./API";
 import EnvSettings from "../env";
 import * as Keychain from 'react-native-keychain';
 
-export async function GetRoles() {
+export async function GetRoles(filter: string) {
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -12,7 +12,8 @@ export async function GetRoles() {
             method: "GET",
             url: "api/identity/roles",
             baseURL: EnvSettings.HostURL,
-            headers: headers
+            headers: headers,
+            params: { filter: filter }
         });
     }
     else {
