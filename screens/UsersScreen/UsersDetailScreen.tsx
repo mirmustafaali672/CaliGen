@@ -185,14 +185,14 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 placeholder="Enter Phone Number"
               />
             </View>
-            <View>
+            {!data.id && <View>
               <InputFieldComponent
                 label='Password'
                 onChangeText={(value: any) => { setPassword(value) }}
                 value={password}
                 placeholder="Enter Password"
               />
-            </View>
+            </View>}
             <ObjectScreenFooter navigation={props.navigation} operationType={data.id ? 2 : 1}
               createButtonClicked={() => SubmitForm()} deleteButtonClicked={() => deleteItem(data.id)}
               isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity} />
