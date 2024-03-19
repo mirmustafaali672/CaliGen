@@ -8,7 +8,8 @@ interface ObjectScreenFooterInterface {
     operationType: 1 | 2,
     createButtonClicked: any,
     deleteButtonClicked: any,
-    isActivityOnButton: boolean
+    isActivityOnButton: boolean,
+    isActivityOnTernaryButton: boolean
 }
 // Here operationType 1 means Create and 2 means Update
 //Here buttonTypeClicked 1 means Primary Button Clicked 2 Means Secondary button clicked and 3 means ternary button clicked
@@ -21,9 +22,9 @@ function ObjectScreenFooter(props: ObjectScreenFooterInterface) {
                 buttonTitle="Back"
                 buttonIcon={<View></View>} iconAtEnd={false} />}
             {props.operationType == 2 && <TernaryButton
-                buttonClicked={() => props.navigation.goBack()}
+                buttonClicked={() => props.deleteButtonClicked()}
                 buttonTitle="Delete"
-                buttonIcon={<View></View>} iconAtEnd={false} />}
+                buttonIcon={<View></View>} iconAtEnd={false}  isActivityOnButton={props.isActivityOnTernaryButton}/>}
         </View>
         <View style={{ flex: 1 }}>
             <PrimaryButton

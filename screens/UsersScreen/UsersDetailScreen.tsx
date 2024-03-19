@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
-import { CreateUser } from '../../api/UserAPI';
+import { CreateUser, DeleteUser } from '../../api/UserAPI';
 import { CreateUserInterface } from '../../interfaces/CreateUserInterface';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
@@ -29,6 +29,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
   const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
   const [createUserActivity, setCreateUserActivity] = useState(false);
+  const [deleteUserActivity, setDeleteUserActivity] = useState(false);
+
 
   async function SubmitForm() {
     const formData: CreateUserInterface = {
@@ -55,7 +57,21 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     }).then(data => {
       setCreateUserActivity(false);
     })
-
+  }
+  
+  async function deleteItem(id: string) {
+    setDeleteUserActivity(true)
+    await DeleteUser(id).then( data => 
+      {
+        console.log("Deleted data", data);
+      }).catch(error =>{
+        console.log("error" , error);
+        setTransactionModalState(-1);
+      }).then( data =>
+        {
+          setDeleteUserActivity(false);
+          props.navigation.goBack();
+        })
   }
 
   function setTransactionModalState(errorState: number) {
@@ -146,21 +162,9 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 placeholder="Enter Password"
               />
             </View>
-            <ObjectScreenFooter navigation={props.navigation} operationType={ data.id? 2 : 1 } createButtonClicked={() => SubmitForm()} deleteButtonClicked={undefined} isActivityOnButton={createUserActivity} />
-            {/* <View style={{ flexDirection: 'row', flex: 1, gap: 40 }}>
-              <View style={{ flex: 1 }}>
-                <SecondaryButton
-                  buttonClicked={() => props.navigation.goBack()}
-                  buttonTitle="Back"
-                  buttonIcon={<View></View>} iconAtEnd={false} />
-              </View>
-              <View style={{ flex: 1 }}>
-                <PrimaryButton
-                  buttonClicked={() => SubmitForm()}
-                  buttonTitle="Create"
-                  buttonIcon={<View></View>} iconAtEnd={false} isActivityOnButton={createUserActivity} />
-              </View>
-            </View> */}
+            <ObjectScreenFooter navigation={props.navigation} operationType={data.id ? 2 : 1} 
+            createButtonClicked={() => SubmitForm()} deleteButtonClicked={()=> deleteItem(data.id)} 
+            isActivityOnButton={createUserActivity} isActivityOnTernaryButton={deleteUserActivity}/>
             <View>
               <TransactionModal visible={isTransactionModelVisible}
                 onRequestClose={() => setIsTransactionModelVisible(false)}

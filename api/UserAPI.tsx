@@ -12,11 +12,9 @@ import { CreateUserInterface } from "../interfaces/CreateUserInterface.tsx";
 // };
 
 
-export async function GetUsers(filter:string)
-{
+export async function GetUsers(filter: string) {
     const credentials = await Keychain.getGenericPassword();
-    if(credentials)
-    {
+    if (credentials) {
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
@@ -25,7 +23,7 @@ export async function GetUsers(filter:string)
             url: "api/identity/users",
             baseURL: EnvSettings.HostURL,
             headers: headers,
-            params: {filter: filter}
+            params: { filter: filter }
         });
     }
     else {
@@ -33,11 +31,9 @@ export async function GetUsers(filter:string)
     }
 }
 
-export async function GetCurrentUserDetailsByUsername()
-{
+export async function GetCurrentUserDetailsByUsername() {
     const credentials = await Keychain.getGenericPassword();
-    if(credentials)
-    {
+    if (credentials) {
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
@@ -53,11 +49,9 @@ export async function GetCurrentUserDetailsByUsername()
     }
 }
 
-export async function CreateUser( data: CreateUserInterface)
-{
+export async function CreateUser(data: CreateUserInterface) {
     const credentials = await Keychain.getGenericPassword();
-    if(credentials)
-    {
+    if (credentials) {
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
@@ -68,5 +62,23 @@ export async function CreateUser( data: CreateUserInterface)
             headers: headers,
             data: data
         })
+    }
+}
+
+export async function DeleteUser(id: string) {
+    const credentials = await Keychain.getGenericPassword();
+    if (credentials) {
+        const headers = {
+            Authorization: 'Bearer ' + credentials.password
+        }
+        return api({
+            method: "DELETE",
+            url: `/api/identity/users/${id}`,
+            baseURL: EnvSettings.HostURL,
+            headers: headers
+        })
+    }
+    else {
+        return null;
     }
 }

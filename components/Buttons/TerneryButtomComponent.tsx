@@ -23,7 +23,7 @@ function TernaryButton(props: TernaryButtonInterface) {
         </View>}
         {props.iconAtEnd && props.buttonIcon}
         {props.isActivityOnButton &&
-          <ActivityIndicator size="small" color={MaterialColors.MaterialWhite} />
+          <ActivityIndicator size="small" color={MaterialColors.MaterialRed} />
         }
       </TouchableOpacity>
     </View>
