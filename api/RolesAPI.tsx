@@ -1,12 +1,10 @@
 import api from "./API";
-import EnvSettings  from "../env";
+import EnvSettings from "../env";
 import * as Keychain from 'react-native-keychain';
 
-export async function GetRoles()
-{
+export async function GetRoles() {
     const credentials = await Keychain.getGenericPassword();
-    if(credentials)
-    {
+    if (credentials) {
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }

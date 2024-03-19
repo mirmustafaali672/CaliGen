@@ -5,7 +5,7 @@ import RobotoText from '../../components/Text/RobotoText';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../../components/Buttons/SecondaryButtonComponent';
-import { CreateUser, DeleteUser, GetUserById, UpdateUser } from '../../api/UserAPI';
+import { CreateUser, DeleteUser, GetUserById, UpdateUser } from '../../api/UsersAPI';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import { CreateUserInterface, UpdateUserInterface, UserDetailsInterface } from '../../interfaces/UsersInterface';
