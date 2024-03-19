@@ -17,7 +17,6 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
-  console.log("item", props.route.params)
   const data: UpdateUserInterface = props.route.params?.item ?? {};
   const [name, setName] = useState(data.name ?? '');
   const [userName, setUserName] = useState(data.userName ?? '');
