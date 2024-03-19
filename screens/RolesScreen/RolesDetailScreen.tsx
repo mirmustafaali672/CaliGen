@@ -8,6 +8,7 @@ import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter
 import { useIsFocused } from '@react-navigation/native';
 import ConfirmationModal from '../../components/Modals/ConfirmationModal';
 import { CreateRole, DeleteRole, UpdateRole } from '../../api/RolesAPI';
+import { ConfirmDeletionOfRecord } from '../../data/TemplateStrings';
 
 interface CreateRoleScreenInterface {
     navigation: any,
@@ -112,7 +113,7 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
 
     function OpenConfiramtionDialog() {
         // deleteItem(data.id)
-        setConfirmationModalMessage('Are you sure you want to delete this record?')
+        setConfirmationModalMessage(ConfirmDeletionOfRecord)
         setIsConfirmationModalVisible(true);
     }
 

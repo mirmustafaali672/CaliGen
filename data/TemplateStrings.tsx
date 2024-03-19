@@ -1,0 +1,1 @@
+export const ConfirmDeletionOfRecord: string = "Are you sure you want to delete this record?";
