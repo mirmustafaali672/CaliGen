@@ -34,11 +34,6 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
                     <AntDesign name="plus" color={MaterialColors.MaterialDeepPurple} size={20} />
                 } iconAtEnd={true} />
             }
-            {props.showDeleteEntityButton &&
-                <TernaryButton buttonClicked={() => props.navigation.navigate(props.createBuutonClickNavigationRoute)} buttonTitle={""} buttonIcon={
-                    <AntDesign name="delete" color={MaterialColors.MaterialRed} size={20} />
-                } iconAtEnd={true} />
-            }
         </View>
     </View>
 }
