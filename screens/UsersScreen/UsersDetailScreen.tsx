@@ -9,7 +9,7 @@ import { CreateUserInterface, UpdateUserInterface, UserDetailsInterface } from '
 import ObjectScreenFooter from '../../components/ScreenFooter/ObjectScreenFooter';
 import { useIsFocused } from '@react-navigation/native';
 import ConfirmationModal from '../../components/Modals/ConfirmationModal';
-import { ConfirmDeletionOfRecord } from '../../data/TemplateStrings';
+import { ConfirmDeletionOfRecord, TransactionError, TransactionSuccess, TransactionWarning } from '../../data/TemplateStrings';
 import { TransactionModalStateInterface } from '../../interfaces/TransactionModalStateInterface';
 import { ConfirmationModalInterface } from '../../interfaces/ConfirmationModalInterface';
 
@@ -101,13 +101,13 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
-      setTransactionModal({ ...transactionModal, visible: true, status: 1, message: "Success." });
+      setTransactionModal({ ...transactionModal, visible: true, status: 1, message: TransactionSuccess });
     }
     else if (errorState == -1) {
-      setTransactionModal({ ...transactionModal, visible: true, status: 0, message: "Something went wrong." })
+      setTransactionModal({ ...transactionModal, visible: true, status: 0, message: TransactionError })
     }
     else {
-      setTransactionModal({ ...transactionModal, visible: true, status: -1, message: "Warning" })
+      setTransactionModal({ ...transactionModal, visible: true, status: -1, message: TransactionWarning })
     }
   }
 
