@@ -1,5 +1,5 @@
 import api from "./API.tsx";
-import EnvSettings from "../env.tsx";
+import EnvSettings from "../../env.tsx";
 
 import * as Keychain from 'react-native-keychain';
 import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface.tsx";

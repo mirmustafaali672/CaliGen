@@ -1,4 +1,4 @@
-import { EnvSettingInterface } from "./interfaces/EnvSettingInterface";
+import { EnvSettingInterface } from "./src/interfaces/EnvSettingInterface";
 
 export const EnvSettings: EnvSettingInterface = {
     AuthURL: "http://172.20.10.2:44377",

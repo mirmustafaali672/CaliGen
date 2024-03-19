@@ -212,7 +212,7 @@ function HomeScreenHeader() {
       </View>
       <Image
         style={styles.tinyLogo}
-        source={require('../../assets/logo.png')}
+        source={require('../../../assets/logo.png')}
       />
     </View>
   );

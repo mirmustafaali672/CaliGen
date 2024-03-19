@@ -1,5 +1,5 @@
 import api from "./API.tsx";
-import EnvSettings from "../env";
+import EnvSettings from "../../env.tsx";
 
 // const authoUrl = `http://172.20.10.2:44377`;
 // const oAuthConfig = {

@@ -79,7 +79,6 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       response => {
         setTransactionModalState(1);
         setData(response?.data)
-        console.log("response", response)
       }
     ).catch(error => {
       setTransactionModalState(-1);

@@ -1,5 +1,5 @@
 import api from "./API.tsx";
-import EnvSettings from "../env.tsx";
+import EnvSettings from "../../env.tsx";
 
 
 export const SendUserMessageToApi = (message: string) => {

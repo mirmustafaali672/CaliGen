@@ -197,9 +197,9 @@ function LoginScreen({ UserLoggedIn }) {
                 </Pressable>
                 <View>
                   <TransactionModal visible={isTransactionModelVisible}
-                    onRequestClose={() => setIsTransactionModelVisible(false)}
-                    transactionModalStatus={transactionModalStatus}
-                    transactionStatusMessage={transactionStatusMessage} />
+                    onClose={() => setIsTransactionModelVisible(false)}
+                    status={transactionModalStatus}
+                    message={transactionStatusMessage} />
                 </View>
               </ScrollView>
             </View>
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   loginCard: {},
   imageSetter: {},
   loginInputFields: {
-    justifyContent: ':"center',
+    justifyContent: "center",
     alignItems: 'center',
     margin: '1%',
     flexDirection: 'row',
@@ -275,7 +275,6 @@ const styles = StyleSheet.create({
     padding: '5%',
     borderRadius: 100,
     elevation: 5,
-    shadowColor: 'white',
     shadowColor: 'black',
   },
   forgotPasswordButton: {

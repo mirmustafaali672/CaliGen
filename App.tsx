@@ -26,12 +26,12 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from './screens/HomeScreen';
-import ChatScreen from './screens/ChatScreen';
-import SpeecToTextScreen from './screens/SpeecToTextScreen';
-import LoginScreen from './screens/LoginScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import MenuScreen from './screens/MoreScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import ChatScreen from './src/screens/ChatScreen';
+import SpeecToTextScreen from './src/screens/SpeecToTextScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import MenuScreen from './src/screens/MoreScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -39,9 +39,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {
   SecondaryColor,
   LightPrimaryColor,
-} from './styles/primaryScreenColors';
-import  MoreScreenNavigator  from './screens/MoreScreenNavigator';
-import * as MaterialColors from './styles/materialColors';
+} from './src/styles/primaryScreenColors';
+import  MoreScreenNavigator  from './src/screens/MoreScreenNavigator';
+import * as MaterialColors from './src/styles/materialColors';
 
 // const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
