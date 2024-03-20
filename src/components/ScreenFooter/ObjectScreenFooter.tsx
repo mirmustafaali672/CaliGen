@@ -9,7 +9,8 @@ interface ObjectScreenFooterInterface {
     createButtonClicked: any,
     deleteButtonClicked: any,
     isActivityOnButton: boolean,
-    isActivityOnTernaryButton: boolean
+    isActivityOnTernaryButton: boolean,
+    disableSumbitButton: boolean
 }
 // Here operationType 1 means Create and 2 means Update
 //Here buttonTypeClicked 1 means Primary Button Clicked 2 Means Secondary button clicked and 3 means ternary button clicked
@@ -30,7 +31,8 @@ function ObjectScreenFooter(props: ObjectScreenFooterInterface) {
             <PrimaryButton
                 buttonClicked={() => props.createButtonClicked()}
                 buttonTitle={props.operationType == 1 ? "Create" : "Update"}
-                buttonIcon={<View></View>} iconAtEnd={false} isActivityOnButton={props.isActivityOnButton} />
+                buttonIcon={<View></View>} iconAtEnd={false} isActivityOnButton={props.isActivityOnButton} 
+                disableButton={props.disableSumbitButton}/>
         </View>
     </View>
 }

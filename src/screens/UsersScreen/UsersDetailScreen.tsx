@@ -346,6 +346,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 deleteButtonClicked={() => OpenConfiramtionDialog()}
                 isActivityOnButton={createEntityActivity}
                 isActivityOnTernaryButton={deleteEntityActivity}
+                disableSumbitButton={false}
               />
               <View>
                 <ConfirmationModal
