@@ -181,6 +181,7 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
                   }}
                   value={data.name}
                   placeholder="Enter Name"
+                  required
                 />
               </View>
               <View>

@@ -227,6 +227,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   value={data.userName}
                   placeholder="Enter Username"
+                  required
                 />
               </View>
               <View>
@@ -237,6 +238,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   value={data.name}
                   placeholder="Enter Name"
+                  required
                 />
               </View>
               <View>
@@ -247,6 +249,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   value={data.surname}
                   placeholder="Enter Surname"
+                  required
                 />
               </View>
               <View>
@@ -257,6 +260,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   value={data.email}
                   placeholder="Enter Email"
+                  required
                 />
               </View>
               <View>
@@ -267,6 +271,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   value={data.phoneNumber}
                   placeholder="Enter Phone Number"
+                  required
                 />
               </View>
               {!data.id && (
@@ -278,6 +283,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                     }}
                     value={password}
                     placeholder="Enter Password"
+                    required
                   />
                 </View>
               )}
