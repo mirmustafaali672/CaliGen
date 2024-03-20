@@ -30,6 +30,7 @@ import SelectComponent, {
   selectedItemInterface,
 } from '../../components/DropDownComponents/SelectComponent';
 import {GetRoles} from '../../api/RolesAPI';
+import RadioButtonComponent from '../../components/RadioButtonComponent/RadioButtonComponent';
 
 interface CreateUserScreenInterface {
   navigation: any;
@@ -87,7 +88,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       surname: data.surname,
       email: data.email,
       phoneNumber: data.phoneNumber,
-      isActive: true,
+      isActive: data.isActive,
       shouldChangePasswordOnNextLogin: false,
       lockoutEnabled: false,
       roleNames: data.roleNames,
@@ -95,6 +96,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       password: password,
       sendConfirmationEmail: false,
     };
+
+    console.log('data', data);
 
     const updateData: UpdateUserInterface = {
       userName: data.userName,
@@ -283,6 +286,19 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   label={'Roles'}
                   previouslySelectedItems={data.roleNames}
                   multiple={true}
+                />
+              </View>
+              <View>
+                <RadioButtonComponent
+                  label={'Is Active?'}
+                  buttons={[
+                    {name: 'Yes', value: true},
+                    {name: 'No', value: false},
+                  ]}
+                  selected={data.id ? data.isActive : false}
+                  onSelection={(value: any) => {
+                    setData({...data, isActive: value});
+                  }}
                 />
               </View>
               <ObjectScreenFooter

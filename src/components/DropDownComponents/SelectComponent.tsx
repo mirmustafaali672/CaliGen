@@ -36,7 +36,7 @@ function SelectComponent(props: SelectInterface) {
 
   useEffect(() => {
     setSelectedItems([]);
-    setSelectedItems(props.previouslySelectedItems);
+    setSelectedItems(props.previouslySelectedItems ?? []);
   }, [isFocused]);
 
   useEffect(() => {
@@ -114,7 +114,7 @@ function SelectComponent(props: SelectInterface) {
                     <TouchableOpacity
                       onPress={() => {
                         if (props.multiple) {
-                          if (selectedItems.includes(item[props.keyName])) {
+                          if (selectedItems?.includes(item[props.keyName])) {
                             setSelectedItems(oldArray =>
                               oldArray.filter(
                                 arrayItem => arrayItem !== item[props.keyName],
@@ -132,7 +132,7 @@ function SelectComponent(props: SelectInterface) {
                       }}>
                       <View
                         style={
-                          selectedItems.includes(item[props.keyName])
+                          selectedItems?.includes(item[props.keyName])
                             ? styles.selectedItems
                             : styles.selectItems
                         }>
@@ -147,14 +147,14 @@ function SelectComponent(props: SelectInterface) {
                             textStyle={{
                               fontWeight: 'bold',
                               fontSize: 20,
-                              color: selectedItems.includes(item[props.keyName])
+                              color: selectedItems?.includes(item[props.keyName])
                                 ? MaterialColors.MaterialWhite
                                 : MaterialColors.MaterialBlack,
                             }}
                             isBold={true}
                             numberOfLines={0}
                           />
-                          {selectedItems.includes(item[props.keyName]) && (
+                          {selectedItems?.includes(item[props.keyName]) && (
                             <AntDesign
                               name="check"
                               size={20}
@@ -179,7 +179,7 @@ function SelectComponent(props: SelectInterface) {
                       buttonTitle={'Submit'}
                       buttonIcon={undefined}
                       iconAtEnd={false}
-                      disableButton={selectedItems.length == 0}
+                      disableButton={selectedItems?.length == 0}
                     />
                   </View>
                 </View>
