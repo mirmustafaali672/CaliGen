@@ -282,7 +282,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   }}
                   label={'Roles'}
                   previouslySelectedItems={data.roleNames}
-                  multiple
+                  multiple={true}
                 />
               </View>
               <ObjectScreenFooter

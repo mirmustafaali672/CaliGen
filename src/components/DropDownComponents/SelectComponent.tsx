@@ -29,12 +29,14 @@ export interface selectedItemInterface {
 
 function SelectComponent(props: SelectInterface) {
   const [isSelectModalOpen, setIsSelectModalOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<any[]>(props.previouslySelectedItems);
+  const [selectedItems, setSelectedItems] = useState<any[]>(
+    props.previouslySelectedItems,
+  );
   const isFocused = useIsFocused();
 
   useEffect(() => {
     setSelectedItems([]);
-    setSelectedItems(props.previouslySelectedItems)
+    setSelectedItems(props.previouslySelectedItems);
   }, [isFocused]);
 
   useEffect(() => {
@@ -111,17 +113,21 @@ function SelectComponent(props: SelectInterface) {
                   renderItem={({item}) => (
                     <TouchableOpacity
                       onPress={() => {
-                        if (selectedItems.includes(item[props.keyName])) {
-                          setSelectedItems(oldArray =>
-                            oldArray.filter(
-                              arrayItem => arrayItem !== item[props.keyName],
-                            ),
-                          );
+                        if (props.multiple) {
+                          if (selectedItems.includes(item[props.keyName])) {
+                            setSelectedItems(oldArray =>
+                              oldArray.filter(
+                                arrayItem => arrayItem !== item[props.keyName],
+                              ),
+                            );
+                          } else {
+                            setSelectedItems(oldArray => [
+                              ...oldArray,
+                              item[props.keyName],
+                            ]);
+                          }
                         } else {
-                          setSelectedItems(oldArray => [
-                            ...oldArray,
-                            item[props.keyName],
-                          ]);
+                          setSelectedItems(item[props.keyName]);
                         }
                       }}>
                       <View
