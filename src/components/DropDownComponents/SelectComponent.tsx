@@ -30,7 +30,6 @@ export interface selectedItemInterface {
 function SelectComponent(props: SelectInterface) {
   const [isSelectModalOpen, setIsSelectModalOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<any[]>(props.previouslySelectedItems);
-  console.log("selected Items", props.previouslySelectedItems, selectedItems);
   const isFocused = useIsFocused();
 
   useEffect(() => {
