@@ -8,7 +8,8 @@ interface SecondaryButtonInterface {
   buttonTitle: string,
   buttonIcon: any,
   iconAtEnd: boolean,
-  isActivityOnButton?: boolean
+  isActivityOnButton?: boolean,
+  disableButton? : boolean
 }
 
 function SecondaryButton(props: SecondaryButtonInterface) {

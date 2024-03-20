@@ -8,7 +8,8 @@ interface TernaryButtonInterface {
   buttonTitle: string,
   buttonIcon: any,
   iconAtEnd: boolean,
-  isActivityOnButton?: boolean
+  isActivityOnButton?: boolean,
+  disableButton? : boolean
 }
 
 function TernaryButton(props: TernaryButtonInterface) {
