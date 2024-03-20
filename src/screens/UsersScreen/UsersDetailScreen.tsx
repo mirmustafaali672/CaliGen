@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import {
@@ -50,6 +50,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     });
   const [createUserActivity, setCreateUserActivity] = useState(false);
   const [deleteUserActivity, setDeleteUserActivity] = useState(false);
+  const [dataDetailActivity, setDataDetailActivity] = useState(true);
   const [confirmationModal, setConfirmationModal] =
     useState<ConfirmationModalInterface>({
       visible: false,
@@ -59,17 +60,24 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     });
   const isFocused = useIsFocused();
   const [roles, setRoles] = useState<RolesInterface>();
+  useEffect(() => {
+    setDataDetailActivity(true);
+  }, []);
 
   useEffect(() => {
     GetUserDetials();
   }, []);
 
   async function GetUserDetials() {
+    setDataDetailActivity(true);
     await GetUserById(data.id)
       .then(res => {
         setData(res?.data);
       })
-      .catch(error => {});
+      .catch(error => {})
+      .then(res => {
+        setDataDetailActivity(false);
+      });
   }
 
   async function SubmitForm() {
@@ -188,118 +196,131 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
         navigation={props.navigation}
         showDeleteEntityButton={data.id ? true : false}
       />
-      <ScrollView overScrollMode="never">
-        <View style={{margin: 20}}>
-          <ScrollView
-            keyboardShouldPersistTaps="handled"
-            automaticallyAdjustKeyboardInsets={true}>
-            <View>
-              <InputFieldComponent
-                label="Username"
-                onChangeText={(value: any) => {
-                  setData({...data, userName: value});
-                }}
-                value={data.userName}
-                placeholder="Enter Username"
-              />
-            </View>
-            <View>
-              <InputFieldComponent
-                label="Name"
-                onChangeText={(value: any) => {
-                  setData({...data, name: value});
-                }}
-                value={data.name}
-                placeholder="Enter Name"
-              />
-            </View>
-            <View>
-              <InputFieldComponent
-                label="Surname"
-                onChangeText={(value: any) => {
-                  setData({...data, surname: value});
-                }}
-                value={data.surname}
-                placeholder="Enter Surname"
-              />
-            </View>
-            <View>
-              <InputFieldComponent
-                label="Email"
-                onChangeText={(value: any) => {
-                  setData({...data, email: value});
-                }}
-                value={data.email}
-                placeholder="Enter Email"
-              />
-            </View>
-            <View>
-              <InputFieldComponent
-                label="Phone Number"
-                onChangeText={(value: any) => {
-                  setData({...data, phoneNumber: value});
-                }}
-                value={data.phoneNumber}
-                placeholder="Enter Phone Number"
-              />
-            </View>
-            {!data.id && (
+      {dataDetailActivity && (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ActivityIndicator
+            size="large"
+            color={MaterialColors.MaterialDeepPurple}
+          />
+        </View>
+      )}
+      {!dataDetailActivity && (
+        <ScrollView overScrollMode="never">
+          <View style={{margin: 20}}>
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              automaticallyAdjustKeyboardInsets={true}>
               <View>
                 <InputFieldComponent
-                  label="Password"
+                  label="Username"
                   onChangeText={(value: any) => {
-                    setPassword(value);
+                    setData({...data, userName: value});
                   }}
-                  value={password}
-                  placeholder="Enter Password"
+                  value={data.userName}
+                  placeholder="Enter Username"
                 />
               </View>
-            )}
-            <View>
-              <SelectComponent
-                data={roles?.items}
-                keyName="name"
-                valueName="name"
-                onClose={(selectedItem: string[]) => {
-                  setData({...data, roleNames: selectedItem});
-                }}
-                label={'Roles'}
-                previouslySelectedItems={data.roleNames}
-                multiple
+              <View>
+                <InputFieldComponent
+                  label="Name"
+                  onChangeText={(value: any) => {
+                    setData({...data, name: value});
+                  }}
+                  value={data.name}
+                  placeholder="Enter Name"
+                />
+              </View>
+              <View>
+                <InputFieldComponent
+                  label="Surname"
+                  onChangeText={(value: any) => {
+                    setData({...data, surname: value});
+                  }}
+                  value={data.surname}
+                  placeholder="Enter Surname"
+                />
+              </View>
+              <View>
+                <InputFieldComponent
+                  label="Email"
+                  onChangeText={(value: any) => {
+                    setData({...data, email: value});
+                  }}
+                  value={data.email}
+                  placeholder="Enter Email"
+                />
+              </View>
+              <View>
+                <InputFieldComponent
+                  label="Phone Number"
+                  onChangeText={(value: any) => {
+                    setData({...data, phoneNumber: value});
+                  }}
+                  value={data.phoneNumber}
+                  placeholder="Enter Phone Number"
+                />
+              </View>
+              {!data.id && (
+                <View>
+                  <InputFieldComponent
+                    label="Password"
+                    onChangeText={(value: any) => {
+                      setPassword(value);
+                    }}
+                    value={password}
+                    placeholder="Enter Password"
+                  />
+                </View>
+              )}
+              <View>
+                <SelectComponent
+                  data={roles?.items}
+                  keyName="name"
+                  valueName="name"
+                  onClose={(selectedItem: string[]) => {
+                    setData({...data, roleNames: selectedItem});
+                  }}
+                  label={'Roles'}
+                  previouslySelectedItems={data.roleNames}
+                  multiple
+                />
+              </View>
+              <ObjectScreenFooter
+                navigation={props.navigation}
+                operationType={data.id ? 2 : 1}
+                createButtonClicked={() => SubmitForm()}
+                deleteButtonClicked={() => OpenConfiramtionDialog()}
+                isActivityOnButton={createUserActivity}
+                isActivityOnTernaryButton={deleteUserActivity}
               />
-            </View>
-            <ObjectScreenFooter
-              navigation={props.navigation}
-              operationType={data.id ? 2 : 1}
-              createButtonClicked={() => SubmitForm()}
-              deleteButtonClicked={() => OpenConfiramtionDialog()}
-              isActivityOnButton={createUserActivity}
-              isActivityOnTernaryButton={deleteUserActivity}
-            />
-            <View>
-              <ConfirmationModal
-                visible={confirmationModal.visible}
-                message={confirmationModal.message}
-                onConfirm={() => {
-                  deleteItem(data.id);
-                  setConfirmationModal({...confirmationModal, visible: false});
-                }}
-                onCancel={() =>
-                  setConfirmationModal({...confirmationModal, visible: false})
-                }
-              />
-              <TransactionModal
-                visible={transactionModal.visible}
-                onClose={() =>
-                  setTransactionModal({...transactionModal, visible: false})
-                }
-                status={transactionModal.status}
-                message={transactionModal.message}
-              />
-            </View>
-          </ScrollView>
-        </View>
-      </ScrollView>
+              <View>
+                <ConfirmationModal
+                  visible={confirmationModal.visible}
+                  message={confirmationModal.message}
+                  onConfirm={() => {
+                    deleteItem(data.id);
+                    setConfirmationModal({
+                      ...confirmationModal,
+                      visible: false,
+                    });
+                  }}
+                  onCancel={() =>
+                    setConfirmationModal({...confirmationModal, visible: false})
+                  }
+                />
+                <TransactionModal
+                  visible={transactionModal.visible}
+                  onClose={() =>
+                    setTransactionModal({...transactionModal, visible: false})
+                  }
+                  status={transactionModal.status}
+                  message={transactionModal.message}
+                />
+              </View>
+            </ScrollView>
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 }

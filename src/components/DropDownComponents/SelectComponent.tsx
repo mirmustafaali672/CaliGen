@@ -29,14 +29,13 @@ export interface selectedItemInterface {
 
 function SelectComponent(props: SelectInterface) {
   const [isSelectModalOpen, setIsSelectModalOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<any[]>(
-    props.previouslySelectedItems
-  );
-
+  const [selectedItems, setSelectedItems] = useState<any[]>(props.previouslySelectedItems);
+  console.log("selected Items", props.previouslySelectedItems, selectedItems);
   const isFocused = useIsFocused();
 
   useEffect(() => {
     setSelectedItems([]);
+    setSelectedItems(props.previouslySelectedItems)
   }, [isFocused]);
 
   useEffect(() => {
@@ -165,7 +164,8 @@ function SelectComponent(props: SelectInterface) {
               </View>
               {props.multiple && (
                 <View style={{flex: 1, margin: 10}}>
-                  <View style={{ justifyContent: "center", alignItems: "flex-end"}}>
+                  <View
+                    style={{justifyContent: 'center', alignItems: 'flex-end'}}>
                     <PrimaryButton
                       buttonClicked={() => {
                         props.onClose(selectedItems);
