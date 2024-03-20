@@ -12,10 +12,12 @@ export interface RadioButtonInterface {
 }
 
 function RadioButtonComponent(props: RadioButtonInterface) {
-  const [selected, setSelected] = useState<number>(props.buttons.findIndex( item => item.value == props.selected));
-  useEffect(()=>{
+  const [selected, setSelected] = useState<number>(
+    props.buttons.findIndex(item => item.value == props.selected),
+  );
+  useEffect(() => {
     props.onSelection(props.buttons[selected].value);
-  }, [selected])
+  }, [selected]);
   return (
     <View style={{marginVertical: 10}}>
       <RobotoText
@@ -56,16 +58,6 @@ function RadioButtonComponent(props: RadioButtonInterface) {
             </View>
           </TouchableOpacity>
         ))}
-        {/* <MaterialCommunityIcons
-          name="circle-slice-8"
-          size={20}
-          color={MaterialColors.MaterialDeepPurple}
-        />
-        <MaterialCommunityIcons
-          name="circle-outline"
-          size={20}
-          color={MaterialColors.MaterialDeepPurple}
-        /> */}
       </View>
     </View>
   );

@@ -89,8 +89,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       email: data.email,
       phoneNumber: data.phoneNumber,
       isActive: data.isActive,
-      shouldChangePasswordOnNextLogin: false,
-      lockoutEnabled: false,
+      shouldChangePasswordOnNextLogin: data.shouldChangePasswordOnNextLogin,
+      lockoutEnabled: data.lockoutEnabled,
       roleNames: data.roleNames,
       organizationUnitIds: [],
       password: password,
@@ -106,8 +106,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       email: data.email,
       phoneNumber: data.phoneNumber,
       isActive: true,
-      shouldChangePasswordOnNextLogin: false,
-      lockoutEnabled: false,
+      shouldChangePasswordOnNextLogin: data.shouldChangePasswordOnNextLogin,
+      lockoutEnabled: data.lockoutEnabled,
       roleNames: data.roleNames,
       organizationUnitIds: [],
       concurrencyStamp: data.concurrencyStamp ?? null,
@@ -298,6 +298,32 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                   selected={data.id ? data.isActive : false}
                   onSelection={(value: any) => {
                     setData({...data, isActive: value});
+                  }}
+                />
+              </View>
+              <View>
+                <RadioButtonComponent
+                  label={'Enable account lockout?'}
+                  buttons={[
+                    {name: 'Yes', value: true},
+                    {name: 'No', value: false},
+                  ]}
+                  selected={data.id ? data.lockoutEnabled : false}
+                  onSelection={(value: any) => {
+                    setData({...data, lockoutEnabled: value});
+                  }}
+                />
+              </View>
+              <View>
+                <RadioButtonComponent
+                  label={'Should change password in next login?'}
+                  buttons={[
+                    {name: 'Yes', value: true},
+                    {name: 'No', value: false},
+                  ]}
+                  selected={data.id ? data.shouldChangePasswordOnNextLogin : false}
+                  onSelection={(value: any) => {
+                    setData({...data, shouldChangePasswordOnNextLogin: value});
                   }}
                 />
               </View>
