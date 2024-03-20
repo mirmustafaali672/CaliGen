@@ -77,3 +77,22 @@ export async function DeleteRole(id: string) {
         return null;
     }
 }
+
+export async function GetRoleById(id: string) {
+    const credentials = await Keychain.getGenericPassword();
+    if(credentials) {
+        const headers = {
+            Authorization: 'Bearer ' + credentials.password
+        }
+        return api({
+            method: "GET",
+            url: `/api/identity/roles/${id}`,
+            baseURL: EnvSettings.HostURL,
+            headers: headers
+        })
+    }
+    else 
+    {
+        return null;
+    }
+}

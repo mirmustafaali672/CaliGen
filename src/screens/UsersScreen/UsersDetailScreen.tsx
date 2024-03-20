@@ -38,6 +38,8 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
+
+  //common entity variables 
   const [data, setData] = useState<UserDetailsInterface>(
     props.route.params?.item ?? {},
   );
@@ -49,9 +51,9 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       status: 0,
       onClose: null,
     });
-  const [createUserActivity, setCreateUserActivity] = useState(false);
-  const [deleteUserActivity, setDeleteUserActivity] = useState(false);
-  const [dataDetailActivity, setDataDetailActivity] = useState(true);
+  const [createEntityActivity, setCreateEntityActivity] = useState(false);
+  const [deleteEntityActivity, setDeleteEntityActivity] = useState(false);
+  const [entityDetailActivity, setEntityDetailActivity] = useState(true);
   const [confirmationModal, setConfirmationModal] =
     useState<ConfirmationModalInterface>({
       visible: false,
@@ -61,8 +63,12 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     });
   const isFocused = useIsFocused();
   const [roles, setRoles] = useState<RolesInterface>();
+  //
+
+
+  // common entity operations and functions 
   useEffect(() => {
-    setDataDetailActivity(true);
+    setEntityDetailActivity(true);
   }, []);
 
   useEffect(() => {
@@ -70,14 +76,14 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   }, []);
 
   async function GetUserDetials() {
-    setDataDetailActivity(true);
+    setEntityDetailActivity(true);
     await GetUserById(data.id)
       .then(res => {
         setData(res?.data);
       })
       .catch(error => {})
       .then(res => {
-        setDataDetailActivity(false);
+        setEntityDetailActivity(false);
       });
   }
 
@@ -97,8 +103,6 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       sendConfirmationEmail: false,
     };
 
-    console.log('data', data);
-
     const updateData: UpdateUserInterface = {
       userName: data.userName,
       name: data.name,
@@ -113,7 +117,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
       concurrencyStamp: data.concurrencyStamp ?? null,
     };
 
-    setCreateUserActivity(true);
+    setCreateEntityActivity(true);
     const createUserCall = data.id
       ? UpdateUser(updateData, data.id)
       : CreateUser(formData);
@@ -126,20 +130,20 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
         setTransactionModalState(-1);
       })
       .then(data => {
-        setCreateUserActivity(false);
+        setCreateEntityActivity(false);
         GetUserDetials();
       });
   }
 
   async function deleteItem(id: string) {
-    setDeleteUserActivity(true);
+    setDeleteEntityActivity(true);
     await DeleteUser(id)
       .then(data => {})
       .catch(error => {
         setTransactionModalState(-1);
       })
       .then(data => {
-        setDeleteUserActivity(false);
+        setDeleteEntityActivity(false);
         props.navigation.goBack();
       });
   }
@@ -178,6 +182,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
     });
   }
 
+  //
+
   async function GetRolesList() {
     await GetRoles('')
       .then((data: any) => {
@@ -199,7 +205,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
         navigation={props.navigation}
         showDeleteEntityButton={data.id ? true : false}
       />
-      {dataDetailActivity && (
+      {entityDetailActivity && (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator
             size="large"
@@ -207,7 +213,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
           />
         </View>
       )}
-      {!dataDetailActivity && (
+      {!entityDetailActivity && (
         <ScrollView overScrollMode="never">
           <View style={{margin: 20}}>
             <ScrollView
@@ -332,8 +338,8 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                 operationType={data.id ? 2 : 1}
                 createButtonClicked={() => SubmitForm()}
                 deleteButtonClicked={() => OpenConfiramtionDialog()}
-                isActivityOnButton={createUserActivity}
-                isActivityOnTernaryButton={deleteUserActivity}
+                isActivityOnButton={createEntityActivity}
+                isActivityOnTernaryButton={deleteEntityActivity}
               />
               <View>
                 <ConfirmationModal
