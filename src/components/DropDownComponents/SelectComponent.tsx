@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     height: 60,
-    marginHorizontal: 20,
-    marginVertical: 5,
+    marginHorizontal: 10,
+    marginVertical: 2,
     borderRadius: 10,
   },
 });
