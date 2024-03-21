@@ -123,7 +123,7 @@ export const MenuList: MenuListInterface[] = [
       },
       {
         name: 'Permission',
-        navigationRouteName: 'PermissionScreen',
+        navigationRouteName: 'PermissionMainScreen',
         icons: '',
         isParent: false,
         parentName: 'none',

@@ -50,7 +50,7 @@ function SelectComponent(props: SelectInterface) {
   return (
     <View>
       <TouchableOpacity onPress={() => setIsSelectModalOpen(true)}>
-        <View style={{marginVertical: 10}}>
+        <View style={{marginVertical: 10, minHeight: 90}}>
           <RobotoText
             text={props.label ?? '--'}
             textStyle={{
@@ -127,7 +127,7 @@ function SelectComponent(props: SelectInterface) {
                             ]);
                           }
                         } else {
-                          setSelectedItems(item[props.keyName]);
+                          setSelectedItems([item[props.keyName]]);
                         }
                       }}>
                       <View
@@ -147,7 +147,9 @@ function SelectComponent(props: SelectInterface) {
                             textStyle={{
                               fontWeight: 'bold',
                               fontSize: 20,
-                              color: selectedItems?.includes(item[props.keyName])
+                              color: selectedItems?.includes(
+                                item[props.keyName],
+                              )
                                 ? MaterialColors.MaterialWhite
                                 : MaterialColors.MaterialBlack,
                             }}
