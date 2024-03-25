@@ -91,8 +91,10 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
         <View>
           <TabNavigationComponent
             defaultSelectedTabIndex={0}
-            tabComponents={TabNavigationComponentData}
             onTabClicked={(index: any) => setSelectedTabIndex(index)}
+            items={TabNavigationComponentData}
+            keyName={'componentTitile'}
+            valueName={'componentTitile'}
           />
         </View>
         <View style={{flex: 1}}>

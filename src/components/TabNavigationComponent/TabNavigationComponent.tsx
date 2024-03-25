@@ -38,7 +38,9 @@ function TabNavBarButton(props: TabNavBarButtonInterface) {
 }
 
 export interface TabNavigationComponentInterface {
-  tabComponents: TabComponentsInterface[];
+  items: any[];
+  keyName: string;
+  valueName: string;
   onTabClicked: any;
   defaultSelectedTabIndex: number;
 }
@@ -52,18 +54,17 @@ function TabNavigationComponent(props: TabNavigationComponentInterface) {
   const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
     props.defaultSelectedTabIndex,
   );
-  useEffect(()=> 
-  {
+  useEffect(() => {
     props.onTabClicked(selectedTabIndex);
-  }, [selectedTabIndex])
+  }, [selectedTabIndex]);
   return (
     <View>
-      <ScrollView horizontal>
-        {props.tabComponents.map((component, index) => {
+      <ScrollView horizontal showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+        {props.items.map((item, index) => {
           return (
             <View key={index}>
               <TabNavBarButton
-                buttonTitle={component.componentTitile}
+                buttonTitle={item[props.valueName]}
                 isSelectedTab={selectedTabIndex == index}
                 onTabButtonClick={() => setSelectedTabIndex(index)}
               />
