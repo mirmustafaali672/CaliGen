@@ -115,20 +115,6 @@ function MyTabs() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Speech"
-        component={SpeecToTextScreen}
-        options={{
-          tabBarLabel: 'Voice',
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons
-              name="text-to-speech"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="Menu"
         component={MoreScreenNavigator}
@@ -168,36 +154,6 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <MyTabs />
     </NavigationContainer>
-    // <SafeAreaView style={backgroundStyle}>
-    //   <StatusBar
-    //     barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-    //     backgroundColor={backgroundStyle.backgroundColor}
-    //   />
-    //   <ScrollView
-    //     contentInsetAdjustmentBehavior="automatic"
-    //     style={backgroundStyle}>
-    //     <Header />
-    //     <View
-    //       style={{
-    //         backgroundColor: isDarkMode ? Colors.black : Colors.white,
-    //       }}>
-    //       <Section title="Step One">
-    //         Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-    //         screen and then come back to see your edits.
-    //       </Section>
-    //       <Section title="See Your Changes">
-    //         <ReloadInstructions />
-    //       </Section>
-    //       <Section title="Debug">
-    //         <DebugInstructions />
-    //       </Section>
-    //       <Section title="Learn More">
-    //         Read the docs to discover what to do next:
-    //       </Section>
-    //       <LearnMoreLinks />
-    //     </View>
-    //   </ScrollView>
-    // </SafeAreaView>
   );
 }
 
