@@ -7,11 +7,15 @@ import TabNavigationComponent, {
   TabNavigationComponentInterface,
 } from '../../components/TabNavigationComponent/TabNavigationComponent';
 import {useEffect, useState} from 'react';
-import {UserDetailsInterface, UsersInterface} from '../../interfaces/UsersInterface';
+import {
+  UserDetailsInterface,
+  UsersInterface,
+} from '../../interfaces/UsersInterface';
 import {GetRoles} from '../../api/RolesAPI';
 import {GetUsers} from '../../api/UsersAPI';
 import RobotoText from '../../components/Text/RobotoText';
 import EntityDetailCardComponent from '../../components/EntityDetailCardComponent/EntityDetailCardComponent';
+import TabNavItemListComponent from '../../components/TabNavigationComponent/TabNavItemListComponent';
 
 interface PermissionMainScreenInterface {
   navigation: any;
@@ -59,6 +63,15 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
       GetUsersList();
     }
   }, [selectedTabIndex, search]);
+
+  function onItemCliked(itemId: string, itemType: string, objectName: string) {
+    props.navigation.navigate('PermissionDetailScreen', {
+      itemId,
+      itemType,
+      objectName,
+    });
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
       <ObjectScreenHeader
@@ -116,16 +129,11 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
                       data={rolesData?.items}
                       renderItem={({item}) => {
                         return (
-                          <EntityDetailCardComponent
-                            navigation={props.navigation}
-                            item={item}
-                            cardTitle={item.name}
-                            value1={`Name: ${item.name}`}
-                            value2={`Is default: ${item.isDefault}`}
-                            value3={`Is public: ${item.isPublic}`}
-                            value4={`User Count: ${item.userCount}`}
-                            showUserProfile={false}
-                            navigationScreenName={'CreateRoleScreen'}
+                          <TabNavItemListComponent
+                            title={item.name}
+                            onItemClicked={() =>
+                              onItemCliked(item.id, 'Role', item.name)
+                            }
                           />
                         );
                       }}
@@ -135,34 +143,53 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
               )}
             </View>
           )}
-          {
-            selectedTabIndex == 1 &&
-            <View style={{ flex: 1 }}>
-            {usersActivity &&
-                <View style={{ flex: 1, justifyContent: "center" }}>
-                    <ActivityIndicator size="large" color={MaterialColors.MaterialDeepPurple} />
-                </View>}
-            {!usersActivity &&
-                <View style={{ flex: 1, padding: 10 }}>
-                    <View style={{ flexDirection: "row" }}>
-                        <RobotoText text={"Total: "} textStyle={{}} isBold={true} numberOfLines={0} />
-                        <RobotoText text={usersData?.totalCount.toString() ?? ""} textStyle={{}} isBold={true} numberOfLines={0} />
-                    </View>
-                    <View>
-                        <FlatList overScrollMode="never"
-                            keyExtractor={item => item.id}
-                            data={usersData?.items}
-                            renderItem={({ item }) => {
-                                return (<EntityDetailCardComponent navigation={props.navigation} item={item} 
-                                    cardTitle={item.userName} value1={`Name: ${item.name}`} 
-                                    value2={`Surname: ${item.surname}`} value3={`Email: ${item.email}`} 
-                                    value4={`Phone Number: ${item.phoneNumber}`} showUserProfile={true} navigationScreenName="CreateUserScreen"/>)
-                            }} />
-                    </View>
+          {selectedTabIndex == 1 && (
+            <View style={{flex: 1}}>
+              {usersActivity && (
+                <View style={{flex: 1, justifyContent: 'center'}}>
+                  <ActivityIndicator
+                    size="large"
+                    color={MaterialColors.MaterialDeepPurple}
+                  />
                 </View>
-            }
-        </View>
-          }
+              )}
+              {!usersActivity && (
+                <View style={{flex: 1, padding: 10}}>
+                  <View style={{flexDirection: 'row'}}>
+                    <RobotoText
+                      text={'Total: '}
+                      textStyle={{}}
+                      isBold={true}
+                      numberOfLines={0}
+                    />
+                    <RobotoText
+                      text={usersData?.totalCount.toString() ?? ''}
+                      textStyle={{}}
+                      isBold={true}
+                      numberOfLines={0}
+                    />
+                  </View>
+                  <View>
+                    <FlatList
+                      overScrollMode="never"
+                      keyExtractor={item => item.id}
+                      data={usersData?.items}
+                      renderItem={({item}) => {
+                        return (
+                          <TabNavItemListComponent
+                            title={item.name}
+                            onItemClicked={() =>
+                              onItemCliked(item.id, 'User', item.name)
+                            }
+                          />
+                        );
+                      }}
+                    />
+                  </View>
+                </View>
+              )}
+            </View>
+          )}
         </View>
       </View>
     </View>

@@ -9,6 +9,7 @@ import UsersScreen from '../UsersScreen/UsersMainScreen';
 import RolesScreen from '../RolesScreen/RolesMainScreen';
 import CreateRoleScreen from '../RolesScreen/RolesDetailScreen';
 import PermissionMainScreen from '../PermissionsScreen/PermissionMainScreen';
+import PermissionDetailScreen from '../PermissionsScreen/PermissionDetailScreen';
 
 function MoreScreenNavigator(){
     const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ function MoreScreenNavigator(){
           <Stack.Screen options={{headerShown: false}} name="RolesScreen" component={RolesScreen} />
           <Stack.Screen options={{headerShown: false}} name="CreateRoleScreen" component={CreateRoleScreen} />
           <Stack.Screen options={{headerShown: false}} name="PermissionMainScreen" component={PermissionMainScreen} />
+          <Stack.Screen options={{headerShown: false}} name="PermissionDetailScreen" component={PermissionDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
