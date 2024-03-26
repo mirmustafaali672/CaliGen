@@ -1,8 +1,14 @@
 import api from "./API";
 import EnvSettings from "../../env";
 import * as Keychain from 'react-native-keychain';
+import { Path } from "react-native-svg";
 
-export async function GetRolesPermissionById(providerKey: string, providerName: string) 
+export interface UpdatePermissionInterface
+{
+    permissions: {name:string, isGranted: boolean}[];
+}
+
+export async function GetPermissionFromAPI(providerKey: string, providerName: string) 
 {
     const credentials = await Keychain.getGenericPassword();
     if(credentials)
@@ -10,6 +16,7 @@ export async function GetRolesPermissionById(providerKey: string, providerName: 
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
+        console.log("creds", credentials.password)
         const params = {
             providerKey: providerKey,
             providerName: providerName
@@ -27,7 +34,8 @@ export async function GetRolesPermissionById(providerKey: string, providerName: 
     }    
 }
 
-export async function GetAllClaimTypes() 
+
+export async function UpdatePermission(providerKey: string, providerName: string, data: UpdatePermissionInterface) 
 {
     const credentials = await Keychain.getGenericPassword();
     if(credentials)
@@ -35,14 +43,17 @@ export async function GetAllClaimTypes()
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
+        const params = {
+            providerKey: providerKey,
+            providerName: providerName
+        }
         return api({
-            method: "GET",
-            url: `api/identity/claim-types`,
+            method: "PUT",
+            url: `/api/permission-management/permissions`,
             baseURL: EnvSettings.HostURL,
             headers: headers,
+            data: data,
+            params: params
         })
     }
-    else {
-        return null;
-    }    
 }
