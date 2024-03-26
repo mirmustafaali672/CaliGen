@@ -35,8 +35,8 @@ function PermissionDetailScreenModel(
       props.providerName,
       permissionData,
     )
-      .then(data => console.log('data', data))
-      .catch(error => console.log('error', error))
+      .then(data => {})
+      .catch(error => {})
       .then(data => {
         setActivity(false);
         props.onSubmit();

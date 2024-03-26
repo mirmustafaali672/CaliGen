@@ -9,7 +9,6 @@ interface CheckBoxComponentInterface {
   onClicked: any;
 }
 function CheckBoxComponent(props: CheckBoxComponentInterface) {
-    console.log(props.isChecked)
   return (
     <TouchableOpacity onPress={()=> props.onClicked()}>
     <View style={{flexDirection: 'row', gap: 15}}>

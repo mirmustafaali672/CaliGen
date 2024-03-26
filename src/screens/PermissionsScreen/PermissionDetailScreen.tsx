@@ -50,9 +50,6 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
       });
   }
 
-  useEffect(() => {
-    console.log('permissions', permissions?.groups[0].permissions);
-  }, [permissions]);
 
   useEffect(() => {
     GetPermission(props.route.params?.itemId);

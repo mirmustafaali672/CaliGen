@@ -16,7 +16,6 @@ export async function GetPermissionFromAPI(providerKey: string, providerName: st
         const headers = {
             Authorization: 'Bearer ' + credentials.password
         }
-        console.log("creds", credentials.password)
         const params = {
             providerKey: providerKey,
             providerName: providerName
