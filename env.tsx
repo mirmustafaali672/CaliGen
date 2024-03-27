@@ -12,7 +12,6 @@ import { EnvSettingInterface } from "./src/interfaces/EnvSettingInterface";
 export async function EnvSettings(): Promise<EnvSettingInterface> 
 {
     const env = await GetDataFromStorage("EnvSettings");
-    console.log("Here", env)
     return env;
 }
 
