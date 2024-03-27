@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   StatusBar,
   TouchableOpacity,
-  Modal,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -25,6 +24,7 @@ import TransactionModal from '../../components/Modals/TransactionModal';
 
 interface LoginScreenInterface {
   UserLoggedIn: any;
+  settingsClicked: any;
 }
 
 function LoginScreen(props: LoginScreenInterface) {
@@ -36,7 +36,6 @@ function LoginScreen(props: LoginScreenInterface) {
   const [transactionStatusMessage, setTransactionStatusMessage] =
     useState('--');
   const [loginActivity, setLoginActivity] = useState(false);
-  const [isSettingModelOpen, setIsSettingModelOpen] = useState(false);
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
@@ -93,7 +92,7 @@ function LoginScreen(props: LoginScreenInterface) {
           marginHorizontal: 10,
           marginVertical: 5,
         }}>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => props.settingsClicked()}>
           <View style={{}}>
             <Ionicons
               name="settings-sharp"
@@ -275,9 +274,6 @@ function LoginScreen(props: LoginScreenInterface) {
           </View>
         </ScrollView>
       </View>
-      <Modal>
-
-      </Modal>
     </View>
   );
 }
