@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   View,
@@ -6,10 +6,14 @@ import {
   StyleSheet,
   Pressable,
   ActivityIndicator,
+  StatusBar,
+  TouchableOpacity,
+  Modal,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { login } from '../../api/AccountAPI';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {login} from '../../api/AccountAPI';
 import * as Keychain from 'react-native-keychain';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
@@ -19,54 +23,55 @@ import TransactionModal from '../../components/Modals/TransactionModal';
 // let screenWidth = Dimensions.get('window').width;
 // let inputFieldOnFocusBorderColor = {};
 
-function LoginScreen({ UserLoggedIn }) {
+interface LoginScreenInterface {
+  UserLoggedIn: any;
+}
+
+function LoginScreen(props: LoginScreenInterface) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
-  const [isTransactionModelVisible, setIsTransactionModelVisible] = useState(false);
+  const [isTransactionModelVisible, setIsTransactionModelVisible] =
+    useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
-  const [transactionStatusMessage, setTransactionStatusMessage] = useState("--");
+  const [transactionStatusMessage, setTransactionStatusMessage] =
+    useState('--');
   const [loginActivity, setLoginActivity] = useState(false);
+  const [isSettingModelOpen, setIsSettingModelOpen] = useState(false);
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
-      setIsTransactionModelVisible(true)
+      setIsTransactionModelVisible(true);
       setTransactionModalStatus(1);
-      setTransactionStatusMessage("Success.");
-      setIsTransactionModelVisible(true)
-    }
-    else if (errorState == 0) {
-      setIsTransactionModelVisible(true)
+      setTransactionStatusMessage('Success.');
+      setIsTransactionModelVisible(true);
+    } else if (errorState == 0) {
+      setIsTransactionModelVisible(true);
       setTransactionModalStatus(0);
-      setTransactionStatusMessage("Something went wrong.");
-      setIsTransactionModelVisible(true)
-    }
-    else {
-      setIsTransactionModelVisible(true)
+      setTransactionStatusMessage('Something went wrong.');
+      setIsTransactionModelVisible(true);
+    } else {
+      setIsTransactionModelVisible(true);
       setTransactionModalStatus(-1);
-      setTransactionStatusMessage("Warning");
-      setIsTransactionModelVisible(true)
+      setTransactionStatusMessage('Warning');
+      setIsTransactionModelVisible(true);
     }
   }
 
-
   const startLogin = async (username: string, password: string) => {
     setLoginActivity(true);
-    await login({ username, password })
+    await login({username, password})
       .then(data => {
         Keychain.setGenericPassword(username, data.access_token);
-        UserLoggedIn();
+        props.UserLoggedIn();
         // navigation.navigate('Home');
       })
       .catch(error => {
         setTransactionModalState(0);
-      }).then(
-        data => 
-        {
-          setLoginActivity(false);
-        }
-      );
+      })
+      .then(data => {
+        setLoginActivity(false);
+      });
   };
-
 
   const [inputFieldOnFocusBorderColor, setinputFieldOnFocusBorderColor] =
     useState({});
@@ -77,8 +82,29 @@ function LoginScreen({ UserLoggedIn }) {
 
   return (
     <View style={styles.loginFullMainScreen}>
+      <StatusBar
+        animated={true}
+        backgroundColor={MaterialColors.MaterialDeepPurple}
+        hidden={false}
+      />
+      <View
+        style={{
+          alignItems: 'flex-start',
+          marginHorizontal: 10,
+          marginVertical: 5,
+        }}>
+        <TouchableOpacity onPress={() => {}}>
+          <View style={{}}>
+            <Ionicons
+              name="settings-sharp"
+              size={24}
+              color={MaterialColors.MaterialBLueGreyMediumLight}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
       <View style={styles.topPart}>
-        <View style={[{ alignItems: 'center' }]}>
+        <View style={[{alignItems: 'center'}]}>
           <RobotoText
             isBold={true}
             text="CaliGen"
@@ -86,13 +112,18 @@ function LoginScreen({ UserLoggedIn }) {
               color: MaterialColors.MaterialBlack,
               fontSize: 60,
               marginTop: '30%',
-            }} numberOfLines={0} />
+            }}
+            numberOfLines={0}
+          />
           <RobotoText
             text="Login to continue"
             textStyle={{
               color: MaterialColors.MaterialBlueGreyLight,
               fontSize: 30,
-            }} isBold={false} numberOfLines={0} />
+            }}
+            isBold={false}
+            numberOfLines={0}
+          />
         </View>
       </View>
       <View style={styles.bottomPart}>
@@ -101,7 +132,7 @@ function LoginScreen({ UserLoggedIn }) {
           keyboardShouldPersistTaps="handled"
           automaticallyAdjustKeyboardInsets={true}>
           <View style={styles.bottomPart}>
-            <View style={{ flex: 1 }}>
+            <View style={{flex: 1}}>
               <ScrollView
                 style={{
                   marginVertical: '3%',
@@ -117,7 +148,7 @@ function LoginScreen({ UserLoggedIn }) {
                     name="user"
                     size={24}
                     color={MaterialColors.MaterialDeepPurple}
-                    style={{ marginRight: '5%' }}
+                    style={{marginRight: '5%'}}
                   />
                   <TextInput
                     onBlur={() =>
@@ -145,7 +176,7 @@ function LoginScreen({ UserLoggedIn }) {
                     inputFieldOnFocusBorderColor,
                   ]}>
                   <MaterialIcons
-                    style={{ marginRight: '5%' }}
+                    style={{marginRight: '5%'}}
                     name="password"
                     size={24}
                     color={MaterialColors.MaterialDeepPurple}
@@ -172,34 +203,46 @@ function LoginScreen({ UserLoggedIn }) {
                 </View>
                 <Pressable
                   style={styles.loginButton}
-                  onPress={() =>
-                    startLogin(username, password)
-                  }>
-                  {!loginActivity && <RobotoText
-                    text="Login"
-                    textStyle={{
-                      color: MaterialColors.MaterialWhite,
-                      fontWeight: 'bold',
-                    }} isBold={false} numberOfLines={0} />}
+                  onPress={() => startLogin(username, password)}>
+                  {!loginActivity && (
+                    <RobotoText
+                      text="Login"
+                      textStyle={{
+                        color: MaterialColors.MaterialWhite,
+                        fontWeight: 'bold',
+                      }}
+                      isBold={false}
+                      numberOfLines={0}
+                    />
+                  )}
 
-                  {loginActivity && <ActivityIndicator size="small" color={MaterialColors.MaterialWhite} />}
+                  {loginActivity && (
+                    <ActivityIndicator
+                      size="small"
+                      color={MaterialColors.MaterialWhite}
+                    />
+                  )}
                 </Pressable>
                 <Pressable
                   style={styles.forgotPasswordButton}
-                  onPress={() => { }
-                  }>
+                  onPress={() => {}}>
                   <RobotoText
                     text="Forgot Password?"
                     textStyle={{
                       color: MaterialColors.MaterialDeepPurple,
                       fontWeight: 'bold',
-                    }} isBold={false} numberOfLines={0} />
+                    }}
+                    isBold={false}
+                    numberOfLines={0}
+                  />
                 </Pressable>
                 <View>
-                  <TransactionModal visible={isTransactionModelVisible}
+                  <TransactionModal
+                    visible={isTransactionModelVisible}
                     onClose={() => setIsTransactionModelVisible(false)}
                     status={transactionModalStatus}
-                    message={transactionStatusMessage} />
+                    message={transactionStatusMessage}
+                  />
                 </View>
               </ScrollView>
             </View>
@@ -216,16 +259,25 @@ function LoginScreen({ UserLoggedIn }) {
               textStyle={{
                 color: MaterialColors.MaterialBlueGreyLight,
                 fontWeight: 'bold',
-              }} isBold={false} numberOfLines={0} />
+              }}
+              isBold={false}
+              numberOfLines={0}
+            />
             <RobotoText
               text=" Register"
               textStyle={{
                 color: MaterialColors.MaterialDeepPurple,
                 fontWeight: 'bold',
-              }} isBold={false} numberOfLines={0} />
+              }}
+              isBold={false}
+              numberOfLines={0}
+            />
           </View>
         </ScrollView>
       </View>
+      <Modal>
+
+      </Modal>
     </View>
   );
 }
@@ -253,7 +305,7 @@ const styles = StyleSheet.create({
   loginCard: {},
   imageSetter: {},
   loginInputFields: {
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'center',
     margin: '1%',
     flexDirection: 'row',
@@ -292,7 +344,7 @@ const styles = StyleSheet.create({
     // shadowColor: 'white',
     // shadowColor: 'black',
   },
-  inputFieldIcon: { borderColor: 'black', width: '80%', height: 50 },
+  inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
   centeredView: {
     flex: 1,
     justifyContent: 'center',
