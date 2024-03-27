@@ -3,6 +3,7 @@ import EnvSettings from "../../env";
 import * as Keychain from 'react-native-keychain';
 
 export async function GetRoles(filter: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -11,7 +12,7 @@ export async function GetRoles(filter: string) {
         return api({
             method: "GET",
             url: "api/identity/roles",
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             params: { filter: filter }
         });
@@ -22,6 +23,7 @@ export async function GetRoles(filter: string) {
 }
 
 export async function CreateRole(data: CreateRoleInterface) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -30,7 +32,7 @@ export async function CreateRole(data: CreateRoleInterface) {
         return api({
             method: "POST",
             url: "/api/identity/roles",
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             data: data
         })
@@ -42,6 +44,7 @@ export async function CreateRole(data: CreateRoleInterface) {
 }
 
 export async function UpdateRole(data:UpdateRoleInterface, id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials) {
         const headers = {
@@ -50,7 +53,7 @@ export async function UpdateRole(data:UpdateRoleInterface, id: string) {
         return api({
             method: "PUT",
             url: `/api/identity/roles/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             data: data
         })
@@ -61,6 +64,7 @@ export async function UpdateRole(data:UpdateRoleInterface, id: string) {
 }
 
 export async function DeleteRole(id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -69,7 +73,7 @@ export async function DeleteRole(id: string) {
         return api({
             method: "DELETE",
             url: `/api/identity/roles/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers
         })
     }
@@ -79,6 +83,7 @@ export async function DeleteRole(id: string) {
 }
 
 export async function GetRoleById(id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials) {
         const headers = {
@@ -87,7 +92,7 @@ export async function GetRoleById(id: string) {
         return api({
             method: "GET",
             url: `/api/identity/roles/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers
         })
     }

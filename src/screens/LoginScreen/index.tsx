@@ -278,7 +278,7 @@ function LoginScreen(props: LoginScreenInterface) {
       </View>
       <LoginSettingModal
         visible={isLoginSettingModal}
-        onSubmit={() => {}}
+        onSubmit={() => setIsLoginSettingModal(false)}
         onCancel={() => setIsLoginSettingModal(false)}
         message={''}
       />

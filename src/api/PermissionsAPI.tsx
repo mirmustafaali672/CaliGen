@@ -10,6 +10,7 @@ export interface UpdatePermissionInterface
 
 export async function GetPermissionFromAPI(providerKey: string, providerName: string) 
 {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials)
     {
@@ -23,7 +24,7 @@ export async function GetPermissionFromAPI(providerKey: string, providerName: st
         return api({
             method: "GET",
             url: `/api/permission-management/permissions`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             params: params
         })
@@ -36,6 +37,7 @@ export async function GetPermissionFromAPI(providerKey: string, providerName: st
 
 export async function UpdatePermission(providerKey: string, providerName: string, data: UpdatePermissionInterface) 
 {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials)
     {
@@ -49,7 +51,7 @@ export async function UpdatePermission(providerKey: string, providerName: string
         return api({
             method: "PUT",
             url: `/api/permission-management/permissions`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             data: data,
             params: params

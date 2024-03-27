@@ -20,10 +20,6 @@ interface LoginSettingModalInterface {
   message: string;
 }
 
-interface ApplicationEnvUrlSettingsInterface {
-  hostUrl: string;
-  authUrl: string;
-}
 
 let screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
@@ -31,13 +27,13 @@ let screenWidth = Dimensions.get('window').width;
 function LoginSettingModal(props: LoginSettingModalInterface) {
   const [EnvSettings, setApplicationEnvUrlSetting] =
     useState<EnvSettingInterface>({
-      AuthURL: '',
-      HostURL: '',
-      Loaclization_DefaultResourceName: 'FileUploader',
-      OAuthConfig_ClientId: 'FileUploader_Mobile',
-      OAuthConfig_Scope: 'offline_access FileUploader',
+      authURL: '',
+      hostURL: '',
+      loaclization_DefaultResourceName: 'FileUploader',
+      oAuthConfig_ClientId: 'FileUploader_Mobile',
+      oAuthConfig_Scope: 'offline_access FileUploader',
     });
-  const [activity, isActive] = useState(false);
+  const [activity, setActivity] = useState(false);
 
   async function GetData() {
     const data = await GetDataFromStorage('EnvSettings');
@@ -68,13 +64,13 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
                   onChangeText={(value: any) =>
                     setApplicationEnvUrlSetting({
                       ...EnvSettings,
-                      authUrl: value,
-                      Loaclization_DefaultResourceName: 'FileUploader',
-                      OAuthConfig_ClientId: 'FileUploader_Mobile',
-                      OAuthConfig_Scope: 'offline_access FileUploader',
+                      authURL: value,
+                      loaclization_DefaultResourceName: 'FileUploader',
+                      oAuthConfig_ClientId: 'FileUploader_Mobile',
+                      oAuthConfig_Scope: 'offline_access FileUploader',
                     })
                   }
-                  value={EnvSettings?.authUrl}
+                  value={EnvSettings.authURL}
                   placeholder={'Auth Address'}
                   label={'Auth Address'}
                 />
@@ -84,13 +80,13 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
                   onChangeText={(value: any) =>
                     setApplicationEnvUrlSetting({
                       ...EnvSettings,
-                      hostUrl: value,
-                      Loaclization_DefaultResourceName: 'FileUploader',
-                      OAuthConfig_ClientId: 'FileUploader_Mobile',
-                      OAuthConfig_Scope: 'offline_access FileUploader',
+                      hostURL: value,
+                      loaclization_DefaultResourceName: 'FileUploader',
+                      oAuthConfig_ClientId: 'FileUploader_Mobile',
+                      oAuthConfig_Scope: 'offline_access FileUploader',
                     })
                   }
-                  value={EnvSettings?.hostUrl}
+                  value={EnvSettings.hostURL}
                   placeholder={'Host Address'}
                   label={'Host Address'}
                 />
@@ -105,8 +101,12 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
                 isActivityOnButton={activity}
               />
               <PrimaryButton
-                buttonClicked={() =>
-                  SaveDataToStorage('EnvSettings', JSON.stringify(EnvSettings))
+                buttonClicked={() =>{
+                  setActivity(true);
+                  SaveDataToStorage('EnvSettings', JSON.stringify(EnvSettings));
+                  setActivity(false);
+                  props.onSubmit();
+                }
                 }
                 buttonTitle={'Save'}
                 buttonIcon={null}

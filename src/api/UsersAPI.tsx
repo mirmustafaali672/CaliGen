@@ -13,6 +13,7 @@ import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInt
 
 
 export async function GetUsers(filter: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -21,7 +22,7 @@ export async function GetUsers(filter: string) {
         return api({
             method: "GET",
             url: "api/identity/users",
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             params: { filter: filter }
         });
@@ -32,6 +33,7 @@ export async function GetUsers(filter: string) {
 }
 
 export async function GetCurrentUserDetailsByUsername() {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -40,7 +42,7 @@ export async function GetCurrentUserDetailsByUsername() {
         return api({
             method: "GET",
             url: `/api/identity/users/by-username/${credentials.username}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers
         });
     }
@@ -50,6 +52,7 @@ export async function GetCurrentUserDetailsByUsername() {
 }
 
 export async function GetUserById(id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials) {
         const headers = {
@@ -58,7 +61,7 @@ export async function GetUserById(id: string) {
         return api({
             method: "GET",
             url: `/api/identity/users/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers
         })
     }
@@ -71,6 +74,7 @@ export async function GetUserById(id: string) {
 
 
 export async function CreateUser(data: CreateUserInterface) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -79,7 +83,7 @@ export async function CreateUser(data: CreateUserInterface) {
         return api({
             method: "POST",
             url: "/api/identity/users",
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             data: data
         })
@@ -91,6 +95,7 @@ export async function CreateUser(data: CreateUserInterface) {
 }
 
 export async function UpdateUser(data:UpdateUserInterface, id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if(credentials) {
         const headers = {
@@ -99,7 +104,7 @@ export async function UpdateUser(data:UpdateUserInterface, id: string) {
         return api({
             method: "PUT",
             url: `/api/identity/users/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers,
             data: data
         })
@@ -110,6 +115,7 @@ export async function UpdateUser(data:UpdateUserInterface, id: string) {
 }
 
 export async function DeleteUser(id: string) {
+    const env = await EnvSettings();
     const credentials = await Keychain.getGenericPassword();
     if (credentials) {
         const headers = {
@@ -118,7 +124,7 @@ export async function DeleteUser(id: string) {
         return api({
             method: "DELETE",
             url: `/api/identity/users/${id}`,
-            baseURL: EnvSettings.HostURL,
+            baseURL: env.hostURL,
             headers: headers
         })
     }
