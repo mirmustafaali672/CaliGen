@@ -88,22 +88,6 @@ function LoginScreen(props: LoginScreenInterface) {
         backgroundColor={MaterialColors.MaterialDeepPurple}
         hidden={false}
       />
-      <View
-        style={{
-          alignItems: 'flex-start',
-          marginHorizontal: 10,
-          marginVertical: 5,
-        }}>
-        <TouchableOpacity onPress={() => setIsLoginSettingModal(true)}>
-          <View style={{}}>
-            <Ionicons
-              name="settings-sharp"
-              size={24}
-              color={MaterialColors.MaterialBLueGreyMediumLight}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
       <View style={styles.topPart}>
         <View style={[{alignItems: 'center'}]}>
           <RobotoText
@@ -282,6 +266,22 @@ function LoginScreen(props: LoginScreenInterface) {
         onCancel={() => setIsLoginSettingModal(false)}
         message={''}
       />
+      <View
+        style={{
+          alignItems: 'flex-end',
+          marginHorizontal: 10,
+          marginVertical: 5,
+        }}>
+        <TouchableOpacity onPress={() => setIsLoginSettingModal(true)}>
+          <View style={{}}>
+            <Ionicons
+              name="settings-sharp"
+              size={24}
+              color={MaterialColors.MaterialBLueGreyMediumLight}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
