@@ -1,7 +1,5 @@
-import { GetDataFromStorage } from "../AsyncStorageActions/AsyncDataAction.tsx";
-import { EnvSettingInterface } from "../interfaces/EnvSettingInterface.tsx";
 import api from "./API.tsx";
-// import EnvSettings from "../../env.tsx";
+import EnvSettings from "../../env.tsx";
 
 // const authoUrl = `http://172.20.10.2:44377`;
 // const oAuthConfig = {
@@ -15,16 +13,6 @@ interface loginInterface {
 }
 
 export async function login( loginDetails: loginInterface ){
-  let EnvSettings: EnvSettingInterface;
-  try
-  {
-    EnvSettings = await GetDataFromStorage("EnvSettings");
-    console.log("envSettings", EnvSettings)
-  }
-  catch
-  {
-
-  }
   let data = `grant_type=password&scope=${EnvSettings.OAuthConfig_Scope}&username=${loginDetails.username}&password=${loginDetails.password}&client_id=${EnvSettings.OAuthConfig_ClientId}`;
   return api({
     method: "POST",
