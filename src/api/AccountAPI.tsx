@@ -1,4 +1,4 @@
-import api from './API.tsx';
+import api from './AuthAPI.tsx';
 import EnvSettings from '../../env.tsx';
 
 interface loginInterface {
