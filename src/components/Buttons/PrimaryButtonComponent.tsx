@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     flexDirection: 'row',
+    borderWidth: 2,
+    borderColor: MaterialColors.MaterialDeepPurple
   },
 });
 

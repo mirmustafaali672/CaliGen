@@ -25,7 +25,6 @@ function MoreScreenNavigator(){
           <Stack.Screen options={{headerShown: false}} name="CreateRoleScreen" component={CreateRoleScreen} />
           <Stack.Screen options={{headerShown: false}} name="PermissionMainScreen" component={PermissionMainScreen} />
           <Stack.Screen options={{headerShown: false}} name="PermissionDetailScreen" component={PermissionDetailScreen} />
-          <Stack.Screen options={{headerShown: false}} name="SettingsMainScreen" component={SettingsMainScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );

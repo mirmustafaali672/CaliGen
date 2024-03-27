@@ -17,6 +17,7 @@ import * as Keychain from 'react-native-keychain';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import TransactionModal from '../../components/Modals/TransactionModal';
+import LoginSettingModal from '../../components/Modals/LoginSettingsModal';
 
 // let screenHeight = Dimensions.get('window').height;
 // let screenWidth = Dimensions.get('window').width;
@@ -36,6 +37,7 @@ function LoginScreen(props: LoginScreenInterface) {
   const [transactionStatusMessage, setTransactionStatusMessage] =
     useState('--');
   const [loginActivity, setLoginActivity] = useState(false);
+  const [isLoginSettingModal, setIsLoginSettingModal] = useState(false);
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
@@ -92,7 +94,7 @@ function LoginScreen(props: LoginScreenInterface) {
           marginHorizontal: 10,
           marginVertical: 5,
         }}>
-        <TouchableOpacity onPress={() => props.settingsClicked()}>
+        <TouchableOpacity onPress={() => setIsLoginSettingModal(true)}>
           <View style={{}}>
             <Ionicons
               name="settings-sharp"
@@ -274,6 +276,12 @@ function LoginScreen(props: LoginScreenInterface) {
           </View>
         </ScrollView>
       </View>
+      <LoginSettingModal
+        visible={isLoginSettingModal}
+        onSubmit={() => {}}
+        onCancel={() => setIsLoginSettingModal(false)}
+        message={''}
+      />
     </View>
   );
 }
