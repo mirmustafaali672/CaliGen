@@ -11,7 +11,7 @@ import {
 } from '../../api/PermissionsAPI';
 import {useEffect, useState} from 'react';
 
-export interface PermissionDetailScreenModelInterface {
+export interface PermissionDetailScreenModalInterface {
   displayName: string;
   name: string;
   isGranted: boolean;
@@ -22,8 +22,8 @@ export interface PermissionDetailScreenModelInterface {
   visible: boolean;
 }
 
-function PermissionDetailScreenModel(
-  props: PermissionDetailScreenModelInterface,
+function PermissionDetailScreenModal(
+  props: PermissionDetailScreenModalInterface,
 ) {
   const [permissionData, setPermissionData] =
     useState<UpdatePermissionInterface>();
@@ -160,4 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PermissionDetailScreenModel;
+export default PermissionDetailScreenModal;

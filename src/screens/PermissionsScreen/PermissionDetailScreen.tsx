@@ -13,9 +13,9 @@ import {GetPermissionFromAPI} from '../../api/PermissionsAPI';
 import TabNavigationComponent from '../../components/TabNavigationComponent/TabNavigationComponent';
 import CheckBoxComponent from '../../components/CheckBoxComponent/CheckBoxComponent';
 import TabNavItemListComponent from '../../components/TabNavigationComponent/TabNavItemListComponent';
-import PermissionDetailScreenModel, {
-  PermissionDetailScreenModelInterface,
-} from '../../components/PermissionModels/PermissionDetailScreenModel';
+import PermissionDetailScreenModal, {
+  PermissionDetailScreenModalInterface,
+} from '../../components/PermissionModals/PermissionDetailScreenModal';
 
 interface PermissionDetailScreenInterface {
   navigation: any;
@@ -32,8 +32,8 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
   const [parentGroupActivity, setParentGroupActivity] =
     useState<boolean>(false);
   const [childGroupActivity, setChildGroupActivity] = useState(false);
-  const [dataForPermissionModel, setDataForPermissionModel] =
-    useState<PermissionDetailScreenModelInterface>();
+  const [dataForPermissionModal, setDataForPermissionModal] =
+    useState<PermissionDetailScreenModalInterface>();
 
   async function GetPermission(id: string) {
     setPermissionsActivity(true);
@@ -72,7 +72,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
 
   function submitPermission()
   {
-    setDataForPermissionModel({visible: false});
+    setDataForPermissionModal({visible: false});
     GetPermission(props.route.params?.itemId);
   }
 
@@ -163,7 +163,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
                           <TabNavItemListComponent
                             title={item.displayName}
                             onItemClicked={() =>
-                              setDataForPermissionModel({
+                              setDataForPermissionModal({
                                 visible: true,
                                 name: item.name,
                                 displayName: item.displayName,
@@ -185,14 +185,14 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
         </View>
       )}
       <View>
-        <PermissionDetailScreenModel
-          displayName={dataForPermissionModel?.displayName ?? ''}
-          name={dataForPermissionModel?.name ?? ''}
-          isGranted={dataForPermissionModel?.isGranted ?? false}
-          providerName={dataForPermissionModel?.providerName ?? ''}
-          providerKey={dataForPermissionModel?.providerKey ?? ''}
-          visible={dataForPermissionModel?.visible ?? false}
-          onCancel={ () => setDataForPermissionModel({visible: false})}
+        <PermissionDetailScreenModal
+          displayName={dataForPermissionModal?.displayName ?? ''}
+          name={dataForPermissionModal?.name ?? ''}
+          isGranted={dataForPermissionModal?.isGranted ?? false}
+          providerName={dataForPermissionModal?.providerName ?? ''}
+          providerKey={dataForPermissionModal?.providerKey ?? ''}
+          visible={dataForPermissionModal?.visible ?? false}
+          onCancel={ () => setDataForPermissionModal({visible: false})}
           onSubmit={() => submitPermission()}
         />
       </View>

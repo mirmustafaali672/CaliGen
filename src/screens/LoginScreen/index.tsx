@@ -30,7 +30,7 @@ interface LoginScreenInterface {
 function LoginScreen(props: LoginScreenInterface) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
-  const [isTransactionModelVisible, setIsTransactionModelVisible] =
+  const [isTransactionModalVisible, setIsTransactionModalVisible] =
     useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
   const [transactionStatusMessage, setTransactionStatusMessage] =
@@ -39,20 +39,20 @@ function LoginScreen(props: LoginScreenInterface) {
 
   function setTransactionModalState(errorState: number) {
     if (errorState == 1) {
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
       setTransactionModalStatus(1);
       setTransactionStatusMessage('Success.');
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
     } else if (errorState == 0) {
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
       setTransactionModalStatus(0);
       setTransactionStatusMessage('Something went wrong.');
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
     } else {
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
       setTransactionModalStatus(-1);
       setTransactionStatusMessage('Warning');
-      setIsTransactionModelVisible(true);
+      setIsTransactionModalVisible(true);
     }
   }
 
@@ -237,8 +237,8 @@ function LoginScreen(props: LoginScreenInterface) {
                 </Pressable>
                 <View>
                   <TransactionModal
-                    visible={isTransactionModelVisible}
-                    onClose={() => setIsTransactionModelVisible(false)}
+                    visible={isTransactionModalVisible}
+                    onClose={() => setIsTransactionModalVisible(false)}
                     status={transactionModalStatus}
                     message={transactionStatusMessage}
                   />

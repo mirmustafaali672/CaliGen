@@ -100,7 +100,7 @@ const ResponseLoadingComponent = (props: LoaderDelayOrder) => {
       alignItems: 'flex-start',
       marginTop: 25,
     },
-    ModelViewRightStart: {
+    ModalViewRightStart: {
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
