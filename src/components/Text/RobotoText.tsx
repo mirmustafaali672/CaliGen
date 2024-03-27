@@ -1,10 +1,10 @@
-import {Text, StyleSheet} from 'react-native';
+import {Text} from 'react-native';
 
 interface RobotoTextInterface {
-  text: string,
-  textStyle: any,
-  isBold: boolean,
-  numberOfLines: number
+  text: string;
+  textStyle: any;
+  isBold: boolean;
+  numberOfLines: number;
 }
 function RobotoText(props: RobotoTextInterface) {
   return (
@@ -18,6 +18,5 @@ function RobotoText(props: RobotoTextInterface) {
     </Text>
   );
 }
-
 
 export default RobotoText;

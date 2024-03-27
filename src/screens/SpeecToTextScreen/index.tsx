@@ -41,32 +41,32 @@ const App = () => {
     };
   }, []);
 
-  const onSpeechStart = (e) => {
+  const onSpeechStart = e => {
     //Invoked when .start() is called without error
     setStarted('√');
   };
 
-  const onSpeechEnd = (e) => {
+  const onSpeechEnd = e => {
     //Invoked when SpeechRecognizer stops recognition
     setEnd('√');
   };
 
-  const onSpeechError = (e) => {
+  const onSpeechError = e => {
     //Invoked when an error occurs.
     setError(JSON.stringify(e.error));
   };
 
-  const onSpeechResults = (e) => {
+  const onSpeechResults = e => {
     //Invoked when SpeechRecognizer is finished recognizing
     setResults(e.value);
   };
 
-  const onSpeechPartialResults = (e) => {
+  const onSpeechPartialResults = e => {
     //Invoked when any results are computed
     setPartialResults(e.value);
   };
 
-  const onSpeechVolumeChanged = (e) => {
+  const onSpeechVolumeChanged = e => {
     //Invoked when pitch that is recognized changed
     setPitch(e.value);
   };
@@ -142,8 +142,7 @@ const App = () => {
           <Image
             style={styles.imageButton}
             source={{
-              uri:
-                'https://raw.githubusercontent.com/AboutReact/sampleresource/master/microphone.png',
+              uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/microphone.png',
             }}
           />
         </TouchableHighlight>

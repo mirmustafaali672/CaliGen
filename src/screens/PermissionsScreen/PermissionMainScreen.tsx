@@ -1,20 +1,17 @@
-import {ActivityIndicator, FlatList, Text, View} from 'react-native';
+import {ActivityIndicator, FlatList, View} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import SearchInputField from '../../components/InputFields/SearchField';
 import TabNavigationComponent, {
   TabComponentsInterface,
-  TabNavigationComponentInterface,
 } from '../../components/TabNavigationComponent/TabNavigationComponent';
 import {useEffect, useState} from 'react';
 import {
-  UserDetailsInterface,
   UsersInterface,
 } from '../../interfaces/UsersInterface';
 import {GetRoles} from '../../api/RolesAPI';
 import {GetUsers} from '../../api/UsersAPI';
 import RobotoText from '../../components/Text/RobotoText';
-import EntityDetailCardComponent from '../../components/EntityDetailCardComponent/EntityDetailCardComponent';
 import TabNavItemListComponent from '../../components/TabNavigationComponent/TabNavItemListComponent';
 
 interface PermissionMainScreenInterface {

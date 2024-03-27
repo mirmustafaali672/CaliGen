@@ -50,7 +50,6 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
       });
   }
 
-
   useEffect(() => {
     GetPermission(props.route.params?.itemId);
   }, []);
@@ -70,8 +69,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
     setChildGroupActivity(false);
   }, [selectedChildGroup]);
 
-  function submitPermission()
-  {
+  function submitPermission() {
     setDataForPermissionModal({visible: false});
     GetPermission(props.route.params?.itemId);
   }
@@ -169,7 +167,10 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
                                 displayName: item.displayName,
                                 isGranted: item.isGranted,
                                 providerKey: props.route.params?.objectName,
-                                providerName: props.route.params?.itemType == 'Role' ? 'R' : 'U',
+                                providerName:
+                                  props.route.params?.itemType == 'Role'
+                                    ? 'R'
+                                    : 'U',
                               })
                             }
                           />
@@ -192,7 +193,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
           providerName={dataForPermissionModal?.providerName ?? ''}
           providerKey={dataForPermissionModal?.providerKey ?? ''}
           visible={dataForPermissionModal?.visible ?? false}
-          onCancel={ () => setDataForPermissionModal({visible: false})}
+          onCancel={() => setDataForPermissionModal({visible: false})}
           onSubmit={() => submitPermission()}
         />
       </View>

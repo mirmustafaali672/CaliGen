@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginTop: 25,
   },
-  ModalViewRightStart: {
+  ModelViewRightStart: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'flex-end',

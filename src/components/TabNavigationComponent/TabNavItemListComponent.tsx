@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
 import * as MaterialColors from '../../styles/materialColors';
 

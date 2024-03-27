@@ -1,7 +1,6 @@
-import axios  from "axios";
-import EnvSettings from "../../env";
+import axios from 'axios';
 
-const  apiUrl: string = "EnvSettings.AuthURL";
+const apiUrl: string = 'EnvSettings.AuthURL';
 
 const axiosInstance = axios.create({
   baseURL: apiUrl,

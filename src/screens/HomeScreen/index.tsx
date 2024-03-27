@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
   ScrollView,
   StyleSheet,
   Image,
-  TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import {BarChart, PieChart} from 'react-native-gifted-charts';
-import {AboutText} from '../../data/HomeScreenAboutData';
 
 const screenHeader = {
   margin: 20,
@@ -20,13 +18,17 @@ const screenHeader = {
 };
 
 function AppIntroComponent() {
-  const [aboutApp, setAboutApp] = useState(5);
   return (
     <View>
       {/* CaliGen by Caliber is is specifically designed to empower the
        Pharma Industry by providing a transformative tool
        with Gen AI capabilities for effectively managing the Quality Value Chain.`; */}
-      <RobotoText text="About" textStyle={screenHeader} isBold={true} numberOfLines={0} />
+      <RobotoText
+        text="About"
+        textStyle={screenHeader}
+        isBold={true}
+        numberOfLines={0}
+      />
       <SafeAreaView>
         <Text style={{marginHorizontal: 20}}>
           <Text style={{fontWeight: 'bold'}}>CaliGen</Text>
@@ -147,11 +149,19 @@ function InsightComponent() {
 
   return (
     <View>
-      <RobotoText text="Insight" textStyle={screenHeader} isBold={true} numberOfLines={0} />
+      <RobotoText
+        text="Insight"
+        textStyle={screenHeader}
+        isBold={true}
+        numberOfLines={0}
+      />
       <View style={styles.mainCardContainer}>
         <RobotoText
           text="Daily Sample Collection"
-          textStyle={styles.chartHeader} isBold={false} numberOfLines={0}        />
+          textStyle={styles.chartHeader}
+          isBold={false}
+          numberOfLines={0}
+        />
         <BarChart
           barWidth={22}
           noOfSections={3}
@@ -163,7 +173,12 @@ function InsightComponent() {
         />
       </View>
       <View style={styles.mainCardContainer}>
-        <RobotoText text="Some Sample Data" textStyle={styles.chartHeader} isBold={false} numberOfLines={0} />
+        <RobotoText
+          text="Some Sample Data"
+          textStyle={styles.chartHeader}
+          isBold={false}
+          numberOfLines={0}
+        />
         <BarChart
           width={340}
           rotateLabel
@@ -176,7 +191,10 @@ function InsightComponent() {
       <View style={styles.mainCardContainer}>
         <RobotoText
           text="Daily Sample Collection"
-          textStyle={styles.chartHeader} isBold={false} numberOfLines={0}        />
+          textStyle={styles.chartHeader}
+          isBold={false}
+          numberOfLines={0}
+        />
         <PieChart
           showText
           textColor="black"
@@ -208,7 +226,9 @@ function HomeScreenHeader() {
             fontSize: 30,
             color: MaterialColors.MaterialBlack,
           }}
-          isBold={true} numberOfLines={0}        />
+          isBold={true}
+          numberOfLines={0}
+        />
       </View>
       <Image
         style={styles.tinyLogo}

@@ -1,16 +1,7 @@
 import api from "./API.tsx";
 import EnvSettings from "../../env.tsx";
-
 import * as Keychain from 'react-native-keychain';
 import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface.tsx";
-
-// const HostURL = `http://172.20.10.2:44335`;
-// const HostConfig = {
-//   host: HostURL,
-//   clientId: "FileUploader_Mobile",
-//   scope: "offline_access FileUploader",
-// };
-
 
 export async function GetUsers(filter: string) {
     const env = await EnvSettings();

@@ -3,10 +3,8 @@ import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import * as MaterialColors from '../../styles/materialColors';
-import RobotoText from '../Text/RobotoText';
 import InputFieldComponent from '../InputFields/PlainInputField';
 import {useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   GetDataFromStorage,
   SaveDataToStorage,
@@ -19,7 +17,6 @@ interface LoginSettingModalInterface {
   onCancel: any;
   message: string;
 }
-
 
 let screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
@@ -101,13 +98,12 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
                 isActivityOnButton={activity}
               />
               <PrimaryButton
-                buttonClicked={() =>{
+                buttonClicked={() => {
                   setActivity(true);
                   SaveDataToStorage('EnvSettings', JSON.stringify(EnvSettings));
                   setActivity(false);
                   props.onSubmit();
-                }
-                }
+                }}
                 buttonTitle={'Save'}
                 buttonIcon={null}
                 iconAtEnd={false}

@@ -29,8 +29,7 @@ function ProfileScreen({navigation, logout}) {
       .then(data => {
         setCurrentUser(data.data);
       })
-      .catch(error => {
-      });
+      .catch(error => {});
   }
 
   useEffect(() => {

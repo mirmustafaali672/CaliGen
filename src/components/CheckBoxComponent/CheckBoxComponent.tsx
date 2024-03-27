@@ -10,25 +10,29 @@ interface CheckBoxComponentInterface {
 }
 function CheckBoxComponent(props: CheckBoxComponentInterface) {
   return (
-    <TouchableOpacity onPress={()=> props.onClicked()}>
-    <View style={{flexDirection: 'row', gap: 15}}>
-      {!props.isChecked && <MaterialCommunityIcons
-        name={'checkbox-blank-outline'}
-        color={MaterialColors.MaterialDeepPurple}
-        size={30}
-      />}
-      { props.isChecked && <MaterialCommunityIcons
-        name={'checkbox-marked-outline'}
-        color={MaterialColors.MaterialDeepPurple}
-        size={30}
-      />}
-      <RobotoText
-        text={props.title}
-        textStyle={{fontSize: 20}}
-        isBold={false}
-        numberOfLines={0}
-      />
-    </View>
+    <TouchableOpacity onPress={() => props.onClicked()}>
+      <View style={{flexDirection: 'row', gap: 15}}>
+        {!props.isChecked && (
+          <MaterialCommunityIcons
+            name={'checkbox-blank-outline'}
+            color={MaterialColors.MaterialDeepPurple}
+            size={30}
+          />
+        )}
+        {props.isChecked && (
+          <MaterialCommunityIcons
+            name={'checkbox-marked-outline'}
+            color={MaterialColors.MaterialDeepPurple}
+            size={30}
+          />
+        )}
+        <RobotoText
+          text={props.title}
+          textStyle={{fontSize: 20}}
+          isBold={false}
+          numberOfLines={0}
+        />
+      </View>
     </TouchableOpacity>
   );
 }

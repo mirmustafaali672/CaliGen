@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
+import {View, ScrollView, ActivityIndicator} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import TransactionModal from '../../components/Modals/TransactionModal';
@@ -29,8 +29,7 @@ interface CreateRoleScreenInterface {
 }
 
 function CreateRoleScreen(props: CreateRoleScreenInterface) {
-    
-    //common entity variables 
+  //common entity variables
   const [data, setData] = useState<RolesDetailsInterface>(
     props.route.params?.item ?? {},
   );
@@ -217,6 +216,7 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
                 deleteButtonClicked={() => OpenConfiramtionDialog()}
                 isActivityOnButton={createEntityActivity}
                 isActivityOnTernaryButton={deleteEntityActivity}
+                disableSumbitButton={false}
               />
               <View>
                 <ConfirmationModal

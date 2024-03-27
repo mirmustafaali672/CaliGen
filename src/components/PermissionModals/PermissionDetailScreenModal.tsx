@@ -1,7 +1,6 @@
 import {ActivityIndicator, Modal, StyleSheet, View} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../Text/RobotoText';
-import ObjectScreenFooter from '../ScreenFooter/ObjectScreenFooter';
 import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
 import RadioButtonComponent from '../RadioButtonComponent/RadioButtonComponent';

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView, ActivityIndicator} from 'react-native';
+import {View, ScrollView, ActivityIndicator} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import {
@@ -26,9 +26,7 @@ import {
 } from '../../data/TemplateStrings';
 import {TransactionModalStateInterface} from '../../interfaces/TransactionModalStateInterface';
 import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInterface';
-import SelectComponent, {
-  selectedItemInterface,
-} from '../../components/DropDownComponents/SelectComponent';
+import SelectComponent from '../../components/DropDownComponents/SelectComponent';
 import {GetRoles} from '../../api/RolesAPI';
 import RadioButtonComponent from '../../components/RadioButtonComponent/RadioButtonComponent';
 
@@ -38,8 +36,7 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
-
-  //common entity variables 
+  //common entity variables
   const [data, setData] = useState<UserDetailsInterface>(
     props.route.params?.item ?? {},
   );
@@ -65,8 +62,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   const [roles, setRoles] = useState<RolesInterface>();
   //
 
-
-  // common entity operations and functions 
+  // common entity operations and functions
   useEffect(() => {
     setEntityDetailActivity(true);
   }, []);
@@ -333,7 +329,9 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
                     {name: 'Yes', value: true},
                     {name: 'No', value: false},
                   ]}
-                  selected={data.id ? data.shouldChangePasswordOnNextLogin : false}
+                  selected={
+                    data.id ? data.shouldChangePasswordOnNextLogin : false
+                  }
                   onSelection={(value: any) => {
                     setData({...data, shouldChangePasswordOnNextLogin: value});
                   }}

@@ -85,8 +85,7 @@ export interface UserDetailsInterface {
   twoFactorEnabled: boolean;
   userName: string;
 }
-interface ExtraProperties {
-}
+interface ExtraProperties {}
 
 export interface CreateUserInterface {
   userName: string;

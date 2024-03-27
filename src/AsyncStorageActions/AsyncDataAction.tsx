@@ -8,7 +8,7 @@ export async function SaveDataToStorage(Key: string, Value: string): Promise<num
         await AsyncStorage.setItem(Key, Value);
         return 1;
     }
-    catch(erroe)
+    catch(error)
     {
         return 0;
     }
@@ -21,7 +21,7 @@ export async function GetDataFromStorage(Key: string) : Promise<EnvSettingInterf
         const Value = await AsyncStorage.getItem(Key) ?? '{}';
         return JSON.parse(Value);
     }
-    catch(erroe)
+    catch(error)
     {
         return JSON.parse('{}');
     }

@@ -1,4 +1,4 @@
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
 import * as MaterialColors from '../../styles/materialColors';
 import {useEffect, useState} from 'react';
@@ -59,7 +59,10 @@ function TabNavigationComponent(props: TabNavigationComponentInterface) {
   }, [selectedTabIndex]);
   return (
     <View>
-      <ScrollView horizontal showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
         {props.items.map((item, index) => {
           return (
             <View key={index}>
