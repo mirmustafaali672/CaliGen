@@ -12,11 +12,6 @@ export async function GetPermissionFromAPI(
   providerName: string,
 ) {
   const env = await EnvSettings();
-  const credentials = await Keychain.getGenericPassword();
-  if (credentials) {
-    const headers = {
-      Authorization: 'Bearer ' + credentials.password,
-    };
     const params = {
       providerKey: providerKey,
       providerName: providerName,
@@ -25,12 +20,8 @@ export async function GetPermissionFromAPI(
       method: 'GET',
       url: `/api/permission-management/permissions`,
       baseURL: env.hostURL,
-      headers: headers,
       params: params,
     });
-  } else {
-    return null;
-  }
 }
 
 export async function UpdatePermission(
@@ -39,11 +30,6 @@ export async function UpdatePermission(
   data: UpdatePermissionInterface,
 ) {
   const env = await EnvSettings();
-  const credentials = await Keychain.getGenericPassword();
-  if (credentials) {
-    const headers = {
-      Authorization: 'Bearer ' + credentials.password,
-    };
     const params = {
       providerKey: providerKey,
       providerName: providerName,
@@ -52,9 +38,7 @@ export async function UpdatePermission(
       method: 'PUT',
       url: `/api/permission-management/permissions`,
       baseURL: env.hostURL,
-      headers: headers,
       data: data,
       params: params,
     });
-  }
 }
