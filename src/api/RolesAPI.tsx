@@ -1,6 +1,5 @@
 import api from './API';
 import EnvSettings from '../../env';
-import * as Keychain from 'react-native-keychain';
 
 export async function GetRoles(filter: string) {
   const env = await EnvSettings();

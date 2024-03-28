@@ -1,7 +1,5 @@
 import api from './API';
 import EnvSettings from '../../env';
-import * as Keychain from 'react-native-keychain';
-import {Path} from 'react-native-svg';
 
 export interface UpdatePermissionInterface {
   permissions: {name: string; isGranted: boolean}[];

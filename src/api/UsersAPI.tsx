@@ -1,7 +1,8 @@
 import api from "./API.tsx";
 import EnvSettings from "../../env.tsx";
-import * as Keychain from 'react-native-keychain';
 import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface.tsx";
+import { UserAuthDataInterface } from "./AccountAPI.tsx";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export async function GetUsers(filter: string) {
     const env = await EnvSettings();
@@ -15,11 +16,12 @@ export async function GetUsers(filter: string) {
 
 export async function GetCurrentUserDetailsByUsername() {
     const env = await EnvSettings();
-    const credentials = await Keychain.getGenericPassword();
-    if (credentials) {
+    const UserAuthData: UserAuthDataInterface = JSON.parse(await AsyncStorage.getItem('UserAuthData') ?? "{}");
+  
+    if (UserAuthData) {
         return api({
             method: "GET",
-            url: `/api/identity/users/by-username/${credentials.username}`,
+            url: `/api/identity/users/by-username/${UserAuthData.token_type}`,
             baseURL: env.hostURL,
         });
     }
