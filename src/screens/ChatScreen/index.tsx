@@ -12,49 +12,166 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {
-  PrimaryColor,
-  LightPrimaryColor,
-  PrimaryBGColor
-} from '../../styles/primaryScreenColors';
-import { SendUserMessageToApi } from "../../api/ChatScreenAPI";
+import {SendUserMessageToApi} from '../../api/ChatScreenAPI';
 import Voice from '@react-native-voice/voice';
 import ResponseLoadingComponent from '../../components/Loader/ResponseLoadingComponent';
-import * as MaterialColors from '../../styles/materialColors';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
+
+interface ChatScreenInterface {
+  message: string;
+  messageType: number;
+}
 
 function ChatScreen() {
-  const [optionSelected, setOptionSelected] = useState(false);
-  const [menuSelected, setMenuSelected] = useState(false);
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    BottomChatArea: {
+      position: 'absolute',
+      bottom: 0,
+    },
+    container: {
+      flex: 1,
+      marginTop: StatusBar.currentHeight || 0,
+    },
+    Header: {
+      flex: 3,
+      backgroundColor: MaterialColorTheme.primary,
+    },
+    Body: {
+      flex: 20,
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    centeredViewLeftEnd: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      marginTop: 25,
+    },
+    ModelViewRightStart: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+      marginTop: 25,
+    },
+    modalView: {
+      // top:"50%",
+      // width: "50%",
+      margin: 20,
+      backgroundColor: MaterialColorTheme.surface,
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+      backgroundColor: MaterialColorTheme.primary,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: 'center',
+    },
+    sendMessageInputFields: {
+      margin: 0,
+      // marginVertical: "%",
+      flexDirection: 'row',
+      backgroundColor: '#eceff7',
+      padding: '1%',
+      borderRadius: 100,
+      borderWidth: 2,
+      borderColor: MaterialColorTheme.primary,
+      width: 50,
+      height: 50,
+    },
+    chatUserMessageClass: {
+      backgroundColor: MaterialColorTheme.onSurfaceVariant,
+      borderBottomRightRadius: 0,
+      // alignItems: "flex-end",
+    },
+    chatUserMessageTextClass: {
+      color: '#000000',
+    },
+    chatResponseMessageClass: {
+      backgroundColor: MaterialColorTheme.primary,
+      color: MaterialColorTheme.onPrimary,
+      borderBottomLeftRadius: 0,
+    },
+    chatResponseMessageTextClass: {
+      color: MaterialColorTheme.onPrimary,
+    },
+    chatBubbleCommon: {
+      borderWidth: 0,
+      borderColor: '#20232a',
+      borderRadius: 10,
+      margin: '2%',
+      // width: "75%",
+    },
+    chatBubbleCommonText: {
+      fontSize: 16,
+      padding: 10,
+    },
+    microphoneButtonNotListening: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: MaterialColorTheme.onSurface,
+      borderRadius: 10,
+      height: 50,
+      width: 50,
+      // borderColor: MaterialColorTheme.primary,
+      borderWidth: 2,
+    },
+  });
+
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [chatHistory, setChatHistory] = useState([]);
+  const [chatHistory, setChatHistory] = useState<ChatScreenInterface[]>([]);
   const [recordingStarted, setRecordingStarted] = useState(false);
-  const [text, setText] = useState('');
-
 
   useEffect(() => {
     if (chatHistory.length != 0) {
       if (chatHistory[chatHistory.length - 1].messageType == 1) {
         setLoading(true);
         sendUserMessageToApi(message);
-        setMessage("");
+        setMessage('');
       }
     }
   }, [chatHistory]);
 
-  const sendUserMessageToApi = async (message) => {
+  const sendUserMessageToApi = async (message: string) => {
     await SendUserMessageToApi(message)
-      .then((data) => {
-        setChatHistory([
-          ...chatHistory,
-          { message: "success", messageType: 2 },
-        ]);
+      .then(data => {
+        setChatHistory([...chatHistory, {message: 'success', messageType: 2}]);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         setChatHistory([
           ...chatHistory,
-          { message: "Something went wrong.", messageType: 2 },
+          {message: 'Something went wrong.', messageType: 2},
         ]);
         setLoading(false);
       })
@@ -85,47 +202,46 @@ function ChatScreen() {
     };
   }, []);
 
-  const onSpeechStart = (e) => {
+  const onSpeechStart = e => {
     //Invoked when .start() is called without error
     setStarted('√');
     setRecordingStarted(true);
   };
 
-  const onSpeechEnd = (e) => {
+  const onSpeechEnd = e => {
     //Invoked when SpeechRecognizer stops recognition
     setEnd('√');
     setRecordingStarted(false);
   };
 
-  const onSpeechError = (e) => {
+  const onSpeechError = e => {
     //Invoked when an error occurs.
     setError(JSON.stringify(e.error));
     setRecordingStarted(false);
   };
 
-  const onSpeechResults = (e) => {
+  const onSpeechResults = e => {
     //Invoked when SpeechRecognizer is finished recognizing
     setResults(e.value);
     setMessage(e.value[0]);
     setRecordingStarted(false);
   };
 
-  const onSpeechPartialResults = (e) => {
+  const onSpeechPartialResults = e => {
     //Invoked when any results are computed
     setPartialResults(e.value);
   };
 
-  const onSpeechVolumeChanged = (e) => {
+  const onSpeechVolumeChanged = e => {
     //Invoked when pitch that is recognized changed
     setPitch(e.value);
   };
 
   const startRecognizing = async () => {
-    if(recordingStarted)
-    {
+    if (recordingStarted) {
       await cancelRecognizing();
       setRecordingStarted(false);
-      return; 
+      return;
     }
     //Starts listening for speech for a specific locale
     try {
@@ -180,10 +296,8 @@ function ChatScreen() {
     }
   };
 
-
-
   return (
-    <View style={{flex: 1, backgroundColor: PrimaryBGColor}}>
+    <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ScrollView
         horizontal
         scrollEnabled={false}
@@ -233,24 +347,29 @@ function ChatScreen() {
                 }}
               />
               {loading && (
-                  <View
-                    style={{
-                        flex: 0.1,
-                      height: 8,
-                      flexDirection: "row",
-                      marginLeft: "3%",
-                      alignItems: "center",
-                    }}
-                  >
-                    <ResponseLoadingComponent order="1" />
-                    <ResponseLoadingComponent order="2" />
-                    <ResponseLoadingComponent order="3" />
-                    <ResponseLoadingComponent order="4" />
-                  </View>
-                )}
+                <View
+                  style={{
+                    flex: 0.1,
+                    height: 8,
+                    flexDirection: 'row',
+                    marginLeft: '3%',
+                    alignItems: 'center',
+                  }}>
+                  <ResponseLoadingComponent order="1" />
+                  <ResponseLoadingComponent order="2" />
+                  <ResponseLoadingComponent order="3" />
+                  <ResponseLoadingComponent order="4" />
+                </View>
+              )}
             </SafeAreaView>
           </View>
-          <View style={{flex: 1, flexDirection: 'row', gap: 10, marginHorizontal: 10}}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              gap: 10,
+              marginHorizontal: 10,
+            }}>
             <View style={{flex: 5}}>
               <TextInput
                 // autoCapitalize="none"
@@ -261,19 +380,19 @@ function ChatScreen() {
                   marginHorizontal: 4,
                   borderWidth: 2,
                   borderRadius: 10,
-                  borderColor: MaterialColors.MaterialDeepPurple,
-                  height: 50
+                  borderColor: MaterialColorTheme.primary,
+                  height: 50,
                 }}
-                  onChangeText={(value) => setMessage(value)}
-                  value={message}
-              ></TextInput>
+                onChangeText={value => setMessage(value)}
+                value={message}></TextInput>
             </View>
             <View style={{flex: 1}}>
-              <Pressable disabled={loading}
+              <Pressable
+                disabled={loading}
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: MaterialColors.MaterialDeepPurple,
+                  backgroundColor: MaterialColorTheme.primary,
                   borderRadius: 10,
                   height: 50,
                   width: 50,
@@ -288,19 +407,30 @@ function ChatScreen() {
                   name="send"
                   style={{alignItems: 'center', justifyContent: 'center'}}
                   size={24}
-                  color={'white'}
+                  color={MaterialColorTheme.onPrimary}
                 />
               </Pressable>
             </View>
             <View style={{flex: 1, marginRight: 4}}>
               <Pressable
-                style={ [styles.microphoneButtonNotListening, { borderColor: recordingStarted ?  MaterialColors.MaterialRed :  MaterialColors.MaterialDeepPurple }] }
+                style={[
+                  styles.microphoneButtonNotListening,
+                  {backgroundColor: MaterialColorTheme.primary,
+                    borderColor: recordingStarted
+                      ? MaterialColorTheme.onTertiary
+                      : MaterialColorTheme.primary,
+                  },
+                ]}
                 onPress={startRecognizing}>
                 <FontAwesome
-                  name= {recordingStarted ? "microphone-slash" : "microphone" } 
+                  name={recordingStarted ? 'microphone-slash' : 'microphone'}
                   style={{alignItems: 'center', justifyContent: 'center'}}
                   size={24}
-                  color={ recordingStarted ? "red" :  MaterialColors.MaterialDeepPurple}
+                  color={
+                    recordingStarted
+                      ? MaterialColorTheme.onTertiary
+                      : MaterialColorTheme.onPrimary
+                  }
                 />
               </Pressable>
             </View>
@@ -310,131 +440,5 @@ function ChatScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  BottomChatArea: {
-    position: 'absolute',
-    bottom: 0,
-  },
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
-  Header: {
-    flex: 3,
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  Body: {
-    flex: 20,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  centeredViewLeftEnd: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginTop: 25,
-  },
-  ModelViewRightStart: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
-    marginTop: 25,
-  },
-  modalView: {
-    // top:"50%",
-    // width: "50%",
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  sendMessageInputFields: {
-    margin: 0,
-    // marginVertical: "%",
-    flexDirection: 'row',
-    backgroundColor: '#eceff7',
-    padding: '1%',
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: MaterialColors.MaterialDeepPurple,
-    width: 50,
-    height: 50,
-  },
-  container: {
-    padding: '1%',
-  },
-  chatUserMessageClass: {
-    backgroundColor: MaterialColors.MaterialLightDeepPurple,
-    color: MaterialColors.MaterialBlueGreyLight,
-    borderBottomRightRadius: 0,
-    // alignItems: "flex-end",
-  },
-  chatUserMessageTextClass: {
-    color: '#000000',
-  },
-  chatResponseMessageClass: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-    color: 'white',
-    borderBottomLeftRadius: 0,
-  },
-  chatResponseMessageTextClass: {
-    color: '#FFFFFF',
-  },
-  chatBubbleCommon: {
-    borderWidth: 0,
-    borderColor: '#20232a',
-    borderRadius: 10,
-    margin: '2%',
-    // width: "75%",
-  },
-  chatBubbleCommonText: {
-    fontSize: 16,
-    padding: 10,
-  },
-  microphoneButtonNotListening: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: "white",
-    borderRadius: 10,
-    height: 50,
-    width: 50,
-    // borderColor: MaterialColors.MaterialDeepPurple,
-    borderWidth: 2
-  }
-});
 
 export default ChatScreen;
