@@ -11,92 +11,93 @@ export interface MenuListInterface  {
 export const MenuList: MenuListInterface[] = [
   {
     name: 'Application Setup',
-    navigationRouteName: 'HomeScreen',
+    navigationRouteName: 'ApplicationSetupMainScreen',
     icons: 'stream',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
     key: "Application Setup"
   },
-  // {
-  //   name: 'Data Auto Exploration',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'project-diagram',
-  //   isParent: true,
-  //   parentName: 'none',
-  //   ChildComponents: [
-  //     {
-  //       name: 'subs',
-  //       navigationRouteName: 'HomeScreen',
-  //       icons: 'project-diagram',
-  //       isParent: false,
-  //       parentName: 'none',
-  //     },
-  //     {
-  //       name: 'Kanban',
-  //       navigationRouteName: 'HomeScreen',
-  //       icons: 'clipboard-list',
-  //       isParent: false,
-  //       parentName: 'none',
-  //     },
-  //     {
-  //       name: 'Mene',
-  //       navigationRouteName: 'HomeScreen',
-  //       icons: 'none',
-  //       isParent: false,
-  //       parentName: 'none',
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: 'Kanban',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'clipboard-list',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'Procedures',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'route',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'Skills',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'book',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'Schedule',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'calendar-alt',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'History',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'history',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'About',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'info-circle',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
-  // {
-  //   name: 'saas',
-  //   navigationRouteName: 'HomeScreen',
-  //   icons: 'info-circle',
-  //   isParent: false,
-  //   parentName: 'none',
-  // },
+  {
+    name: 'Data Auto Exploration',
+    navigationRouteName: 'HomeScreen',
+    icons: 'project-diagram',
+    isParent: true,
+    parentName: 'none',
+    ChildComponents: [
+      {
+        name: 'Subs',
+        navigationRouteName: 'SubsMainScreen',
+        icons: 'project-diagram',
+        isParent: false,
+        parentName: 'none',
+      }
+    ],
+    key: "Data Auto Exploration"
+  },
+  {
+    name: 'Kanban',
+    navigationRouteName: 'KanbanMainScreen',
+    icons: 'clipboard-list',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "Kanban"
+  },
+  {
+    name: 'Procedures',
+    navigationRouteName: 'ProceduresMainScreen',
+    icons: 'route',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "Procedures"
+  },
+  {
+    name: 'Skills',
+    navigationRouteName: 'SkillsMainScreen',
+    icons: 'book',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "Skills"
+  },
+  {
+    name: 'Schedule',
+    navigationRouteName: 'ScheduleMainScreen',
+    icons: 'calendar-alt',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "Schedule"
+  },
+  {
+    name: 'History',
+    navigationRouteName: 'HistoryMainScreen',
+    icons: 'history',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "History"
+  },
+  {
+    name: 'About',
+    navigationRouteName: 'AboutMainScreen',
+    icons: 'info-circle',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "About"
+  },
+  {
+    name: 'Saas',
+    navigationRouteName: 'SaasMainScreen',
+    icons: 'info-circle',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "saas"
+  },
   {
     name: 'Admin',
     navigationRouteName: 'null',

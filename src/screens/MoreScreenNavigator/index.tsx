@@ -10,6 +10,15 @@ import CreateRoleScreen from '../RolesScreen/RolesDetailScreen';
 import PermissionMainScreen from '../PermissionsScreen/PermissionMainScreen';
 import PermissionDetailScreen from '../PermissionsScreen/PermissionDetailScreen';
 import { navigationRef } from './RootNavigation';
+import KanbanMainScreen from '../KanbanMainScreen/KanbanMainScreen';
+import ProceduresMainScreen from '../Procedures/ProceduresMainScreen';
+import ApplicationSetupMainScreen from '../ApplicationSetup/ApplicationSetupMainScreen';
+import SkillsMainScreen from '../Skills/SkillsMainScreen';
+import ScheduleMainScreen from '../Schedule/ScheduleMainScreen';
+import HistoryMainScreen from '../History/HistoryMainScreen';
+import AboutMainScreen from '../About/AboutMainScreen';
+import SaasMainScreen from '../Saas/SaasMainScreen';
+import SubsMainScreen from '../DataAutoExploration/Subs/SubsMainScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -55,6 +64,51 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="PermissionDetailScreen"
           component={PermissionDetailScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="KanbanMainScreen"
+          component={KanbanMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ProceduresMainScreen"
+          component={ProceduresMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ApplicationSetupMainScreen"
+          component={ApplicationSetupMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SkillsMainScreen"
+          component={SkillsMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ScheduleMainScreen"
+          component={ScheduleMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="HistoryMainScreen"
+          component={HistoryMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="AboutMainScreen"
+          component={AboutMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SaasMainScreen"
+          component={SaasMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SubsMainScreen"
+          component={SubsMainScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
