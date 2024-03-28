@@ -16,17 +16,21 @@ import {CurrentUserDetailsInterface} from '../../interfaces/UserInterface';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 
-function ProfileScreen({navigation, logout}) {
+interface ProfileScreenInterface {
+  navigation: any,
+  logout: any,
+}
+function ProfileScreen(props: ProfileScreenInterface) {
   const [currentUser, setCurrentUser] = useState<CurrentUserDetailsInterface>(
     {},
   );
   function Logout() {
     // navigation.navigate();
-    logout();
+    props.logout();
   }
   async function GetUserDetails() {
     await GetCurrentUserDetailsByUsername()
-      .then(data => {
+      .then((data: any) => {
         setCurrentUser(data.data);
       })
       .catch(error => {});
@@ -219,7 +223,7 @@ function ProfileScreen({navigation, logout}) {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => logout()}>
+          <TouchableOpacity onPress={() => props.logout()}>
             <View style={styles.tableMainRow}>
               <RobotoText text="Logout" textStyle={styles.logOutButton} />
             </View>

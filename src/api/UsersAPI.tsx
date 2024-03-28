@@ -16,12 +16,12 @@ export async function GetUsers(filter: string) {
 
 export async function GetCurrentUserDetailsByUsername() {
     const env = await EnvSettings();
-    const UserAuthData: UserAuthDataInterface = JSON.parse(await AsyncStorage.getItem('UserAuthData') ?? "{}");
+    const UserName: {username: string} = JSON.parse(await AsyncStorage.getItem('UserName') ?? "");
   
-    if (UserAuthData) {
+    if (UserName) {
         return api({
             method: "GET",
-            url: `/api/identity/users/by-username/${UserAuthData.token_type}`,
+            url: `/api/identity/users/by-username/${UserName.username}`,
             baseURL: env.hostURL,
         });
     }

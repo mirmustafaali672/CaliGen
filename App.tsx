@@ -121,7 +121,7 @@ function MyTabs() {
       <Tab.Screen
         name="Profile"
         children={props => (
-          <ProfileScreen {...props} logout={() => setIsLoggedIn(false)} />
+          <ProfileScreen  logout={() => setIsLoggedIn(false)} navigation={props.navigation} />
         )}
         options={{
           tabBarLabel: 'Profile',

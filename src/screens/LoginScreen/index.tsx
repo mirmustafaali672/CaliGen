@@ -25,7 +25,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface LoginScreenInterface {
   UserLoggedIn: any;
-  settingsClicked: any;
+  settingsClicked?: any;
 }
 
 function LoginScreen(props: LoginScreenInterface) {
@@ -62,7 +62,8 @@ function LoginScreen(props: LoginScreenInterface) {
     setLoginActivity(true);
     await login({username, password})
       .then(data => {
-        AsyncStorage.setItem('UserAuthData', JSON.stringify(data.data))
+        AsyncStorage.setItem('UserAuthData', JSON.stringify(data.data));
+        AsyncStorage.setItem('UserName', JSON.stringify({username: username}));
         props.UserLoggedIn();
         // navigation.navigate('Home');
       })
