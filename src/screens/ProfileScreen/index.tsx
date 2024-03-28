@@ -7,20 +7,54 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {PrimaryBGColor} from '../../styles/primaryScreenColors';
-import PrimaryButton from '../../components/Buttons/PrimaryButtonComponent';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {GetCurrentUserDetailsByUsername} from '../../api/UsersAPI';
 import {CurrentUserDetailsInterface} from '../../interfaces/UserInterface';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface ProfileScreenInterface {
-  navigation: any,
-  logout: any,
+  navigation: any;
+  logout: any;
 }
 function ProfileScreen(props: ProfileScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    detailsTableKey: {
+      color: MaterialColorTheme.onSurface,
+      fontSize: 15,
+      fontWeight: 'bold',
+    },
+    detailsTableValue: {
+      color: MaterialColorTheme.onSurface,
+      fontSize: 15,
+    },
+    profileDetailsViewSection: {margin: 15, marginTop: 0},
+    tableMainRow: {flexDirection: 'row', margin: 2},
+    sectionTitle: {
+      color: MaterialColorTheme.onSurface,
+      fontSize: 20,
+      fontWeight: 'bold',
+      margin: 15,
+    },
+    sectionSeperatorLine: {
+      borderBottomWidth: 1,
+      marginVertical: 20,
+      borderColor: MaterialColorTheme.secondary,
+    },
+    logOutButton: {
+      color: MaterialColorTheme.tertiary,
+      fontSize: 15,
+      fontWeight: 'bold',
+    },
+    profileButton: {
+      color: MaterialColorTheme.primary,
+      fontSize: 15,
+      fontWeight: 'bold',
+    },
+  });
+
   const [currentUser, setCurrentUser] = useState<CurrentUserDetailsInterface>(
     {},
   );
@@ -41,7 +75,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
   }, []);
 
   return (
-    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
+    <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ScrollView overScrollMode="never">
         <View style={{padding: 10}}>
           <View
@@ -58,76 +92,114 @@ function ProfileScreen(props: ProfileScreenInterface) {
                 width: 130,
                 borderRadius: 100,
                 borderWidth: 2,
-                borderColor: MaterialColors.MaterialBlueGreyLight,
+                borderColor: MaterialColorTheme.primary,
               }}>
               <FontAwesome5
                 name="user-alt"
-                color={MaterialColors.MaterialBlueGreyLight}
+                color={MaterialColorTheme.primary}
                 size={90}
               />
             </View>
             <RobotoText
               text={currentUser.userName}
               textStyle={{
-                color: MaterialColors.MaterialBlack,
+                color: MaterialColorTheme.onSurface,
                 fontSize: 20,
                 marginTop: 12,
                 fontWeight: 'bold',
               }}
+              isBold={false}
+              numberOfLines={0}
             />
             <RobotoText
               text={currentUser.email}
               textStyle={{
-                color: MaterialColors.MaterialBlack,
+                color: MaterialColorTheme.onSurface,
                 fontSize: 15,
               }}
+              isBold={false}
+              numberOfLines={0}
             />
           </View>
           <View style={styles.sectionSeperatorLine}></View>
           <View>
-            <RobotoText text="User Details" textStyle={styles.sectionTitle} />
+            <RobotoText
+              text="User Details"
+              textStyle={styles.sectionTitle}
+              isBold={false}
+              numberOfLines={0}
+            />
             <View style={styles.profileDetailsViewSection}>
               <View style={styles.tableMainRow}>
-                <RobotoText text="Name: " textStyle={styles.detailsTableKey} />
+                <RobotoText
+                  text="Name: "
+                  textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
+                />
                 <RobotoText
                   text={currentUser.name ? currentUser.name : '--'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Surname: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={currentUser.surname ? currentUser.surname : '--'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Username: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={currentUser.userName ? currentUser.userName : '--'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
-                <RobotoText text="Phone: " textStyle={styles.detailsTableKey} />
+                <RobotoText
+                  text="Phone: "
+                  textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
+                />
                 <RobotoText
                   text={
                     currentUser.phoneNumber ? currentUser.phoneNumber : '--'
                   }
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
-                <RobotoText text="Email: " textStyle={styles.detailsTableKey} />
+                <RobotoText
+                  text="Email: "
+                  textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
+                />
                 <RobotoText
                   text={currentUser.email ? currentUser.email : '--'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
             </View>
@@ -137,55 +209,80 @@ function ProfileScreen(props: ProfileScreenInterface) {
             <RobotoText
               text="Account Details"
               textStyle={styles.sectionTitle}
+              isBold={false}
+              numberOfLines={0}
             />
             <View style={styles.profileDetailsViewSection}>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Email Confirmation: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={styles.emailConfirmed ? 'Confirmed' : 'Pending'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Phone Confirmation: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={
                     currentUser.phoneNumberConfirmed ? 'Confirmed' : 'Pending'
                   }
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Account Active: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={currentUser.isActive ? 'Active' : 'In-Active'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
                 <RobotoText
                   text="Account Lockout: "
                   textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
                 />
                 <RobotoText
                   text={currentUser.lockoutEnabled ? 'Enabled' : 'Disabled'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
               <View style={styles.tableMainRow}>
-                <RobotoText text="TFA: " textStyle={styles.detailsTableKey} />
+                <RobotoText
+                  text="TFA: "
+                  textStyle={styles.detailsTableKey}
+                  isBold={false}
+                  numberOfLines={0}
+                />
                 <RobotoText
                   text={currentUser.twoFactorEnabled ? 'On' : 'Off'}
                   textStyle={styles.detailsTableValue}
+                  isBold={false}
+                  numberOfLines={0}
                 />
               </View>
             </View>
@@ -196,6 +293,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
               <RobotoText
                 text="Edit User Details"
                 textStyle={styles.profileButton}
+                isBold={false}
+                numberOfLines={0}
               />
             </View>
           </TouchableOpacity>
@@ -204,6 +303,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
               <RobotoText
                 text="Edit Account Details"
                 textStyle={styles.profileButton}
+                isBold={false}
+                numberOfLines={0}
               />
             </View>
           </TouchableOpacity>
@@ -212,6 +313,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
               <RobotoText
                 text="Change Profile Photo"
                 textStyle={styles.profileButton}
+                isBold={false}
+                numberOfLines={0}
               />
             </View>
           </TouchableOpacity>
@@ -220,12 +323,19 @@ function ProfileScreen(props: ProfileScreenInterface) {
               <RobotoText
                 text="Change Password"
                 textStyle={styles.profileButton}
+                isBold={false}
+                numberOfLines={0}
               />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => props.logout()}>
             <View style={styles.tableMainRow}>
-              <RobotoText text="Logout" textStyle={styles.logOutButton} />
+              <RobotoText
+                text="Logout"
+                textStyle={styles.logOutButton}
+                isBold={false}
+                numberOfLines={0}
+              />
             </View>
           </TouchableOpacity>
         </View>
@@ -233,40 +343,5 @@ function ProfileScreen(props: ProfileScreenInterface) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  detailsTableKey: {
-    color: MaterialColors.MaterialBlack,
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  detailsTableValue: {
-    color: MaterialColors.MaterialBlack,
-    fontSize: 15,
-  },
-  profileDetailsViewSection: {margin: 15, marginTop: 0},
-  tableMainRow: {flexDirection: 'row', margin: 2},
-  sectionTitle: {
-    color: MaterialColors.MaterialBlack,
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 15,
-  },
-  sectionSeperatorLine: {
-    borderBottomWidth: 1,
-    marginVertical: 20,
-    borderColor: MaterialColors.MaterialBlueGreyLight,
-  },
-  logOutButton: {
-    color: MaterialColors.MaterialRed,
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  profileButton: {
-    color: MaterialColors.MaterialBLueGreyMediumLight,
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-});
 
 export default ProfileScreen;
