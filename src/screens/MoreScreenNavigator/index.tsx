@@ -9,11 +9,12 @@ import RolesScreen from '../RolesScreen/RolesMainScreen';
 import CreateRoleScreen from '../RolesScreen/RolesDetailScreen';
 import PermissionMainScreen from '../PermissionsScreen/PermissionMainScreen';
 import PermissionDetailScreen from '../PermissionsScreen/PermissionDetailScreen';
+import { navigationRef } from './RootNavigation';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer ref={navigationRef} independent={true}>
       <Stack.Navigator>
         <Stack.Screen
           options={{headerShown: false}}

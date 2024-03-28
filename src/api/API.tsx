@@ -5,6 +5,7 @@ import {
   ValidateToken,
 } from './AccountAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as RootNavigation from '../screens/MoreScreenNavigator/RootNavigation';
 
 const apiUrl: string = 'EnvSettings.AuthURL';
 
@@ -15,11 +16,13 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config: any) => {
+    let callData : UserAuthDataInterface; 
     let UserAuthData: UserAuthDataInterface = JSON.parse(
       (await AsyncStorage.getItem('UserAuthData')) ?? '{}',
     );
     let tokenExpired: boolean = false;
     if (UserAuthData) {
+      //Validating access_token to check if expired
       await ValidateToken(UserAuthData.access_token)
         .then(data => {
           if (!data.data.active) {
@@ -28,9 +31,26 @@ axiosInstance.interceptors.request.use(
         })
         .catch(error => console.log(error));
       if (tokenExpired) {
+
+
+
+        /////////////////////////////this refresh logic to be worked on for navigations 
+        // // Validating refresh token 
+        // await ValidateToken(UserAuthData.refresh_token).then( res => {
+        //   if(!res.data.active)
+        //   {
+        //     RootNavigation.navigate('Login', {UserLoggedIn: false});
+        //     return;
+        //   }
+        // }
+        // )
+
+
+        // if expired getting new refresh token
         await RefreshAccessToken().then((res: any) => {
-          AsyncStorage.setItem('UserAuthData', JSON.stringify(res.data));
+          callData = res.data;
         });
+        AsyncStorage.setItem('UserAuthData', JSON.stringify(callData));
       }
       UserAuthData = JSON.parse(
         (await AsyncStorage.getItem('UserAuthData')) ?? '{}',
