@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, ActivityIndicator} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
@@ -22,6 +21,8 @@ import {
 import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInterface';
 import {TransactionModalStateInterface} from '../../interfaces/TransactionModalStateInterface';
 import RadioButtonComponent from '../../components/RadioButtonComponent/RadioButtonComponent';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface CreateRoleScreenInterface {
   navigation: any;
@@ -29,6 +30,7 @@ interface CreateRoleScreenInterface {
 }
 
 function CreateRoleScreen(props: CreateRoleScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   //common entity variables
   const [data, setData] = useState<RolesDetailsInterface>(
     props.route.params?.item ?? {},
@@ -150,7 +152,7 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
   //
 
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{backgroundColor: MaterialColorTheme.surface, flex: 1}}>
       <ObjectScreenHeader
         headerTitle={'Create Role'}
         showCreateEntityButton={false}
@@ -162,7 +164,7 @@ function CreateRoleScreen(props: CreateRoleScreenInterface) {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator
             size="large"
-            color={MaterialColors.MaterialDeepPurple}
+            color={MaterialColorTheme.primary}
           />
         </View>
       )}

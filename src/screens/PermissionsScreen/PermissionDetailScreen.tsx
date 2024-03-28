@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import RobotoText from '../../components/Text/RobotoText';
 import {useEffect, useState} from 'react';
@@ -16,6 +15,8 @@ import TabNavItemListComponent from '../../components/TabNavigationComponent/Tab
 import PermissionDetailScreenModal, {
   PermissionDetailScreenModalInterface,
 } from '../../components/PermissionModals/PermissionDetailScreenModal';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface PermissionDetailScreenInterface {
   navigation: any;
@@ -23,6 +24,8 @@ interface PermissionDetailScreenInterface {
 }
 
 function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  
   const [permissions, setPemissions] = useState<PermissionInterface>(); //All Application Permissions
   const [selectedGroup, setSelectedGroup] = useState<Permission[]>(); //Activity permissions
   const [selectedParentGroup, setSelectedParentGroup] =
@@ -75,7 +78,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
   }
 
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{backgroundColor: MaterialColorTheme.surface, flex: 1}}>
       <View>
         <ObjectScreenHeader
           headerTitle={props.route.params?.objectName}
@@ -97,7 +100,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator
             size="large"
-            color={MaterialColors.MaterialDeepPurple}
+            color={MaterialColorTheme.primary}
           />
         </View>
       )}
@@ -119,7 +122,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
             <View style={{flex: 1, justifyContent: 'center'}}>
               <ActivityIndicator
                 size="large"
-                color={MaterialColors.MaterialDeepPurple}
+                color={MaterialColorTheme.primary}
               />
             </View>
           )}
@@ -146,7 +149,7 @@ function PermissionDetailScreen(props: PermissionDetailScreenInterface) {
                 <View style={{flex: 1, justifyContent: 'center'}}>
                   <ActivityIndicator
                     size="large"
-                    color={MaterialColors.MaterialDeepPurple}
+                    color={MaterialColorTheme.primary}
                   />
                 </View>
               )}

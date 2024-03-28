@@ -1,5 +1,4 @@
 import {ActivityIndicator, FlatList, View} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import SearchInputField from '../../components/InputFields/SearchField';
 import TabNavigationComponent, {
@@ -13,11 +12,14 @@ import {GetRoles} from '../../api/RolesAPI';
 import {GetUsers} from '../../api/UsersAPI';
 import RobotoText from '../../components/Text/RobotoText';
 import TabNavItemListComponent from '../../components/TabNavigationComponent/TabNavItemListComponent';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface PermissionMainScreenInterface {
   navigation: any;
 }
 function PermissionMainScreen(props: PermissionMainScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const [search, setSearch] = useState('');
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   var TabNavigationComponentData: TabComponentsInterface[] = [
@@ -70,7 +72,7 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}>
+    <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ObjectScreenHeader
         headerTitle={'Permissions'}
         showCreateEntityButton={false}
@@ -101,7 +103,7 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
                 <View style={{flex: 1, justifyContent: 'center'}}>
                   <ActivityIndicator
                     size="large"
-                    color={MaterialColors.MaterialDeepPurple}
+                    color={MaterialColorTheme.primary}
                   />
                 </View>
               )}
@@ -110,13 +112,13 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
                   <View style={{flexDirection: 'row'}}>
                     <RobotoText
                       text={'Total: '}
-                      textStyle={{}}
+                      textStyle={{color: MaterialColorTheme.onSurface}}
                       isBold={true}
                       numberOfLines={0}
                     />
                     <RobotoText
                       text={rolesData?.totalCount.toString() ?? ''}
-                      textStyle={{}}
+                      textStyle={{color: MaterialColorTheme.onSurface}}
                       isBold={true}
                       numberOfLines={0}
                     />
@@ -148,7 +150,7 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
                 <View style={{flex: 1, justifyContent: 'center'}}>
                   <ActivityIndicator
                     size="large"
-                    color={MaterialColors.MaterialDeepPurple}
+                    color={MaterialColorTheme.primary}
                   />
                 </View>
               )}
@@ -157,13 +159,13 @@ function PermissionMainScreen(props: PermissionMainScreenInterface) {
                   <View style={{flexDirection: 'row'}}>
                     <RobotoText
                       text={'Total: '}
-                      textStyle={{}}
+                      textStyle={{color: MaterialColorTheme.onSurface}}
                       isBold={true}
                       numberOfLines={0}
                     />
                     <RobotoText
                       text={usersData?.totalCount.toString() ?? ''}
-                      textStyle={{}}
+                      textStyle={{color: MaterialColorTheme.onSurface}}
                       isBold={true}
                       numberOfLines={0}
                     />

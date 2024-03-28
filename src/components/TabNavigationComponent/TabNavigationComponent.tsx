@@ -1,7 +1,8 @@
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import * as MaterialColors from '../../styles/materialColors';
 import {useEffect, useState} from 'react';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface TabNavBarButtonInterface {
   buttonTitle: string;
@@ -10,23 +11,22 @@ interface TabNavBarButtonInterface {
 }
 
 function TabNavBarButton(props: TabNavBarButtonInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return (
     <TouchableOpacity onPress={() => props.onTabButtonClick()}>
       <View style={{margin: 20}}>
         <View
           style={{
             borderBottomWidth: props.isSelectedTab ? 2 : 0,
-            borderBottomColor: props.isSelectedTab
-              ? MaterialColors.MaterialDeepPurple
-              : MaterialColors.MaterialBLueGreyMediumLight,
+            borderBottomColor: MaterialColorTheme.primary,
           }}>
           <RobotoText
             text={props.buttonTitle}
             textStyle={{
               fontSize: 15,
               color: props.isSelectedTab
-                ? MaterialColors.MaterialBlack
-                : MaterialColors.MaterialBLueGreyMediumLight,
+                ? MaterialColorTheme.onSurface
+                : MaterialColorTheme.onSurfaceVariant,
             }}
             isBold={true}
             numberOfLines={0}

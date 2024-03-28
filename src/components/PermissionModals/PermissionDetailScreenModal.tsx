@@ -1,5 +1,4 @@
 import {ActivityIndicator, Modal, StyleSheet, View} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../Text/RobotoText';
 import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
@@ -9,6 +8,8 @@ import {
   UpdatePermissionInterface,
 } from '../../api/PermissionsAPI';
 import {useEffect, useState} from 'react';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 export interface PermissionDetailScreenModalInterface {
   displayName: string;
@@ -24,6 +25,41 @@ export interface PermissionDetailScreenModalInterface {
 function PermissionDetailScreenModal(
   props: PermissionDetailScreenModalInterface,
 ) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      width: '70%',
+      margin: 20,
+      backgroundColor: MaterialColorTheme.surface,
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      margin: 20,
+      textAlign: 'center',
+    },
+  });
+  
   const [permissionData, setPermissionData] =
     useState<UpdatePermissionInterface>();
   const [isGranted, setIsGranted] = useState<boolean>(props.isGranted);
@@ -63,7 +99,7 @@ function PermissionDetailScreenModal(
                   <RobotoText
                     text={props.displayName}
                     textStyle={{
-                      color: MaterialColors.MaterialBlack,
+                      color: MaterialColorTheme.onSurface,
                       fontSize: 20,
                     }}
                     isBold={true}
@@ -106,7 +142,7 @@ function PermissionDetailScreenModal(
               <View style={{flex: 1, justifyContent: 'center'}}>
                 <ActivityIndicator
                   size="large"
-                  color={MaterialColors.MaterialDeepPurple}
+                  color={MaterialColorTheme.primary}
                 />
               </View>
             )}
@@ -117,46 +153,5 @@ function PermissionDetailScreenModal(
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    width: '70%',
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin: 20,
-    textAlign: 'center',
-  },
-});
 
 export default PermissionDetailScreenModal;

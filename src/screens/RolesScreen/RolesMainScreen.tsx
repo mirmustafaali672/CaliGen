@@ -5,7 +5,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import {useEffect, useState} from 'react';
@@ -14,12 +13,15 @@ import SearchInputField from '../../components/InputFields/SearchField';
 import {useIsFocused} from '@react-navigation/native';
 import {GetRoles} from '../../api/RolesAPI';
 import EntityDetailCardComponent from '../../components/EntityDetailCardComponent/EntityDetailCardComponent';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface RolesScreenInterface {
   navigation: any;
 }
 
 function RolesScreen(props: RolesScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const [roles, setRoles] = useState<RolesInterface>();
   const [rolesActivity, setRolesActivity] = useState(false);
   const [search, setSearch] = useState('');
@@ -50,7 +52,7 @@ function RolesScreen(props: RolesScreenInterface) {
   }, [search]);
 
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{backgroundColor: MaterialColorTheme.surface, flex: 1}}>
       <ObjectScreenHeader
         showCreateEntityButton={true}
         headerTitle="Roles"
@@ -71,7 +73,7 @@ function RolesScreen(props: RolesScreenInterface) {
           <View style={{flex: 1, justifyContent: 'center'}}>
             <ActivityIndicator
               size="large"
-              color={MaterialColors.MaterialDeepPurple}
+              color={MaterialColorTheme.primary}
             />
           </View>
         )}
