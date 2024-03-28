@@ -2,7 +2,6 @@ import {Modal, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
 import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../InputFields/PlainInputField';
 import {useEffect, useState} from 'react';
 import {
@@ -10,6 +9,8 @@ import {
   SaveDataToStorage,
 } from '../../AsyncStorageActions/AsyncDataAction';
 import {EnvSettingInterface} from '../../interfaces/EnvSettingInterface';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface LoginSettingModalInterface {
   visible: boolean;
@@ -22,6 +23,33 @@ let screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
 
 function LoginSettingModal(props: LoginSettingModalInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: '#00000024',
+    },
+    modalView: {
+      width: '90%',
+      margin: 20,
+      backgroundColor: MaterialColorTheme.surface,
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+  });
+
+
   const [EnvSettings, setApplicationEnvUrlSetting] =
     useState<EnvSettingInterface>({
       authURL: '',
@@ -117,46 +145,6 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#00000024',
-  },
-  modalView: {
-    width: '90%',
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin: 20,
-    textAlign: 'center',
-  },
-});
+
 
 export default LoginSettingModal;

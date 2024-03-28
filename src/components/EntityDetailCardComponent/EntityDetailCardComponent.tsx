@@ -1,7 +1,8 @@
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {View, TouchableOpacity} from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import * as MaterialColors from '../../styles/materialColors';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface EntityDetailCardInterface {
   navigation: any;
@@ -16,12 +17,13 @@ interface EntityDetailCardInterface {
 }
 
 function EntityDetailCardComponent(props: EntityDetailCardInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const item = props.item;
   return (
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: MaterialColors.MaterialIndigo,
+        backgroundColor: MaterialColorTheme.surfaceContainer,
         padding: 10,
         marginHorizontal: 6,
         marginVertical: 5,
@@ -38,7 +40,7 @@ function EntityDetailCardComponent(props: EntityDetailCardInterface) {
           <AntDesign
             name="user"
             size={60}
-            color={MaterialColors.MaterialBlack}
+            color={MaterialColorTheme.onSurface}
           />
         </View>
       )}
@@ -49,31 +51,31 @@ function EntityDetailCardComponent(props: EntityDetailCardInterface) {
               ? `${props.cardTitle}`
               : `${props.cardTitle.substring(0, 8)}...`
           }
-          textStyle={{fontSize: 25, color: MaterialColors.MaterialBlack}}
+          textStyle={{fontSize: 25, color: MaterialColorTheme.onSurface}}
           isBold={true}
           numberOfLines={0}
         />
         <RobotoText
           text={props.value1}
-          textStyle={undefined}
+          textStyle={{color: MaterialColorTheme.onSurface}}
           isBold={false}
           numberOfLines={0}
         />
         <RobotoText
           text={props.value2}
-          textStyle={undefined}
+          textStyle={{color: MaterialColorTheme.onSurface}}
           isBold={false}
           numberOfLines={0}
         />
         <RobotoText
           text={props.value3}
-          textStyle={undefined}
+          textStyle={{color: MaterialColorTheme.onSurface}}
           isBold={false}
           numberOfLines={0}
         />
         <RobotoText
           text={props.value4}
-          textStyle={undefined}
+          textStyle={{color: MaterialColorTheme.onSurface}}
           isBold={false}
           numberOfLines={0}
         />

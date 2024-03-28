@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   FlatList,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import React, {useEffect, useState} from 'react';
@@ -13,12 +12,15 @@ import {UsersInterface} from '../../interfaces/UsersInterface';
 import SearchInputField from '../../components/InputFields/SearchField';
 import {useIsFocused} from '@react-navigation/native';
 import EntityDetailCardComponent from '../../components/EntityDetailCardComponent/EntityDetailCardComponent';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
 
 interface UsersScreenInterface {
   navigation: any;
 }
 
 function UsersScreen(props: UsersScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const [users, setUsers] = useState<UsersInterface>();
   const [usersActivity, setUsersActivity] = useState(false);
   const [search, setSearch] = useState('');
@@ -49,7 +51,7 @@ function UsersScreen(props: UsersScreenInterface) {
   }, [search]);
 
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{backgroundColor: MaterialColorTheme.surface, flex: 1}}>
       <ObjectScreenHeader
         showCreateEntityButton={true}
         headerTitle="Users"
@@ -70,7 +72,7 @@ function UsersScreen(props: UsersScreenInterface) {
           <View style={{flex: 1, justifyContent: 'center'}}>
             <ActivityIndicator
               size="large"
-              color={MaterialColors.MaterialDeepPurple}
+              color={MaterialColorTheme.primary}
             />
           </View>
         )}

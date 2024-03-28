@@ -5,8 +5,9 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface SecondaryButtonInterface {
   buttonClicked: any;
@@ -18,6 +19,19 @@ interface SecondaryButtonInterface {
 }
 
 function SecondaryButton(props: SecondaryButtonInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: MaterialColorTheme.secondary,
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
+      flexDirection: 'row',
+      borderWidth: 2,
+      borderColor: MaterialColorTheme.secondary,
+    },
+  });
   return (
     <View>
       <TouchableOpacity
@@ -28,7 +42,7 @@ function SecondaryButton(props: SecondaryButtonInterface) {
             {!props.iconAtEnd && props.buttonIcon}
             <View>
               <RobotoText
-                textStyle={{color: MaterialColors.MaterialDeepPurple}}
+                textStyle={{color: MaterialColorTheme.onSecondary}}
                 text={props.buttonTitle}
                 isBold={false}
                 numberOfLines={0}
@@ -40,7 +54,7 @@ function SecondaryButton(props: SecondaryButtonInterface) {
         {props.isActivityOnButton && (
           <ActivityIndicator
             size="small"
-            color={MaterialColors.MaterialWhite}
+            color={MaterialColorTheme.onSecondary}
           />
         )}
       </TouchableOpacity>
@@ -48,17 +62,6 @@ function SecondaryButton(props: SecondaryButtonInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: MaterialColors.MaterialWhite,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: MaterialColors.MaterialDeepPurple,
-  },
-});
+
 
 export default SecondaryButton;

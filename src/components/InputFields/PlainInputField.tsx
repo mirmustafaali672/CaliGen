@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {View, TextInput} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface InputFieldComponentInterface {
   onChangeText: any;
@@ -17,10 +18,12 @@ interface TextInputInterface {
 }
 
 function InputFieldComponent(props: InputFieldComponentInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+
   const [inputFieldOnFocusBorderColor, setinputFieldOnFocusBorderColor] =
     useState({
       borderWidth: 2,
-      borderColor: MaterialColors.MaterialLightDeepPurple,
+      borderColor: MaterialColorTheme.surface,
     });
   const [input, setInput] = useState<TextInputInterface>({
     text: props.value ?? '',
@@ -33,7 +36,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
         textStyle={{
           margin: 10,
           marginTop: 0,
-          color: MaterialColors.MaterialBlack,
+          color: MaterialColorTheme.onSurface,
         }}
         isBold={false}
         numberOfLines={0}
@@ -44,7 +47,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             marginHorizontal: 4,
             borderWidth: 2,
             borderRadius: 15,
-            backgroundColor: MaterialColors.MaterialIndigo,
+            backgroundColor: MaterialColorTheme.surfaceContainer,
             padding: 8,
           },
           inputFieldOnFocusBorderColor,
@@ -54,18 +57,18 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             input.text.length == 0 && props.required
               ? setinputFieldOnFocusBorderColor({
                   borderWidth: 2,
-                  borderColor: MaterialColors.MaterialRed,
+                  borderColor: MaterialColorTheme.tertiary,
                 })
               : setinputFieldOnFocusBorderColor({
                   borderWidth: 2,
-                  borderColor: MaterialColors.MaterialLightDeepPurple,
+                  borderColor: MaterialColorTheme.surface,
                 });
             setInput({text: input.text, touched: true});
           }}
           onFocus={() =>
             setinputFieldOnFocusBorderColor({
               borderWidth: 2,
-              borderColor: MaterialColors.MaterialDeepPurple,
+              borderColor: MaterialColorTheme.primary,
             })
           }
           placeholder={props.placeholder}
@@ -73,7 +76,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             setInput({text: value, touched: true});
             props.onChangeText(value);
           }}
-          value={props.value}></TextInput>
+          value={props.value} style={{color: MaterialColorTheme.onSurface}}></TextInput>
       </View>
       {input.text.length == 0 && input.touched && props.required && (
         <RobotoText
@@ -81,7 +84,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
           textStyle={{
             margin: 10,
             marginTop: 0,
-            color: MaterialColors.MaterialRed,
+            color: MaterialColorTheme.tertiary,
           }}
           isBold={true}
           numberOfLines={0}

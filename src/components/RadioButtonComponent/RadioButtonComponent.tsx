@@ -3,6 +3,8 @@ import RobotoText from '../Text/RobotoText';
 import * as MaterialColors from '../../styles/materialColors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useEffect, useState} from 'react';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 export interface RadioButtonInterface {
   label: string;
@@ -12,6 +14,8 @@ export interface RadioButtonInterface {
 }
 
 function RadioButtonComponent(props: RadioButtonInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+
   const [selected, setSelected] = useState<number>(
     props.buttons.findIndex(item => item.value == props.selected),
   );
@@ -25,7 +29,7 @@ function RadioButtonComponent(props: RadioButtonInterface) {
         textStyle={{
           margin: 10,
           marginTop: 0,
-          color: MaterialColors.MaterialBlack,
+          color: MaterialColorTheme.onSurface,
         }}
         isBold={false}
         numberOfLines={0}
@@ -43,14 +47,14 @@ function RadioButtonComponent(props: RadioButtonInterface) {
               <MaterialCommunityIcons
                 name={selected == index ? 'circle-slice-8' : 'circle-outline'}
                 size={20}
-                color={MaterialColors.MaterialDeepPurple}
+                color={MaterialColorTheme.primary}
               />
               <RobotoText
                 text={item.name}
                 textStyle={{
                   margin: 10,
                   marginTop: 0,
-                  color: MaterialColors.MaterialBlack,
+                  color: MaterialColorTheme.onSurface,
                 }}
                 isBold={false}
                 numberOfLines={0}

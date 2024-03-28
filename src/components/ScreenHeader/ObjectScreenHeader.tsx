@@ -1,8 +1,9 @@
 import {View} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
 
 interface HeaderObjectInterface {
   headerTitle: string;
@@ -13,6 +14,7 @@ interface HeaderObjectInterface {
 }
 
 function ObjectScreenHeader(props: HeaderObjectInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return (
     <View
       style={{
@@ -27,7 +29,7 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
             fontSize: 40,
             margin: 10,
             marginVertical: 20,
-            color: MaterialColors.MaterialBlack,
+            color: MaterialColorTheme.onSurface,
           }}
           isBold={true}
           numberOfLines={0}
@@ -46,7 +48,7 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
           buttonIcon={
             <AntDesign
               name="arrowleft"
-              color={MaterialColors.MaterialDeepPurple}
+              color={MaterialColorTheme.onSecondary}
               size={20}
             />
           }
@@ -61,7 +63,7 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
             buttonIcon={
               <AntDesign
                 name="plus"
-                color={MaterialColors.MaterialDeepPurple}
+                color={MaterialColorTheme.onSecondary}
                 size={20}
               />
             }

@@ -1,25 +1,24 @@
 import React from 'react';
 import {
   View,
-  Text,
   SafeAreaView,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
 } from 'react-native';
 import {MenuList} from '../../data/MenuData';
-import {PrimaryColor} from '../../styles/primaryScreenColors';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface GetMenuViewInterface {
   navigation: any;
 }
 function GetMenuView(props: GetMenuViewInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return MenuList.map((item, indexi) => (
     <View
-      style={{flex: 1, backgroundColor: MaterialColors.MaterialWhite}}
+      style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}
       key={indexi}>
       <SafeAreaView style={{flex: 1, margin: 6}}>
         <View>
@@ -35,15 +34,13 @@ function GetMenuView(props: GetMenuViewInterface) {
                 width: '100%',
                 height: 30,
                 marginVertical: 5,
-                borderBottomWidth: 0,
-                borderColor: MaterialColors.MaterialBlueGreyLight,
                 flexDirection: 'row',
                 flex: 1,
               }}>
               <View style={{flex: 1}}>
                 <FontAwesome5
                   name={item.icons}
-                  color={MaterialColors.MaterialBlueGreyLight}
+                  color={MaterialColorTheme.onSurface}
                   size={12}
                 />
               </View>
@@ -51,7 +48,7 @@ function GetMenuView(props: GetMenuViewInterface) {
                 <RobotoText
                   text={item.name}
                   textStyle={{
-                    color: MaterialColors.MaterialBlack,
+                    color: MaterialColorTheme.onSurface,
                   }}
                   isBold={false}
                   numberOfLines={0}
@@ -66,7 +63,7 @@ function GetMenuView(props: GetMenuViewInterface) {
                   key={indexj}
                   style={{
                     flex: 1,
-                    backgroundColor: MaterialColors.MaterialWhite,
+                    backgroundColor: MaterialColorTheme.surface,
                   }}>
                   <SafeAreaView style={{flex: 1, marginHorizontal: 30}}>
                     <View>
@@ -85,22 +82,15 @@ function GetMenuView(props: GetMenuViewInterface) {
                             marginVertical: 2,
                             marginHorizontal: 10,
                             borderBottomWidth: 0,
-                            borderColor: MaterialColors.MaterialBlueGreyLight,
+                            borderColor: MaterialColorTheme.onSurface,
                             flexDirection: 'row',
                             flex: 1,
                           }}>
-                          {/* <View style={{flex: 1}}>
-                            <FontAwesome5
-                              name={childItem.icons}
-                              color={MaterialColors.MaterialBlueGreyLight}
-                              size={12}
-                            />
-                          </View> */}
                           <View style={{flex: 10}}>
                             <RobotoText
                               text={childItem.name}
                               textStyle={{
-                                color: MaterialColors.MaterialBlack,
+                                color: MaterialColorTheme.onSurface,
                               }}
                               isBold={false}
                               numberOfLines={0}
@@ -124,12 +114,13 @@ interface MenuScreenInterface {
   navigation: any;
 }
 function MenuScreen(props: MenuScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return (
     <View
       style={{
         flex: 1,
         padding: 6,
-        backgroundColor: MaterialColors.MaterialWhite,
+        backgroundColor: MaterialColorTheme.surface,
       }}>
       <ScrollView>
         <GetMenuView navigation={props.navigation} />
@@ -138,15 +129,5 @@ function MenuScreen(props: MenuScreenInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  MenuButtonStyle: {
-    alignItems: 'center',
-    padding: 10,
-    margin: 2,
-    marginHorizontal: 10,
-    backgroundColor: PrimaryColor,
-    borderRadius: 10,
-  },
-});
 
 export default MenuScreen;

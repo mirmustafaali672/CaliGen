@@ -4,8 +4,47 @@ import RobotoText from '../Text/RobotoText';
 import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TransactionModalStateInterface} from '../../interfaces/TransactionModalStateInterface';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 function TransactionModal(props: TransactionModalStateInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      width: '70%',
+      margin: 20,
+      backgroundColor: MaterialColorTheme.surface,
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      margin: 20,
+      textAlign: 'center',
+      color: MaterialColorTheme.onSurface
+    },
+  });
+
+  
   return (
     <View>
       <Modal
@@ -30,7 +69,7 @@ function TransactionModal(props: TransactionModalStateInterface) {
                   ? MaterialColors.MaterialGreen
                   : props.status == -1
                   ? MaterialColors.MaterialAmberLight
-                  : MaterialColors.MaterialRed
+                  : MaterialColorTheme.error
               }
               size={50}
             />
@@ -53,46 +92,5 @@ function TransactionModal(props: TransactionModalStateInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    width: '70%',
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin: 20,
-    textAlign: 'center',
-  },
-});
 
 export default TransactionModal;

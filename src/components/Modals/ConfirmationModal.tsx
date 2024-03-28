@@ -5,6 +5,8 @@ import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SecondaryButton from '../Buttons/SecondaryButtonComponent';
 import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
 
 // interface ConfirmationModalInterface {
 //     visible: boolean,
@@ -15,6 +17,41 @@ import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInte
 // }
 
 function ConfirmationModal(props: ConfirmationModalInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      width: '70%',
+      margin: 20,
+      backgroundColor: MaterialColorTheme.surface,
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      color: MaterialColorTheme.onSurface,
+      margin: 20,
+      textAlign: 'center',
+    },
+  });
   return (
     <View>
       <Modal
@@ -59,46 +96,6 @@ function ConfirmationModal(props: ConfirmationModalInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    width: '70%',
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin: 20,
-    textAlign: 'center',
-  },
-});
+
 
 export default ConfirmationModal;

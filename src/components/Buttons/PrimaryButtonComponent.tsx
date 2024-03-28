@@ -5,8 +5,9 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface PrimaryButtonInterface {
   buttonClicked: any;
@@ -18,6 +19,19 @@ interface PrimaryButtonInterface {
 }
 
 function PrimaryButton(props: PrimaryButtonInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    container: {
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
+      flexDirection: 'row',
+      borderWidth: 2,
+      borderColor: MaterialColorTheme.primary 
+    },
+  });
+  
   return (
     <View>
       <TouchableOpacity
@@ -26,8 +40,8 @@ function PrimaryButton(props: PrimaryButtonInterface) {
           styles.container,
           {
             backgroundColor: props.disableButton
-              ? MaterialColors.MaterialIndigo
-              : MaterialColors.MaterialDeepPurple,
+              ? MaterialColorTheme.primaryFixedDim
+              : MaterialColorTheme.primary,
           },
         ]}
         onPress={() => props.buttonClicked()}>
@@ -36,7 +50,7 @@ function PrimaryButton(props: PrimaryButtonInterface) {
             {!props.iconAtEnd && props.buttonIcon}
             <View>
               <RobotoText
-                textStyle={{color: MaterialColors.MaterialWhite}}
+                textStyle={{color: MaterialColorTheme.surface}}
                 text={props.buttonTitle}
                 isBold={false}
                 numberOfLines={0}
@@ -48,7 +62,7 @@ function PrimaryButton(props: PrimaryButtonInterface) {
         {props.isActivityOnButton && (
           <ActivityIndicator
             size="small"
-            color={MaterialColors.MaterialWhite}
+            color={MaterialColorTheme.surface}
           />
         )}
       </TouchableOpacity>
@@ -56,16 +70,6 @@ function PrimaryButton(props: PrimaryButtonInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: MaterialColors.MaterialDeepPurple
-  },
-});
+
 
 export default PrimaryButton;

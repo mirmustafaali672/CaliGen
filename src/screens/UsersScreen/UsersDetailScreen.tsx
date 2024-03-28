@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {View, ScrollView, ActivityIndicator} from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import InputFieldComponent from '../../components/InputFields/PlainInputField';
 import {
   CreateUser,
@@ -29,6 +28,8 @@ import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInte
 import SelectComponent from '../../components/DropDownComponents/SelectComponent';
 import {GetRoles} from '../../api/RolesAPI';
 import RadioButtonComponent from '../../components/RadioButtonComponent/RadioButtonComponent';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface CreateUserScreenInterface {
   navigation: any;
@@ -36,6 +37,7 @@ interface CreateUserScreenInterface {
 }
 
 function CreateUserScreen(props: CreateUserScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   //common entity variables
   const [data, setData] = useState<UserDetailsInterface>(
     props.route.params?.item ?? {},
@@ -193,7 +195,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
   }, []);
 
   return (
-    <View style={{backgroundColor: MaterialColors.MaterialWhite, flex: 1}}>
+    <View style={{backgroundColor: MaterialColorTheme.surface, flex: 1}}>
       <ObjectScreenHeader
         headerTitle={'Create User'}
         showCreateEntityButton={false}
@@ -205,7 +207,7 @@ function CreateUserScreen(props: CreateUserScreenInterface) {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator
             size="large"
-            color={MaterialColors.MaterialDeepPurple}
+            color={MaterialColorTheme.primary}
           />
         </View>
       )}

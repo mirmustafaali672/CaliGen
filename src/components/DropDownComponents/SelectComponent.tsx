@@ -6,11 +6,12 @@ import {
   View,
 } from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import * as MaterialColors from '../../styles/materialColors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useEffect, useState} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import PrimaryButton from '../Buttons/PrimaryButtonComponent';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface SelectInterface {
   data: any;
@@ -27,6 +28,79 @@ export interface selectedItemInterface {
 }
 
 function SelectComponent(props: SelectInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      backgroundColor: MaterialColorTheme.surface,
+      width: '70%',
+      margin: 20,
+      borderRadius: 20,
+      // padding: 35,
+      // alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+      flex: 0.6,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      margin: 20,
+      textAlign: 'center',
+    },
+    modalHeader: {
+      backgroundColor: MaterialColorTheme.primaryContainer,
+      flex: 1,
+      justifyContent: 'center',
+      padding: 10,
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+    },
+    modalBody: {
+      backgroundColor: MaterialColorTheme.surface,
+      flex: 10,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius: 10,
+    },
+    selectItems: {
+      justifyContent: 'center',
+      padding: 10,
+      marginVertical: 0,
+      height: 60,
+      marginHorizontal: 20,
+      borderBottomWidth: 1,
+      borderColor: MaterialColorTheme.onSurface,
+    },
+    selectedItems: {
+      backgroundColor: MaterialColorTheme.primary,
+      justifyContent: 'center',
+      padding: 10,
+      height: 60,
+      marginHorizontal: 10,
+      marginVertical: 2,
+      borderRadius: 10,
+    },
+  });
+
   const [isSelectModalOpen, setIsSelectModalOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState<any[]>(
     props.previouslySelectedItems,
@@ -55,7 +129,7 @@ function SelectComponent(props: SelectInterface) {
             textStyle={{
               margin: 10,
               marginTop: 0,
-              color: MaterialColors.MaterialBlack,
+              color: MaterialColorTheme.onSurface,
             }}
             isBold={false}
             numberOfLines={0}
@@ -66,7 +140,7 @@ function SelectComponent(props: SelectInterface) {
                 marginHorizontal: 4,
                 borderWidth: 0,
                 borderRadius: 15,
-                backgroundColor: MaterialColors.MaterialIndigo,
+                backgroundColor: MaterialColorTheme.surfaceContainer,
                 padding: 20,
                 flexDirection: 'row',
                 flex: 1,
@@ -75,13 +149,13 @@ function SelectComponent(props: SelectInterface) {
             <View style={{flex: 10}}>
               <RobotoText
                 text={'Select'}
-                textStyle={{}}
+                textStyle={{color: MaterialColorTheme.onSurface}}
                 isBold={false}
                 numberOfLines={0}
               />
             </View>
             <View style={{flex: 1}}>
-              <AntDesign name="down" size={20} />
+              <AntDesign color={{color: MaterialColorTheme.onSurface}} name="down" size={20} />
             </View>
           </View>
         </View>
@@ -99,7 +173,7 @@ function SelectComponent(props: SelectInterface) {
                   textStyle={{
                     fontWeight: 'bold',
                     fontSize: 20,
-                    color: MaterialColors.MaterialWhite,
+                    color: MaterialColorTheme.onPrimaryContainer,
                     alignItems: 'center',
                   }}
                   isBold={false}
@@ -149,8 +223,8 @@ function SelectComponent(props: SelectInterface) {
                               color: selectedItems?.includes(
                                 item[props.keyName],
                               )
-                                ? MaterialColors.MaterialWhite
-                                : MaterialColors.MaterialBlack,
+                                ? MaterialColorTheme.onPrimary
+                                : MaterialColorTheme.onSurface,
                             }}
                             isBold={true}
                             numberOfLines={0}
@@ -159,7 +233,7 @@ function SelectComponent(props: SelectInterface) {
                             <AntDesign
                               name="check"
                               size={20}
-                              color={MaterialColors.MaterialWhite}
+                              color={MaterialColorTheme.onPrimary}
                             />
                           )}
                         </View>
@@ -193,79 +267,6 @@ function SelectComponent(props: SelectInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    width: '70%',
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    // padding: 35,
-    // alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    flex: 0.6,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    margin: 20,
-    textAlign: 'center',
-  },
-  modalHeader: {
-    backgroundColor: MaterialColors.MaterialBlueGreyLight,
-    flex: 1,
-    justifyContent: 'center',
-    padding: 10,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  modalBody: {
-    backgroundColor: MaterialColors.MaterialWhite,
-    flex: 10,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  selectItems: {
-    justifyContent: 'center',
-    padding: 10,
-    marginVertical: 0,
-    height: 60,
-    marginHorizontal: 20,
-    borderBottomWidth: 1,
-    borderColor: MaterialColors.MaterialIndigo,
-  },
-  selectedItems: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-    justifyContent: 'center',
-    padding: 10,
-    height: 60,
-    marginHorizontal: 10,
-    marginVertical: 2,
-    borderRadius: 10,
-  },
-});
+
 
 export default SelectComponent;

@@ -5,8 +5,9 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface TernaryButtonInterface {
   buttonClicked: any;
@@ -18,6 +19,20 @@ interface TernaryButtonInterface {
 }
 
 function TernaryButton(props: TernaryButtonInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: MaterialColorTheme.tertiaryContainer,
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10,
+      flexDirection: 'row',
+      borderWidth: 2,
+      borderColor: MaterialColorTheme.tertiaryContainer,
+    },
+  });
+
   return (
     <View>
       <TouchableOpacity
@@ -28,7 +43,7 @@ function TernaryButton(props: TernaryButtonInterface) {
             {!props.iconAtEnd && props.buttonIcon}
             <View>
               <RobotoText
-                textStyle={{color: MaterialColors.MaterialRed}}
+                textStyle={{color: MaterialColorTheme.tertiary}}
                 text={props.buttonTitle}
                 isBold={false}
                 numberOfLines={0}
@@ -38,24 +53,13 @@ function TernaryButton(props: TernaryButtonInterface) {
         )}
         {props.iconAtEnd && props.buttonIcon}
         {props.isActivityOnButton && (
-          <ActivityIndicator size="small" color={MaterialColors.MaterialRed} />
+          <ActivityIndicator size="small" color={MaterialColorTheme.error} />
         )}
       </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: MaterialColors.MaterialWhite,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: MaterialColors.MaterialRed,
-  },
-});
+
 
 export default TernaryButton;
