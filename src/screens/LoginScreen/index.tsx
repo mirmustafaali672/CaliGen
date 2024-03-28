@@ -13,11 +13,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {login} from '../../api/AccountAPI';
-import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../../components/Text/RobotoText';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import LoginSettingModal from '../../components/Modals/LoginSettingsModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 // let screenHeight = Dimensions.get('window').height;
 // let screenWidth = Dimensions.get('window').width;
@@ -29,6 +30,7 @@ interface LoginScreenInterface {
 }
 
 function LoginScreen(props: LoginScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('1q2w3E*');
   const [isTransactionModalVisible, setIsTransactionModalVisible] =
@@ -82,11 +84,117 @@ function LoginScreen(props: LoginScreenInterface) {
     setinputFieldOnFocusBorderColorUsername,
   ] = useState({});
 
+  const styles = StyleSheet.create({
+    loginFullMainScreen: {
+      flex: 1,
+      width: '100%',
+      backgroundColor: MaterialColorTheme.surface,
+    },
+    topPart: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+    },
+    bottomPart: {
+      flex: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      borderTopLeftRadius: 50,
+      borderTopRightRadius: 50,
+    },
+    loginCard: {},
+    imageSetter: {},
+    loginInputFields: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '1%',
+      flexDirection: 'row',
+      backgroundColor: MaterialColorTheme.surfaceContainer,
+      padding: '5%',
+      borderRadius: 20,
+      height: 65,
+    },
+    loginButton: {
+      margin: '1%',
+      marginVertical: '5%',
+      marginHorizontal: '25%',
+      width: '50%',
+      height: 60,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      backgroundColor: MaterialColorTheme.primary,
+      padding: '5%',
+      borderRadius: 100,
+      elevation: 5,
+      shadowColor: 'black',
+    },
+    forgotPasswordButton: {
+      // margin: '1%',
+      // marginVertical: '5%',
+      marginHorizontal: '25%',
+      width: '50%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      // backgroundColor: MaterialColors.MaterialDeepPurple,
+      // padding: '5%',
+      // borderRadius: 100,
+      // elevation: 5,
+      // shadowColor: 'white',
+      // shadowColor: 'black',
+    },
+    inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 22,
+    },
+    modalView: {
+      margin: 20,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+    },
+    buttonOpen: {
+      backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+      backgroundColor: MaterialColorTheme.primary,
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: 'center',
+    },
+  });
+  
   return (
     <View style={styles.loginFullMainScreen}>
       <StatusBar
         animated={true}
-        backgroundColor={MaterialColors.MaterialDeepPurple}
+        backgroundColor={MaterialColorTheme.primary}
         hidden={false}
       />
       <View style={styles.topPart}>
@@ -95,7 +203,7 @@ function LoginScreen(props: LoginScreenInterface) {
             isBold={true}
             text="CaliGen"
             textStyle={{
-              color: MaterialColors.MaterialBlack,
+              color: MaterialColorTheme.onSurface,
               fontSize: 60,
               marginTop: '30%',
             }}
@@ -104,7 +212,7 @@ function LoginScreen(props: LoginScreenInterface) {
           <RobotoText
             text="Login to continue"
             textStyle={{
-              color: MaterialColors.MaterialBlueGreyLight,
+              color: MaterialColorTheme.onSurface,
               fontSize: 30,
             }}
             isBold={false}
@@ -133,7 +241,7 @@ function LoginScreen(props: LoginScreenInterface) {
                   <AntDesign
                     name="user"
                     size={24}
-                    color={MaterialColors.MaterialDeepPurple}
+                    color={MaterialColorTheme.onSurface}
                     style={{marginRight: '5%'}}
                   />
                   <TextInput
@@ -145,14 +253,14 @@ function LoginScreen(props: LoginScreenInterface) {
                     onFocus={() =>
                       setinputFieldOnFocusBorderColorUsername({
                         borderWidth: 1,
-                        borderColor: MaterialColors.MaterialDeepPurple,
+                        borderColor: MaterialColorTheme.primary,
                       })
                     }
                     autoCapitalize="none"
                     autoComplete="password-new"
                     autoCorrect={false}
                     placeholder="Username"
-                    style={styles.inputFieldIcon}
+                    style={[styles.inputFieldIcon, {color: MaterialColorTheme.onSurface}]}
                     onChangeText={value => setUsername(value)}
                     value={username}></TextInput>
                 </View>
@@ -165,7 +273,7 @@ function LoginScreen(props: LoginScreenInterface) {
                     style={{marginRight: '5%'}}
                     name="password"
                     size={24}
-                    color={MaterialColors.MaterialDeepPurple}
+                    color={MaterialColorTheme.onSurface}
                   />
                   <TextInput
                     onBlur={() =>
@@ -176,14 +284,14 @@ function LoginScreen(props: LoginScreenInterface) {
                     onFocus={() =>
                       setinputFieldOnFocusBorderColor({
                         borderWidth: 1,
-                        borderColor: MaterialColors.MaterialDeepPurple,
+                        borderColor: MaterialColorTheme.primary,
                       })
                     }
                     autoCapitalize="none"
                     autoComplete="password-new"
                     autoCorrect={false}
                     placeholder="Password"
-                    style={styles.inputFieldIcon}
+                    style={[styles.inputFieldIcon, {color: MaterialColorTheme.onSurface}]}
                     onChangeText={value => setPassword(value)}
                     value={password}></TextInput>
                 </View>
@@ -194,7 +302,7 @@ function LoginScreen(props: LoginScreenInterface) {
                     <RobotoText
                       text="Login"
                       textStyle={{
-                        color: MaterialColors.MaterialWhite,
+                        color: MaterialColorTheme.onPrimary,
                         fontWeight: 'bold',
                       }}
                       isBold={false}
@@ -205,7 +313,7 @@ function LoginScreen(props: LoginScreenInterface) {
                   {loginActivity && (
                     <ActivityIndicator
                       size="small"
-                      color={MaterialColors.MaterialWhite}
+                      color={MaterialColorTheme.onPrimary}
                     />
                   )}
                 </Pressable>
@@ -215,7 +323,7 @@ function LoginScreen(props: LoginScreenInterface) {
                   <RobotoText
                     text="Forgot Password?"
                     textStyle={{
-                      color: MaterialColors.MaterialDeepPurple,
+                      color: MaterialColorTheme.primary,
                       fontWeight: 'bold',
                     }}
                     isBold={false}
@@ -243,7 +351,7 @@ function LoginScreen(props: LoginScreenInterface) {
             <RobotoText
               text="Don't have an account? "
               textStyle={{
-                color: MaterialColors.MaterialBlueGreyLight,
+                color: MaterialColorTheme.onSurface,
                 fontWeight: 'bold',
               }}
               isBold={false}
@@ -252,7 +360,7 @@ function LoginScreen(props: LoginScreenInterface) {
             <RobotoText
               text=" Register"
               textStyle={{
-                color: MaterialColors.MaterialDeepPurple,
+                color: MaterialColorTheme.primary,
                 fontWeight: 'bold',
               }}
               isBold={false}
@@ -278,7 +386,7 @@ function LoginScreen(props: LoginScreenInterface) {
             <Ionicons
               name="settings-sharp"
               size={24}
-              color={MaterialColors.MaterialBLueGreyMediumLight}
+              color={MaterialColorTheme.onPrimaryContainer}
             />
           </View>
         </TouchableOpacity>
@@ -287,110 +395,6 @@ function LoginScreen(props: LoginScreenInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-  loginFullMainScreen: {
-    flex: 1,
-    width: '100%',
-    backgroundColor: MaterialColors.MaterialWhite,
-  },
-  topPart: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  bottomPart: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-  },
-  loginCard: {},
-  imageSetter: {},
-  loginInputFields: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '1%',
-    flexDirection: 'row',
-    backgroundColor: MaterialColors.MaterialIndigo,
-    padding: '5%',
-    borderRadius: 20,
-    height: 65,
-  },
-  loginButton: {
-    margin: '1%',
-    marginVertical: '5%',
-    marginHorizontal: '25%',
-    width: '50%',
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-    padding: '5%',
-    borderRadius: 100,
-    elevation: 5,
-    shadowColor: 'black',
-  },
-  forgotPasswordButton: {
-    // margin: '1%',
-    // marginVertical: '5%',
-    marginHorizontal: '25%',
-    width: '50%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    // backgroundColor: MaterialColors.MaterialDeepPurple,
-    // padding: '5%',
-    // borderRadius: 100,
-    // elevation: 5,
-    // shadowColor: 'white',
-    // shadowColor: 'black',
-  },
-  inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: MaterialColors.MaterialDeepPurple,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-});
+
 
 export default LoginScreen;

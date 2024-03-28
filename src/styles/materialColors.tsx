@@ -1,3 +1,6 @@
+import {useColorScheme} from 'react-native';
+import { MaterialColorThemeInterface } from './MaterialColorThemeInterface';
+
 export const MaterialWhite: string = '#FFFFFF';
 export const MaterialBlack: string = '#000000';
 export const MaterialDeepPurple: string = '#7C4DFF'; // Current PRimary Color
@@ -11,3 +14,6 @@ export const MaterialGreen: string = '#00C853'; // default Green
 export const MaterialOrange: string = '#FFC400'; // default Orange
 export const MaterialLightestDeepPurple: string = '#EDE7F6'; // use as secondary button background
 export const MaterialAmberLight: string = '#FFC107'; //used for warining stff
+
+
+
