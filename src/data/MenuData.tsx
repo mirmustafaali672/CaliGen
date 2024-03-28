@@ -19,6 +19,37 @@ export const MenuList: MenuListInterface[] = [
     key: "Application Setup"
   },
   {
+    name: 'Execution',
+    navigationRouteName: 'HomeScreen',
+    icons: 'file',
+    isParent: true,
+    parentName: 'none',
+    ChildComponents: [
+      {
+        name: 'Files',
+        navigationRouteName: 'FilesMainScreen',
+        icons: 'project-diagram',
+        isParent: false,
+        parentName: 'none',
+      },
+      {
+        name: 'Data Visualization',
+        navigationRouteName: 'DataVisualizationMainScreen',
+        icons: 'project-diagram',
+        isParent: false,
+        parentName: 'none',
+      },
+      {
+        name: 'Auto Data Visualization',
+        navigationRouteName: 'AutoDataVisualizationMainScreen',
+        icons: 'project-diagram',
+        isParent: false,
+        parentName: 'none',
+      }
+    ],
+    key: "Execution"
+  },
+  {
     name: 'Data Auto Exploration',
     navigationRouteName: 'HomeScreen',
     icons: 'project-diagram',

@@ -19,6 +19,9 @@ import HistoryMainScreen from '../History/HistoryMainScreen';
 import AboutMainScreen from '../About/AboutMainScreen';
 import SaasMainScreen from '../Saas/SaasMainScreen';
 import SubsMainScreen from '../DataAutoExploration/Subs/SubsMainScreen';
+import FilesMainScreen from '../Execution/Files/FilesMainScreen';
+import DataVisualizationMainScreen from '../Execution/DataVisualization/DataVisualizationMainScreen';
+import AutoDataVisualizationMainScreen from '../Execution/AutoDataVisualization/AutoDataVisualizationMainScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -109,6 +112,21 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="SubsMainScreen"
           component={SubsMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="FilesMainScreen"
+          component={FilesMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="DataVisualizationMainScreen"
+          component={DataVisualizationMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="AutoDataVisualizationMainScreen"
+          component={AutoDataVisualizationMainScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
