@@ -30,6 +30,10 @@ function SettingsMainScreen(props: SettingsMainScreensInterface) {
           title={'Theme'}
           onItemClicked={() => props.navigation.navigate("ThemeMainScreen")}
         />
+        <TabNavItemListComponent
+          title={'Color Scheme'}
+          onItemClicked={() => props.navigation.navigate("ColorSchemeMainScreen")}
+        />
       </ScrollView>
     </View>
   );

@@ -24,6 +24,7 @@ import DataVisualizationMainScreen from '../Execution/DataVisualization/DataVisu
 import AutoDataVisualizationMainScreen from '../Execution/AutoDataVisualization/AutoDataVisualizationMainScreen';
 import SettingsMainScreen from '../SettingsScreen/SettingsMainScreen';
 import ThemeMainScreen from '../SettingsScreen/ThemeScreen/ThemeMainScreen';
+import ColorSchemeMainScreen from '../SettingsScreen/ColorScheme/ColorSchemeMainScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -139,6 +140,11 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="ThemeMainScreen"
           component={ThemeMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ColorSchemeMainScreen"
+          component={ColorSchemeMainScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use(
     let UserAuthData: UserAuthDataInterface = JSON.parse(
       (await AsyncStorage.getItem('UserAuthData')) ?? '{}',
     );
-    console.log("Data", UserAuthData)
     let tokenExpired: boolean = false;
     if (UserAuthData) {
       //Validating access_token to check if expired

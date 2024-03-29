@@ -1,23 +1,31 @@
-import { Appearance, useColorScheme } from "react-native";
-import { Schemes } from "./MaterialColorThemeInterface";
-import { MaterialColorThemeData } from "./MaterialColorThemeData";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
+import {Appearance, ColorSchemeName, useColorScheme} from 'react-native';
+import {Schemes} from './MaterialColorThemeInterface';
+import {Baseline, MaterialColorScheme} from './MaterialColorThemeData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useEffect} from 'react';
 
 export function MaterialColorThemeSelector(): Schemes {
-    let theme = useColorScheme();
-    async function GetData()
-    {
-      const data: string | null = await AsyncStorage.getItem('UserPreferedTheme');
-      if(data != 'System' && data != null && data != undefined)
-      {
-        Appearance.setColorScheme(data);
-        console.log("theme", data)
-      }
+  let theme: ColorSchemeName = useColorScheme();
+  let colorScheme : 'Pink' | 'Blue' | 'Baseline' | 'Teal' | 'Orange' | 
+  'Cyan'= 'Orange';
+  async function GetData() {
+    const userTheme: any =
+      (await AsyncStorage.getItem('UserPreferedTheme')) ?? theme;
+    if (userTheme != 'System' && userTheme != null && userTheme != undefined) {
+      Appearance.setColorScheme(userTheme);
     }
-    useEffect(()=>{GetData()},[]);
-    const scheme = MaterialColorThemeData.schemes[theme == "light" ? "light" : "dark"]
-    return scheme;
   }
+
+  useEffect(() => {
+    GetData();
+  }, []);
+  
+  let scheme =
+    MaterialColorScheme[colorScheme].schemes[
+      theme == 'light' ? 'light' : 'dark'
+    ];
+
+  return scheme;
+}
 
 export default MaterialColorThemeSelector;

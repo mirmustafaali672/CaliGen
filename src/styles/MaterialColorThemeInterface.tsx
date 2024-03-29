@@ -1,3 +1,11 @@
+export interface MaterialColorSchemeInterface {
+  Baseline: MaterialColorThemeInterface,
+  Teal: MaterialColorThemeInterface,
+  Orange: MaterialColorThemeInterface,
+  Cyan: MaterialColorThemeInterface,
+  Blue: MaterialColorThemeInterface,
+  Pink: MaterialColorThemeInterface
+}
 export interface MaterialColorThemeInterface {
     description: string
     seed: string
