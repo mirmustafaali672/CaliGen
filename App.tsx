@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/screens/HomeScreen';
 import ChatScreen from './src/screens/ChatScreen';
@@ -22,12 +22,24 @@ type SectionProps = PropsWithChildren<{
 function MyTabs() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        primary: MaterialColorTheme.primary,
+        background: MaterialColorTheme.surface,
+        card: MaterialColorTheme.surfaceContainer,
+        text: MaterialColorTheme.onSurface,
+        border: MaterialColorTheme.primary,
+        notification: MaterialColorTheme.primary
+    },
+  };
 
   function UserLoggedIn() {
     setIsLoggedIn(true);
   }
 
   return isLoggedIn ? (
+    <NavigationContainer theme={MyTheme} independent={true}>
     <Tab.Navigator
       screenOptions={{
         tabBarHideOnKeyboard: true,
@@ -99,7 +111,7 @@ function MyTabs() {
           ),
         }}
       />
-    </Tab.Navigator>
+    </Tab.Navigator></NavigationContainer>
   ) : (
     <LoginScreen UserLoggedIn={UserLoggedIn} />
   );
