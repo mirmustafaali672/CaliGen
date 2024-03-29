@@ -28,7 +28,7 @@ function SettingsMainScreen(props: SettingsMainScreensInterface) {
       <ScrollView>
         <TabNavItemListComponent
           title={'Theme'}
-          onItemClicked={() => console.log('theme')}
+          onItemClicked={() => props.navigation.navigate("ThemeMainScreen")}
         />
       </ScrollView>
     </View>

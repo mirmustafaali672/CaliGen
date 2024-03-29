@@ -23,6 +23,7 @@ import FilesMainScreen from '../Execution/Files/FilesMainScreen';
 import DataVisualizationMainScreen from '../Execution/DataVisualization/DataVisualizationMainScreen';
 import AutoDataVisualizationMainScreen from '../Execution/AutoDataVisualization/AutoDataVisualizationMainScreen';
 import SettingsMainScreen from '../SettingsScreen/SettingsMainScreen';
+import ThemeMainScreen from '../SettingsScreen/ThemeScreen/ThemeMainScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -133,6 +134,11 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="SettingsMainScreen"
           component={SettingsMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ThemeMainScreen"
+          component={ThemeMainScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
