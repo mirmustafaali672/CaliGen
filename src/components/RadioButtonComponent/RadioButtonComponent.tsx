@@ -1,6 +1,5 @@
 import {TouchableOpacity, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import * as MaterialColors from '../../styles/materialColors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useEffect, useState} from 'react';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';

@@ -1,12 +1,21 @@
 import {StyleSheet, View} from 'react-native';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
-import * as MaterialColors from '../../styles/materialColors';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface SaasMainScreenInterface {
   navigation: any;
 }
 
 function SaasMainScreen(props: SaasMainScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  
+const styles = StyleSheet.create({
+    mainContainer: {
+        backgroundColor: MaterialColorTheme.surface,
+        flex: 1
+    }
+})
   return (
     <View style={styles.mainContainer}>
       <ObjectScreenHeader
@@ -20,11 +29,5 @@ function SaasMainScreen(props: SaasMainScreenInterface) {
   );
 }
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        backgroundColor: MaterialColors.MaterialWhite,
-        flex: 1
-    }
-})
 
 export default SaasMainScreen;

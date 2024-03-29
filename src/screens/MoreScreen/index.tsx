@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {MenuList} from '../../data/MenuData';
 import RobotoText from '../../components/Text/RobotoText';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
@@ -38,7 +38,7 @@ function GetMenuView(props: GetMenuViewInterface) {
                 flex: 1,
               }}>
               <View style={{flex: 1}}>
-                <FontAwesome5
+                <MaterialCommunityIcons
                   name={item.icons}
                   color={MaterialColorTheme.onSurface}
                   size={12}

@@ -12,7 +12,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Application Setup',
     navigationRouteName: 'ApplicationSetupMainScreen',
-    icons: 'stream',
+    icons: 'view-stream',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
@@ -28,21 +28,21 @@ export const MenuList: MenuListInterface[] = [
       {
         name: 'Files',
         navigationRouteName: 'FilesMainScreen',
-        icons: 'project-diagram',
+        icons: 'resistor-nodes',
         isParent: false,
         parentName: 'none',
       },
       {
         name: 'Data Visualization',
         navigationRouteName: 'DataVisualizationMainScreen',
-        icons: 'project-diagram',
+        icons: 'resistor-nodes',
         isParent: false,
         parentName: 'none',
       },
       {
         name: 'Auto Data Visualization',
         navigationRouteName: 'AutoDataVisualizationMainScreen',
-        icons: 'project-diagram',
+        icons: 'resistor-nodes',
         isParent: false,
         parentName: 'none',
       }
@@ -52,14 +52,14 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Data Auto Exploration',
     navigationRouteName: 'HomeScreen',
-    icons: 'project-diagram',
+    icons: 'resistor-nodes',
     isParent: true,
     parentName: 'none',
     ChildComponents: [
       {
         name: 'Subs',
         navigationRouteName: 'SubsMainScreen',
-        icons: 'project-diagram',
+        icons: 'resistor-nodes',
         isParent: false,
         parentName: 'none',
       }
@@ -78,7 +78,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Procedures',
     navigationRouteName: 'ProceduresMainScreen',
-    icons: 'route',
+    icons: 'routes',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
@@ -96,7 +96,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Schedule',
     navigationRouteName: 'ScheduleMainScreen',
-    icons: 'calendar-alt',
+    icons: 'calendar',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
@@ -114,7 +114,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'About',
     navigationRouteName: 'AboutMainScreen',
-    icons: 'info-circle',
+    icons: 'information',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
@@ -123,7 +123,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Saas',
     navigationRouteName: 'SaasMainScreen',
-    icons: 'info-circle',
+    icons: 'information',
     isParent: false,
     parentName: 'none',
     ChildComponents: [],
@@ -132,7 +132,7 @@ export const MenuList: MenuListInterface[] = [
   {
     name: 'Admin',
     navigationRouteName: 'null',
-    icons: 'user',
+    icons: 'security',
     isParent: true,
     parentName: 'none',
     key: "Admin",
@@ -162,5 +162,14 @@ export const MenuList: MenuListInterface[] = [
         key: "Permission"
       }
     ],
+  },
+  {
+    name: 'Settings',
+    navigationRouteName: 'SettingsMainScreen',
+    icons: 'settings-helper',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "saas"
   },
 ];

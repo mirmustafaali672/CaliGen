@@ -1,12 +1,21 @@
 import {StyleSheet, View} from 'react-native';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
-import * as MaterialColors from '../../styles/materialColors';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+
 
 interface ApplicationSetupMainScreenInterface {
   navigation: any;
 }
 
 function ApplicationSetupMainScreen(props: ApplicationSetupMainScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const styles = StyleSheet.create({
+    mainContainer: {
+        backgroundColor: MaterialColorTheme.surface,
+        flex: 1
+    }
+})
   return (
     <View style={styles.mainContainer}>
       <ObjectScreenHeader
@@ -20,11 +29,6 @@ function ApplicationSetupMainScreen(props: ApplicationSetupMainScreenInterface) 
   );
 }
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        backgroundColor: MaterialColors.MaterialWhite,
-        flex: 1
-    }
-})
+
 
 export default ApplicationSetupMainScreen;

@@ -1,12 +1,21 @@
 import {StyleSheet, View} from 'react-native';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
-import * as MaterialColors from '../../styles/materialColors';
-
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 interface ScheduleMainScreenInterface {
   navigation: any;
 }
 
 function ScheduleMainScreen(props: ScheduleMainScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  
+const styles = StyleSheet.create({
+    mainContainer: {
+        backgroundColor: MaterialColorTheme.surface,
+        flex: 1
+    }
+})
+
   return (
     <View style={styles.mainContainer}>
       <ObjectScreenHeader
@@ -19,12 +28,5 @@ function ScheduleMainScreen(props: ScheduleMainScreenInterface) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        backgroundColor: MaterialColors.MaterialWhite,
-        flex: 1
-    }
-})
 
 export default ScheduleMainScreen;

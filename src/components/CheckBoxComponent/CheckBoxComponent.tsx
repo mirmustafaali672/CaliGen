@@ -1,7 +1,9 @@
 import {TouchableOpacity, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import * as MaterialColors from '../../styles/materialColors';
+import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+
 
 interface CheckBoxComponentInterface {
   title: string;
@@ -9,20 +11,21 @@ interface CheckBoxComponentInterface {
   onClicked: any;
 }
 function CheckBoxComponent(props: CheckBoxComponentInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return (
     <TouchableOpacity onPress={() => props.onClicked()}>
       <View style={{flexDirection: 'row', gap: 15}}>
         {!props.isChecked && (
           <MaterialCommunityIcons
             name={'checkbox-blank-outline'}
-            color={MaterialColors.MaterialDeepPurple}
+            color={MaterialColorTheme.primary}
             size={30}
           />
         )}
         {props.isChecked && (
           <MaterialCommunityIcons
             name={'checkbox-marked-outline'}
-            color={MaterialColors.MaterialDeepPurple}
+            color={MaterialColorTheme.primary}
             size={30}
           />
         )}
