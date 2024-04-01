@@ -51,13 +51,24 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           margin: 25,
           borderRadius: 10,
         }}>
-        {device && openCamera && (
+        {device && openCamera && hasPermission && (
           <Camera
             style={{flex: 1, borderRadius: 10}}
             device={device}
             isActive={true}
             codeScanner={codeScanner}
           />
+        )}
+        {!hasPermission && (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <RobotoText
+              text={'Please enable Camera Access from settings.'}
+              textStyle={{color: MaterialColorTheme.onSecondaryContainer}}
+              isBold={false}
+              numberOfLines={0}
+            />
+          </View>
         )}
       </View>
       <View
@@ -69,7 +80,7 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <TouchableOpacity
+        <TouchableOpacity disabled={!hasPermission}
           onPress={() => setOpenCamera(!openCamera)}
           style={{
             backgroundColor: MaterialColorTheme.primary,
