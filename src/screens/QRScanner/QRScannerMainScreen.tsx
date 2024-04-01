@@ -23,7 +23,6 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
     requestPermission();
   }
   const device = useCameraDevice('back');
-  let ScannedData;
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
@@ -33,9 +32,6 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           result: codes[0].value,
         });
       }
-
-      // console.log(`Scanned ${codes[0].value} codes!`);
-      // ScannedData = `Scanned ${codes[0].value} codes!`;
     },
   });
 
@@ -82,7 +78,15 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
             borderRadius: 100,
             flexDirection: 'row',
             justifyContent: 'center',
-            width:"90%"
+            width: '90%',
+            shadowColor: MaterialColorTheme.shadow,
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 3,
           }}>
           <MaterialCommunityIcons
             name="qrcode-scan"
