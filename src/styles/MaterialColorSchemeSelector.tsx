@@ -3,17 +3,26 @@ import {Schemes} from './MaterialColorThemeInterface';
 import {Baseline, MaterialColorScheme} from './MaterialColorThemeData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
-import { CurrentMaterialColor } from './CurrentMaterialColor';
+import {
+  CurrentMaterialColor,
+  SetCurrentMaterialColor,
+} from './CurrentMaterialColor';
 
 export function MaterialColorThemeSelector(): Schemes {
   let theme: ColorSchemeName = useColorScheme();
-  // let colorScheme: 'Pink' | 'Blue' | 'Baseline' | 'Teal' | 'Orange' | 'Cyan' =
-  //   'Orange';
+  var UserColorScheme:
+    | 'Pink'
+    | 'Blue'
+    | 'Baseline'
+    | 'Teal'
+    | 'Orange'
+    | 'Cyan';
   async function GetData() {
+    UserColorScheme =
+      (await AsyncStorage.getItem('UserColorScheme')) ?? CurrentMaterialColor;
+    SetCurrentMaterialColor(UserColorScheme);
     const userTheme: any =
       (await AsyncStorage.getItem('UserPreferedTheme')) ?? theme;
-      const UserColorScheme: any =
-      (await AsyncStorage.getItem('UserColorScheme')) ?? theme;
     if (userTheme != 'System' && userTheme != null && userTheme != undefined) {
       Appearance.setColorScheme(userTheme);
     }
@@ -21,10 +30,10 @@ export function MaterialColorThemeSelector(): Schemes {
 
   useEffect(() => {
     GetData();
-  }, []);
+  }, [theme]);
 
   let scheme =
-     MaterialColorScheme[CurrentMaterialColor].schemes[
+    MaterialColorScheme[CurrentMaterialColor].schemes[
       theme == 'light' ? 'light' : 'dark'
     ];
 
