@@ -1,14 +1,17 @@
 import {View} from 'react-native';
 import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader';
 import RobotoText from '../../components/Text/RobotoText';
+import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
 
 interface QRScannerResultScreenInterface {
   navigation: any;
-  route: any
+  route: any;
 }
 function QRScannerResultScreen(props: QRScannerResultScreenInterface) {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ObjectScreenHeader
         headerTitle={''}
         showCreateEntityButton={false}
@@ -16,7 +19,12 @@ function QRScannerResultScreen(props: QRScannerResultScreenInterface) {
         createBuutonClickNavigationRoute={undefined}
         navigation={props.navigation}
       />
-      <RobotoText text={props.route.params?.result} textStyle={undefined} isBold={false} numberOfLines={0} />
+      <RobotoText
+        text={props.route.params?.result}
+        textStyle={undefined}
+        isBold={false}
+        numberOfLines={0}
+      />
     </View>
   );
 }
