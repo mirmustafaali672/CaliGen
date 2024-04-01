@@ -1,3 +1,12 @@
+export interface CurrentAvaiableColorInterface
+{
+  Color:   'Pink'
+  | 'Blue'
+  | 'Baseline'
+  | 'Teal'
+  | 'Orange'
+  | 'Cyan'
+}
 export interface MaterialColorSchemeInterface {
   Baseline: MaterialColorThemeInterface,
   Teal: MaterialColorThemeInterface,

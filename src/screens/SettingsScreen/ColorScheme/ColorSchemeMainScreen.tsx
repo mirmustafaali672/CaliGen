@@ -5,16 +5,22 @@ import ObjectScreenHeader from '../../../components/ScreenHeader/ObjectScreenHea
 import TabNavItemListComponent from '../../../components/TabNavigationComponent/TabNavItemListComponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Appearance} from 'react-native';
+import { CurrentMaterialColor, SetCurrentMaterialColor } from '../../../styles/CurrentMaterialColor';
 
 interface ColorSchemeMainScreenInterface {
   navigation: any;
 }
 function ColorSchemeMainScreen(props: ColorSchemeMainScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
-  async function SetTheme(theme: string)
+  async function SetTheme(theme: 'Pink' | 'Blue' | 'Baseline' | 'Teal' | 'Orange' | 'Cyan')
   {
     // Appearance.setColorScheme(theme);
     AsyncStorage.setItem('UserColorScheme',theme != null ? theme : 'Baseline');
+    SetCurrentMaterialColor(theme);
+    // await Appearance.setColorScheme(null);
+    // await Appearance.setColorScheme('light');
+    // await Appearance.setColorScheme('dark');
+    Appearance.setColorScheme(Appearance.getColorScheme());
     props.navigation.navigate("ColorSchemeMainScreen")
   }
   return (
