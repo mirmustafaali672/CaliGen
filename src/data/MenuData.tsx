@@ -164,6 +164,15 @@ export const MenuList: MenuListInterface[] = [
     ],
   },
   {
+    name: 'Scanner',
+    navigationRouteName: 'QRScannerMainScreen',
+    icons: 'qrcode-scan',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "Scanner"
+  },
+  {
     name: 'Settings',
     navigationRouteName: 'SettingsMainScreen',
     icons: 'settings-helper',
