@@ -1,7 +1,5 @@
 import {View} from 'react-native';
-import SecondaryButton from '../Buttons/SecondaryButtonComponent';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
-import TernaryButton from '../Buttons/TerneryButtomComponent';
+import ButtonComponent from '../Buttons';
 
 interface ObjectScreenFooterInterface {
   navigation: any;
@@ -20,31 +18,34 @@ function ObjectScreenFooter(props: ObjectScreenFooterInterface) {
     <View style={{flexDirection: 'row', flex: 1, gap: 40}}>
       <View style={{flex: 1}}>
         {props.operationType == 1 && (
-          <SecondaryButton
+          <ButtonComponent
             buttonClicked={() => props.navigation.goBack()}
             buttonTitle="Back"
             buttonIcon={<View></View>}
             iconAtEnd={false}
+            type="Secondary"
           />
         )}
         {props.operationType == 2 && (
-          <TernaryButton
+          <ButtonComponent
             buttonClicked={() => props.deleteButtonClicked()}
             buttonTitle="Delete"
             buttonIcon={<View></View>}
             iconAtEnd={false}
             isActivityOnButton={props.isActivityOnTernaryButton}
+            type="Tertiary"
           />
         )}
       </View>
       <View style={{flex: 1}}>
-        <PrimaryButton
+        <ButtonComponent
           buttonClicked={() => props.createButtonClicked()}
           buttonTitle={props.operationType == 1 ? 'Create' : 'Update'}
           buttonIcon={<View></View>}
           iconAtEnd={false}
           isActivityOnButton={props.isActivityOnButton}
           disableButton={props.disableSumbitButton}
+          type="Primary"
         />
       </View>
     </View>

@@ -1,9 +1,8 @@
 import {Alert, Modal, View, Text, Pressable, StyleSheet} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../Text/RobotoText';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import SecondaryButton from '../Buttons/SecondaryButtonComponent';
+import ButtonComponent from '../Buttons';
 import {ConfirmationModalInterface} from '../../interfaces/ConfirmationModalInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';
@@ -76,17 +75,19 @@ function ConfirmationModal(props: ConfirmationModalInterface) {
               numberOfLines={0}
             />
             <View style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
-              <SecondaryButton
+              <ButtonComponent
                 buttonClicked={() => props.onCancel()}
                 buttonTitle={'No'}
                 buttonIcon={null}
                 iconAtEnd={false}
+                type="Secondary"
               />
-              <PrimaryButton
+              <ButtonComponent
                 buttonClicked={() => props.onConfirm()}
                 buttonTitle={'Yes'}
                 buttonIcon={null}
                 iconAtEnd={false}
+                type="Primary"
               />
             </View>
           </View>

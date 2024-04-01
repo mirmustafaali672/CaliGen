@@ -1,6 +1,5 @@
 import {Modal, StyleSheet, View, ScrollView, Dimensions} from 'react-native';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
-import SecondaryButton from '../Buttons/SecondaryButtonComponent';
+import ButtonComponent from '../Buttons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import InputFieldComponent from '../InputFields/PlainInputField';
 import {useEffect, useState} from 'react';
@@ -118,14 +117,15 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
               </View>
             </ScrollView>
             <View style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
-              <SecondaryButton
+              <ButtonComponent
                 buttonClicked={() => props.onCancel()}
                 buttonTitle={'Cancel'}
                 buttonIcon={null}
                 iconAtEnd={false}
                 isActivityOnButton={activity}
+                type="Secondary"
               />
-              <PrimaryButton
+              <ButtonComponent
                 buttonClicked={() => {
                   setActivity(true);
                   SaveDataToStorage('EnvSettings', JSON.stringify(EnvSettings));
@@ -136,6 +136,7 @@ function LoginSettingModal(props: LoginSettingModalInterface) {
                 buttonIcon={null}
                 iconAtEnd={false}
                 isActivityOnButton={activity}
+                type="Primary"
               />
             </View>
           </View>

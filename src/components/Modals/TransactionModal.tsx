@@ -1,11 +1,11 @@
 import {Modal, View, StyleSheet} from 'react-native';
 import * as MaterialColors from '../../styles/materialColors';
 import RobotoText from '../Text/RobotoText';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TransactionModalStateInterface} from '../../interfaces/TransactionModalStateInterface';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import ButtonComponent from '../Buttons';
 
 function TransactionModal(props: TransactionModalStateInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
@@ -79,11 +79,12 @@ function TransactionModal(props: TransactionModalStateInterface) {
               isBold={false}
               numberOfLines={0}
             />
-            <PrimaryButton
+            <ButtonComponent
               buttonClicked={() => props.onClose()}
               buttonTitle={'Close'}
               buttonIcon={null}
               iconAtEnd={false}
+              type="Primary"
             />
           </View>
         </View>

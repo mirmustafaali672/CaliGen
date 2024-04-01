@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import RobotoText from '../../components/Text/RobotoText';
-import SecondaryButton from '../Buttons/SecondaryButtonComponent';
+import ButtonComponent from '../Buttons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';
@@ -42,20 +42,21 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
           gap: 20,
           marginRight: 10,
         }}>
-        <SecondaryButton
+        <ButtonComponent
           buttonClicked={() => props.navigation.goBack()}
           buttonTitle={''}
           buttonIcon={
             <AntDesign
               name="arrowleft"
-              color={MaterialColorTheme.onSecondary}
+              color={MaterialColorTheme.onSecondaryContainer}
               size={20}
             />
           }
           iconAtEnd={true}
+          type="Secondary"
         />
         {props.showCreateEntityButton && (
-          <SecondaryButton
+          <ButtonComponent
             buttonClicked={() =>
               props.navigation.navigate(props.createBuutonClickNavigationRoute)
             }
@@ -63,11 +64,12 @@ function ObjectScreenHeader(props: HeaderObjectInterface) {
             buttonIcon={
               <AntDesign
                 name="plus"
-                color={MaterialColorTheme.onSecondary}
+                color={MaterialColorTheme.onPrimary}
                 size={20}
               />
             }
             iconAtEnd={true}
+            type="Primary"
           />
         )}
       </View>

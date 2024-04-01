@@ -1,7 +1,6 @@
 import {ActivityIndicator, Modal, StyleSheet, View} from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
-import SecondaryButton from '../Buttons/SecondaryButtonComponent';
+import ButtonComponent from '../Buttons';
 import RadioButtonComponent from '../RadioButtonComponent/RadioButtonComponent';
 import {
   UpdatePermission,
@@ -119,13 +118,14 @@ function PermissionDetailScreenModal(
                 </View>
                 <View
                   style={{flexDirection: 'row', gap: 20, alignItems: 'center'}}>
-                  <SecondaryButton
+                  <ButtonComponent
                     buttonClicked={() => props.onCancel()}
                     buttonTitle={'Cancel'}
                     buttonIcon={null}
                     iconAtEnd={false}
+                    type="Secondary"
                   />
-                  <PrimaryButton
+                  <ButtonComponent
                     buttonClicked={() =>
                       setPermissionData({
                         permissions: [{name: props.name, isGranted: isGranted}],
@@ -134,6 +134,7 @@ function PermissionDetailScreenModal(
                     buttonTitle={'Save'}
                     buttonIcon={null}
                     iconAtEnd={false}
+                    type="Primary"
                   />
                 </View>
               </View>

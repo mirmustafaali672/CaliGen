@@ -9,7 +9,7 @@ import RobotoText from '../Text/RobotoText';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useEffect, useState} from 'react';
 import {useIsFocused} from '@react-navigation/native';
-import PrimaryButton from '../Buttons/PrimaryButtonComponent';
+import ButtonComponent from '../Buttons';
 import { Schemes } from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
@@ -246,7 +246,7 @@ function SelectComponent(props: SelectInterface) {
                 <View style={{flex: 1, margin: 10}}>
                   <View
                     style={{justifyContent: 'center', alignItems: 'flex-end'}}>
-                    <PrimaryButton
+                    <ButtonComponent
                       buttonClicked={() => {
                         props.onClose(selectedItems);
                         setIsSelectModalOpen(false);
@@ -255,6 +255,7 @@ function SelectComponent(props: SelectInterface) {
                       buttonIcon={undefined}
                       iconAtEnd={false}
                       disableButton={selectedItems?.length == 0}
+                      type="Primary"
                     />
                   </View>
                 </View>
