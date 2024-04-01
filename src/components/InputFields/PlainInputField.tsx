@@ -46,7 +46,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
           {
             marginHorizontal: 4,
             borderWidth: 2,
-            borderRadius: 15,
+            borderRadius: 8,
             backgroundColor: MaterialColorTheme.surfaceContainer,
             padding: 8,
           },

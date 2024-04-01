@@ -51,7 +51,7 @@ function SelectComponent(props: SelectInterface) {
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
-      flex: 0.6,
+      flex: 0.8,
     },
     button: {
       borderRadius: 20,
@@ -87,7 +87,7 @@ function SelectComponent(props: SelectInterface) {
       marginVertical: 0,
       height: 60,
       marginHorizontal: 20,
-      borderBottomWidth: 1,
+      borderBottomWidth: 0.2,
       borderColor: MaterialColorTheme.onSurface,
     },
     selectedItems: {
@@ -139,7 +139,7 @@ function SelectComponent(props: SelectInterface) {
               {
                 marginHorizontal: 4,
                 borderWidth: 0,
-                borderRadius: 15,
+                borderRadius: 8,
                 backgroundColor: MaterialColorTheme.surfaceContainer,
                 padding: 20,
                 flexDirection: 'row',
