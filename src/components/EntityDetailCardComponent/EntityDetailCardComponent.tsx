@@ -1,8 +1,9 @@
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {View, TouchableOpacity} from 'react-native';
 import RobotoText from '../Text/RobotoText';
-import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import ButtonComponent from '../Buttons';
 
 interface EntityDetailCardInterface {
   navigation: any;
@@ -24,12 +25,12 @@ function EntityDetailCardComponent(props: EntityDetailCardInterface) {
       style={{
         flexDirection: 'row',
         backgroundColor: MaterialColorTheme.surfaceContainer,
-        padding: 10,
+        padding: '5%',
         marginHorizontal: 6,
         marginVertical: 5,
         borderRadius: 10,
       }}>
-      {props.showUserProfile && (
+      {/* {props.showUserProfile && (
         <View
           style={{
             flex: 1.5,
@@ -37,13 +38,13 @@ function EntityDetailCardComponent(props: EntityDetailCardInterface) {
             justifyContent: 'center',
             marginHorizontal: 10,
           }}>
-          <AntDesign
-            name="user"
+          <MaterialIcons
+            name="edit"
             size={60}
             color={MaterialColorTheme.onSurface}
           />
         </View>
-      )}
+      )} */}
       <View style={{flex: 6, alignItems: 'flex-start'}}>
         <RobotoText
           text={
@@ -80,15 +81,23 @@ function EntityDetailCardComponent(props: EntityDetailCardInterface) {
           numberOfLines={0}
         />
       </View>
-      <TouchableOpacity
-        onPress={() =>
-          props.navigation.navigate(props.navigationScreenName, {item})
-        }>
-        <View
-          style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}}>
-          <AntDesign name="edit" size={30} />
-        </View>
-      </TouchableOpacity>
+      <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <ButtonComponent
+          buttonClicked={() =>
+            props.navigation.navigate(props.navigationScreenName, {item})
+          }
+          buttonTitle={''}
+          buttonIcon={
+            <MaterialIcons
+              name="edit"
+              size={25}
+              color={MaterialColorTheme.onPrimary}
+            />
+          }
+          iconAtEnd={true}
+          type={'Primary'}
+        />
+      </View>
     </View>
   );
 }
