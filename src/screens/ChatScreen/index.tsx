@@ -394,7 +394,7 @@ function ChatScreen() {
                 buttonIcon={
                   <MaterialCommunityIcons
                     name="send"
-                    color={MaterialColorTheme.onPrimaryContainer}
+                    color={MaterialColorTheme.onPrimary}
                     size={20}
                   />
                 }
