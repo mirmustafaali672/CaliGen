@@ -7,10 +7,11 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  Pressable,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {GetCurrentUserDetailsByUsername} from '../../api/UsersAPI';
-import {CurrentUserDetailsInterface} from '../../interfaces/UserInterface';
+import {CurrentUserDetailsInterface} from '../../interfaces/UsersInterface';
 import RobotoText from '../../components/Text/RobotoText';
 import {Schemes} from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
@@ -352,7 +353,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
           </TouchableOpacity> */}
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={() => props.logout()}>
+      <Pressable onPress={() => props.logout()}>
         <View
           style={{
             backgroundColor: MaterialColorTheme.tertiary,
@@ -364,6 +365,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
             position: 'absolute',
             bottom: 20,
             right: 20,
+            elevation: 3
           }}>
           <MaterialCommunityIcons
             name="logout"
@@ -371,7 +373,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
             size={height / 28}
           />
         </View>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }
