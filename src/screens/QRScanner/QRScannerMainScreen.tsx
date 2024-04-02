@@ -11,6 +11,7 @@ import {
 import {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RobotoText from '../../components/Text/RobotoText';
+import SanckbarComponent from '../../components/SnackbarComponent';
 
 interface QRScannerMainScreenInterface {
   navigation: any;
@@ -19,6 +20,7 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const {hasPermission, requestPermission} = useCameraPermission();
   const [openCamera, setOpenCamera] = useState(false);
+  const [isSnackbarVisible, setIsSanckbarVisibale] = useState<boolean>(false);
   if (hasPermission == false) {
     requestPermission();
   }
@@ -27,11 +29,14 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
       if (codes[0].value) {
-        if(codes[0].value == "/api/app/barcode-data/reporting-data")
-        {
+        if (codes[0].value == '/api/app/barcode-data/reporting-data') {
           props.navigation.navigate('QRScannerResultScreen', {
             result: codes[0].value,
           });
+        }
+        else 
+        {
+          setIsSanckbarVisibale(true);
         }
       }
     },
@@ -39,6 +44,19 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
 
   return (
     <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
+      {isSnackbarVisible && (
+        <SanckbarComponent
+          message={'Invalid QR code'}
+          duration={1000}
+          position={'bottom'}
+          visible={isSnackbarVisible}
+          onDurationEnd={() => setIsSanckbarVisibale(false)}
+          showActionButton={false}
+          actibButtonText={''}
+          showCloseButton={true}
+          onActionButtonClick={undefined}
+        />
+      )}
       <ObjectScreenHeader
         headerTitle={'Scanner'}
         showCreateEntityButton={false}
@@ -82,7 +100,8 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <TouchableOpacity disabled={!hasPermission}
+        <TouchableOpacity
+          disabled={!hasPermission}
           onPress={() => setOpenCamera(!openCamera)}
           style={{
             backgroundColor: MaterialColorTheme.primary,
