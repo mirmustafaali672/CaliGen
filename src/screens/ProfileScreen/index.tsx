@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Dimensions,
 } from 'react-native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {GetCurrentUserDetailsByUsername} from '../../api/UsersAPI';
 import {CurrentUserDetailsInterface} from '../../interfaces/UserInterface';
 import RobotoText from '../../components/Text/RobotoText';
@@ -18,6 +19,8 @@ interface ProfileScreenInterface {
   navigation: any;
   logout: any;
 }
+
+const height = Dimensions.get('screen').height;
 function ProfileScreen(props: ProfileScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const styles = StyleSheet.create({
@@ -33,7 +36,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
     profileDetailsViewSection: {margin: 15, marginTop: 0},
     tableMainRow: {flexDirection: 'row', margin: 2},
     sectionTitle: {
-      color: MaterialColorTheme.onSurface,
+      color: MaterialColorTheme.onSecondaryContainer,
       fontSize: 20,
       fontWeight: 'bold',
       margin: 15,
@@ -77,33 +80,25 @@ function ProfileScreen(props: ProfileScreenInterface) {
   return (
     <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ScrollView overScrollMode="never">
-        <View style={{padding: 10}}>
+        <View style={{margin: 20}}>
           <View
             style={{
-              alignItems: 'center',
+              borderRadius: 30,
+              backgroundColor: MaterialColorTheme.primaryContainer,
+              width: '100%',
+              height: 300,
               justifyContent: 'center',
-              marginTop: 100,
+              alignItems: 'center',
             }}>
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 130,
-                width: 130,
-                borderRadius: 100,
-                borderWidth: 2,
-                borderColor: MaterialColorTheme.primary,
-              }}>
-              <FontAwesome5
-                name="user-alt"
-                color={MaterialColorTheme.primary}
-                size={90}
-              />
-            </View>
+            <MaterialCommunityIcons
+              name="face-man"
+              color={MaterialColorTheme.onPrimaryContainer}
+              size={140}
+            />
             <RobotoText
               text={currentUser.userName}
               textStyle={{
-                color: MaterialColorTheme.onSurface,
+                color: MaterialColorTheme.onPrimaryContainer,
                 fontSize: 20,
                 marginTop: 12,
                 fontWeight: 'bold',
@@ -114,19 +109,27 @@ function ProfileScreen(props: ProfileScreenInterface) {
             <RobotoText
               text={currentUser.email}
               textStyle={{
-                color: MaterialColorTheme.onSurface,
+                color: MaterialColorTheme.onPrimaryContainer,
                 fontSize: 15,
               }}
               isBold={false}
               numberOfLines={0}
             />
           </View>
-          <View style={styles.sectionSeperatorLine}></View>
-          <View>
+        </View>
+        <View style={{margin: 20, marginVertical: 5}}>
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: MaterialColorTheme.secondaryContainer,
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <RobotoText
               text="User Details"
               textStyle={styles.sectionTitle}
-              isBold={false}
+              isBold={true}
               numberOfLines={0}
             />
             <View style={styles.profileDetailsViewSection}>
@@ -204,8 +207,16 @@ function ProfileScreen(props: ProfileScreenInterface) {
               </View>
             </View>
           </View>
-          <View style={styles.sectionSeperatorLine}></View>
-          <View>
+        </View>
+        <View style={{margin: 20, marginVertical: 5}}>
+          <View
+            style={{
+              borderRadius: 30,
+              backgroundColor: MaterialColorTheme.secondaryContainer,
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <RobotoText
               text="Account Details"
               textStyle={styles.sectionTitle}
@@ -287,7 +298,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
               </View>
             </View>
           </View>
-          <View style={styles.sectionSeperatorLine}></View>
+        </View>
+        <View style={{margin: 40}}>
           <TouchableOpacity onPress={() => {}}>
             <View style={styles.tableMainRow}>
               <RobotoText
@@ -328,7 +340,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => props.logout()}>
+          {/* <TouchableOpacity onPress={() => props.logout()}>
             <View style={styles.tableMainRow}>
               <RobotoText
                 text="Logout"
@@ -337,9 +349,29 @@ function ProfileScreen(props: ProfileScreenInterface) {
                 numberOfLines={0}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={() => props.logout()}>
+        <View
+          style={{
+            backgroundColor: MaterialColorTheme.tertiary,
+            height: height / 12,
+            width: height / 12,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 20,
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+          }}>
+          <MaterialCommunityIcons
+            name="logout"
+            color={MaterialColorTheme.onTertiary}
+            size={height / 28}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
