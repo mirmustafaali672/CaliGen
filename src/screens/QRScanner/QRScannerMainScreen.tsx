@@ -48,7 +48,7 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
       {isSnackbarVisible && (
         <SanckbarComponent
           message={'Invalid QR code'}
-          duration={2000}
+          duration={2000000}
           position={'bottom'}
           visible={isSnackbarVisible}
           onDurationEnd={() => setIsSanckbarVisibale(false)}
