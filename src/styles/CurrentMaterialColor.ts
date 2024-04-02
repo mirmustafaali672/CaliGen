@@ -4,7 +4,7 @@ export var CurrentMaterialColor:
   | 'Baseline'
   | 'Teal'
   | 'Orange'
-  | 'Cyan' = 'Teal';
+  | 'Cyan' = 'Baseline';
 
   export function SetCurrentMaterialColor(Color:   | 'Pink'
   | 'Blue'
