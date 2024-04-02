@@ -30,6 +30,7 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
     onCodeScanned: codes => {
       if (codes[0].value) {
         if (codes[0].value == '/api/app/barcode-data/reporting-data') {
+          setOpenCamera(false);
           props.navigation.navigate('QRScannerResultScreen', {
             result: codes[0].value,
           });
@@ -47,14 +48,14 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
       {isSnackbarVisible && (
         <SanckbarComponent
           message={'Invalid QR code'}
-          duration={1000}
+          duration={2000}
           position={'bottom'}
           visible={isSnackbarVisible}
           onDurationEnd={() => setIsSanckbarVisibale(false)}
           showActionButton={false}
-          actibButtonText={''}
+          actibButtonText={'Action'}
           showCloseButton={true}
-          onActionButtonClick={undefined}
+          onActionButtonClick={()=> console.log("ActionButtonClicked")}
         />
       )}
       <ObjectScreenHeader
@@ -71,11 +72,11 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           margin: 25,
           borderRadius: 10,
         }}>
-        {device && openCamera && hasPermission && (
+        {device  && hasPermission && (
           <Camera
             style={{flex: 1, borderRadius: 10}}
             device={device}
-            isActive={true}
+            isActive={openCamera}
             codeScanner={codeScanner}
           />
         )}

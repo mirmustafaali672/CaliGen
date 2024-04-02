@@ -7,7 +7,7 @@ import RobotoText from '../Text/RobotoText';
 interface SanckbarComponentInterface {
   message: string;
   duration: number;
-  position: "top" | "bottom";
+  position: 'top' | 'bottom';
   visible: boolean;
   onDurationEnd: any;
   showActionButton: boolean;
@@ -31,8 +31,8 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
       style={{
         position: 'absolute',
         alignItems: 'center',
-        top: props.position == "top"? height / 300 : undefined,
-        bottom: props.position == "bottom"? height / 25 : undefined,
+        top: props.position == 'top' ? height / 300 : undefined,
+        bottom: props.position == 'bottom' ? height / 25 : undefined,
         width: '100%',
         height: 30,
         zIndex: 2,
@@ -45,7 +45,7 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
             top: 10,
             backgroundColor: MaterialColorTheme.secondary,
             width: '90%',
-            minHeight: 45,
+            minHeight: 50,
             zIndex: 2,
             borderRadius: 8,
             flex: 1,
@@ -55,7 +55,7 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
             shadowColor: MaterialColorTheme.shadow,
             elevation: 20,
           }}>
-          <View style={{}}>
+          <View style={{flex: 3}}>
             <RobotoText
               text={props.message}
               textStyle={{color: MaterialColorTheme.onSecondary}}
@@ -63,18 +63,37 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
               numberOfLines={0}
             />
           </View>
-          {props.showCloseButton && (
-            <TouchableOpacity
-              style={{}}
-              onPress={() => props.onDurationEnd()}>
-              <RobotoText
-                text={'Close'}
-                textStyle={{color: MaterialColorTheme.onSecondary}}
-                isBold={true}
-                numberOfLines={0}
-              />
-            </TouchableOpacity>
-          )}
+          <View
+            style={{
+              flex: props.showActionButton ? 1.2 : 0,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            {props.showActionButton && (
+              <TouchableOpacity
+                style={{}}
+                onPress={() => props.onActionButtonClick()}>
+                <RobotoText
+                  text={props.actibButtonText}
+                  textStyle={{color: MaterialColorTheme.onSecondary}}
+                  isBold={true}
+                  numberOfLines={0}
+                />
+              </TouchableOpacity>
+            )}
+            {props.showCloseButton && (
+              <TouchableOpacity
+                style={{}}
+                onPress={() => props.onDurationEnd()}>
+                <RobotoText
+                  text={'Close'}
+                  textStyle={{color: MaterialColorTheme.onSecondary}}
+                  isBold={true}
+                  numberOfLines={0}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
       )}
     </View>
