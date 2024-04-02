@@ -58,7 +58,7 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
           <View style={{flex: 3}}>
             <RobotoText
               text={props.message}
-              textStyle={{color: MaterialColorTheme.surface}}
+              textStyle={{color: MaterialColorTheme.surfaceVariant}}
               isBold={false}
               numberOfLines={0}
             />
@@ -75,7 +75,7 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
                 onPress={() => props.onActionButtonClick()}>
                 <RobotoText
                   text={props.actibButtonText}
-                  textStyle={{color: MaterialColorTheme.surface}}
+                  textStyle={{color: MaterialColorTheme.surfaceVariant}}
                   isBold={true}
                   numberOfLines={0}
                 />
@@ -87,7 +87,7 @@ function SanckbarComponent(props: SanckbarComponentInterface) {
                 onPress={() => props.onDurationEnd()}>
                 <RobotoText
                   text={'Close'}
-                  textStyle={{color: MaterialColorTheme.surface}}
+                  textStyle={{color: MaterialColorTheme.surfaceVariant}}
                   isBold={true}
                   numberOfLines={0}
                 />
