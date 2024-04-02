@@ -1,7 +1,7 @@
-import api from "./API.tsx";
-import EnvSettings from "../../env.tsx";
-import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface.tsx";
-import { UserAuthDataInterface } from "./AccountAPI.tsx";
+import api from "./API";
+import EnvSettings from "../../env";
+import { CreateUserInterface, UpdateUserInterface } from "../interfaces/UsersInterface";
+import { UserAuthDataInterface } from "./AccountAPI";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export async function GetUsers(filter: string) {

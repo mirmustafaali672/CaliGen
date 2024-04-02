@@ -1,5 +1,5 @@
-import api from './AuthAPI.tsx';
-import EnvSettings from '../../env.tsx';
+import api from './AuthAPI';
+import EnvSettings from '../../env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface loginInterface {
