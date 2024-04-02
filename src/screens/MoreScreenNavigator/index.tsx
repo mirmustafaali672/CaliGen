@@ -25,6 +25,8 @@ import AutoDataVisualizationMainScreen from '../Execution/AutoDataVisualization/
 import SettingsMainScreen from '../SettingsScreen/SettingsMainScreen';
 import ThemeMainScreen from '../SettingsScreen/ThemeScreen/ThemeMainScreen';
 import ColorSchemeMainScreen from '../SettingsScreen/ColorScheme/ColorSchemeMainScreen';
+import QRScannerMainScreen from '../QRScanner/QRScannerMainScreen';
+import QRScannerResultScreen from '../QRScanner/QRScannerResultScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -145,6 +147,16 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="ColorSchemeMainScreen"
           component={ColorSchemeMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="QRScannerMainScreen"
+          component={QRScannerMainScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="QRScannerResultScreen"
+          component={QRScannerResultScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

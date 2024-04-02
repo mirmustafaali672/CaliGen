@@ -45,7 +45,8 @@ function MyTabs() {
         tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: MaterialColorTheme.surface,
+          backgroundColor: MaterialColorTheme.surfaceContainer,
+          flex: 0.07,
           // borderRadius: 100,
           // marginVertical: 4,
           // marginHorizontal: 10,
