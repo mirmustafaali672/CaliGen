@@ -400,6 +400,7 @@ function ChatScreen() {
                 }
                 iconAtEnd={true}
                 type={'Primary'}
+                disableButton={loading}
               />
             </View>
             { !recordingStarted && <View style={{flex: 1, alignItems: 'center'}}>
@@ -415,6 +416,7 @@ function ChatScreen() {
                 }
                 iconAtEnd={true}
                 type={'Secondary'}
+                disableButton={loading}
               />
             </View>}
            { recordingStarted && <View style={{flex: 1, alignItems: 'center'}}>
@@ -430,6 +432,7 @@ function ChatScreen() {
                 }
                 iconAtEnd={true}
                 type={"Tertiary"}
+                disableButton={loading}
               />
             </View>}
           </View>

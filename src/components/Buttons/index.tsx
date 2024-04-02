@@ -56,6 +56,7 @@ function ButtonComponent(props: ButtonComponentInterface) {
   return (
     <View>
       <TouchableOpacity
+      disabled={props.disableButton}
         style={[styles.container]}
         onPress={() => props.buttonClicked()}>
         {!props.isActivityOnButton && (
