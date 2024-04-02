@@ -10,13 +10,14 @@ import {
   FlatList,
   StatusBar,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SendUserMessageToApi} from '../../api/ChatScreenAPI';
 import Voice from '@react-native-voice/voice';
 import ResponseLoadingComponent from '../../components/Loader/ResponseLoadingComponent';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 import {Schemes} from '../../styles/MaterialColorThemeInterface';
+import InputFieldComponent from '../../components/InputFields/PlainInputField';
+import ButtonComponent from '../../components/Buttons';
 
 interface ChatScreenInterface {
   message: string;
@@ -109,20 +110,20 @@ function ChatScreen() {
       height: 50,
     },
     chatUserMessageClass: {
-      backgroundColor: MaterialColorTheme.onSurfaceVariant,
+      backgroundColor: MaterialColorTheme.secondaryContainer,
       borderBottomRightRadius: 0,
       // alignItems: "flex-end",
     },
     chatUserMessageTextClass: {
-      color: '#000000',
+      color: MaterialColorTheme.onSecondaryContainer,
     },
     chatResponseMessageClass: {
-      backgroundColor: MaterialColorTheme.primary,
+      backgroundColor: MaterialColorTheme.primaryContainer,
       color: MaterialColorTheme.onPrimary,
       borderBottomLeftRadius: 0,
     },
     chatResponseMessageTextClass: {
-      color: MaterialColorTheme.onPrimary,
+      color: MaterialColorTheme.onPrimaryContainer,
     },
     chatBubbleCommon: {
       borderWidth: 0,
@@ -365,75 +366,72 @@ function ChatScreen() {
           </View>
           <View
             style={{
-              flex: 1,
               flexDirection: 'row',
-              gap: 10,
-              marginHorizontal: 10,
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderTopEndRadius: 20,
+              borderTopStartRadius: 20,
+              flex: 1.5,
+              padding: 20
             }}>
-            <View style={{flex: 5}}>
-              <TextInput
-                // autoCapitalize="none"
-                // autoComplete="password-new"
-                // autoCorrect={false}
-                placeholder="Type a message"
-                style={{
-                  marginHorizontal: 4,
-                  borderWidth: 2,
-                  borderRadius: 10,
-                  borderColor: MaterialColorTheme.primary,
-                  height: 50,
-                }}
-                onChangeText={value => setMessage(value)}
-                value={message}></TextInput>
+            <View style={{flex: 5, justifyContent:"flex-end"}}>
+              <InputFieldComponent
+                onChangeText={(value: any) => setMessage(value)}
+                value={message}
+                placeholder={'Type a message'}
+                label={''}
+              />
             </View>
-            <View style={{flex: 1}}>
-              <Pressable
-                disabled={loading}
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: MaterialColorTheme.primary,
-                  borderRadius: 10,
-                  height: 50,
-                  width: 50,
-                }}
-                onPress={() => {
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <ButtonComponent
+                buttonClicked={() => {
                   setChatHistory([
                     ...chatHistory,
                     {message: message, messageType: 1},
                   ]);
-                }}>
-                <MaterialIcons
-                  name="send"
-                  style={{alignItems: 'center', justifyContent: 'center'}}
-                  size={24}
-                  color={MaterialColorTheme.onPrimary}
-                />
-              </Pressable>
+                }}
+                buttonTitle={''}
+                buttonIcon={
+                  <MaterialCommunityIcons
+                    name="send"
+                    color={MaterialColorTheme.onPrimaryContainer}
+                    size={20}
+                  />
+                }
+                iconAtEnd={true}
+                type={'Primary'}
+              />
             </View>
-            <View style={{flex: 1, marginRight: 4}}>
-              <Pressable
-                style={[
-                  styles.microphoneButtonNotListening,
-                  {backgroundColor: MaterialColorTheme.primary,
-                    borderColor: recordingStarted
-                      ? MaterialColorTheme.onTertiary
-                      : MaterialColorTheme.primary,
-                  },
-                ]}
-                onPress={startRecognizing}>
-                <FontAwesome
-                  name={recordingStarted ? 'microphone-slash' : 'microphone'}
-                  style={{alignItems: 'center', justifyContent: 'center'}}
-                  size={24}
-                  color={
-                    recordingStarted
-                      ? MaterialColorTheme.onTertiary
-                      : MaterialColorTheme.onPrimary
-                  }
-                />
-              </Pressable>
-            </View>
+            { !recordingStarted && <View style={{flex: 1, alignItems: 'center'}}>
+              <ButtonComponent
+                buttonClicked={startRecognizing}
+                buttonTitle={''}
+                buttonIcon={
+                  <MaterialCommunityIcons
+                    name="microphone"
+                    color={MaterialColorTheme.onSecondaryContainer}
+                    size={20}
+                  />
+                }
+                iconAtEnd={true}
+                type={'Secondary'}
+              />
+            </View>}
+           { recordingStarted && <View style={{flex: 1, alignItems: 'center'}}>
+              <ButtonComponent
+                buttonClicked={startRecognizing}
+                buttonTitle={''}
+                buttonIcon={
+                  <MaterialCommunityIcons
+                    name="microphone-off"
+                    color={MaterialColorTheme.onTertiaryContainer}
+                    size={20}
+                  />
+                }
+                iconAtEnd={true}
+                type={"Tertiary"}
+              />
+            </View>}
           </View>
         </View>
       </ScrollView>
