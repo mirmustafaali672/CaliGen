@@ -31,8 +31,8 @@ interface LoginScreenInterface {
 
 function LoginScreen(props: LoginScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('1q2w3E*');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isTransactionModalVisible, setIsTransactionModalVisible] =
     useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
@@ -146,7 +146,7 @@ function LoginScreen(props: LoginScreenInterface) {
       // shadowColor: 'white',
       // shadowColor: 'black',
     },
-    inputFieldIcon: {borderColor: 'black', width: '80%', height: 50},
+    inputFieldIcon: {borderColor: 'black', width: '80%', height: 50, color: MaterialColorTheme.onSurface},
     centeredView: {
       flex: 1,
       justifyContent: 'center',
@@ -282,6 +282,7 @@ function LoginScreen(props: LoginScreenInterface) {
                       styles.inputFieldIcon,
                       {color: MaterialColorTheme.onSurface},
                     ]}
+                    placeholderTextColor={MaterialColorTheme.onSurface}
                     onChangeText={value => setUsername(value)}
                     value={username}></TextInput>
                 </View>
@@ -297,6 +298,7 @@ function LoginScreen(props: LoginScreenInterface) {
                     color={MaterialColorTheme.onSurface}
                   />
                   <TextInput
+                  secureTextEntry={true} 
                     onBlur={() =>
                       setinputFieldOnFocusBorderColor({
                         borderWidth: 0,
@@ -316,6 +318,7 @@ function LoginScreen(props: LoginScreenInterface) {
                       styles.inputFieldIcon,
                       {color: MaterialColorTheme.onSurface},
                     ]}
+                    placeholderTextColor={MaterialColorTheme.onSurface}
                     onChangeText={value => setPassword(value)}
                     value={password}></TextInput>
                 </View>

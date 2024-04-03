@@ -365,7 +365,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
             position: 'absolute',
             bottom: 20,
             right: 20,
-            elevation: 3
+            elevation: 3,
+            zIndex: 1
           }}>
           <MaterialCommunityIcons
             name="logout"
