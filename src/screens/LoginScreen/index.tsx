@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   View,
@@ -17,7 +17,7 @@ import RobotoText from '../../components/Text/RobotoText';
 import TransactionModal from '../../components/Modals/TransactionModal';
 import LoginSettingModal from '../../components/Modals/LoginSettingsModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 // let screenHeight = Dimensions.get('window').height;
@@ -189,7 +189,25 @@ function LoginScreen(props: LoginScreenInterface) {
       textAlign: 'center',
     },
   });
+
+  ////////////////
+
   
+  ////// rerendering screen for stheme and scheme changes /////////////////
+  const [myTime, setMyTime] = useState(new Date());
+
+  useEffect(() => {
+    var timerID = setInterval(() => tick(), 300);
+
+    return () => clearInterval(timerID);
+  });
+
+  function tick() {
+    setMyTime(new Date());
+  }
+
+  ////////////////////////
+
   return (
     <View style={styles.loginFullMainScreen}>
       <StatusBar
@@ -260,7 +278,10 @@ function LoginScreen(props: LoginScreenInterface) {
                     autoComplete="password-new"
                     autoCorrect={false}
                     placeholder="Username"
-                    style={[styles.inputFieldIcon, {color: MaterialColorTheme.onSurface}]}
+                    style={[
+                      styles.inputFieldIcon,
+                      {color: MaterialColorTheme.onSurface},
+                    ]}
                     onChangeText={value => setUsername(value)}
                     value={username}></TextInput>
                 </View>
@@ -291,7 +312,10 @@ function LoginScreen(props: LoginScreenInterface) {
                     autoComplete="password-new"
                     autoCorrect={false}
                     placeholder="Password"
-                    style={[styles.inputFieldIcon, {color: MaterialColorTheme.onSurface}]}
+                    style={[
+                      styles.inputFieldIcon,
+                      {color: MaterialColorTheme.onSurface},
+                    ]}
                     onChangeText={value => setPassword(value)}
                     value={password}></TextInput>
                 </View>
@@ -394,7 +418,5 @@ function LoginScreen(props: LoginScreenInterface) {
     </View>
   );
 }
-
-
 
 export default LoginScreen;
