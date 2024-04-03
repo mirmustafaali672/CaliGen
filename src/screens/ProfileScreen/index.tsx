@@ -353,28 +353,27 @@ function ProfileScreen(props: ProfileScreenInterface) {
           </TouchableOpacity> */}
         </View>
       </ScrollView>
-      <Pressable onPress={() => props.logout()}>
-        <View
-          style={{
-            backgroundColor: MaterialColorTheme.tertiary,
-            height: height / 12,
-            width: height / 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 20,
-            position: 'absolute',
-            bottom: 20,
-            right: 20,
-            elevation: 3,
-            zIndex: 1
-          }}>
-          <MaterialCommunityIcons
-            name="logout"
-            color={MaterialColorTheme.onTertiary}
-            size={height / 28}
-          />
-        </View>
-      </Pressable>
+      <TouchableOpacity
+        onPress={() => props.logout()}
+        style={{
+          backgroundColor: MaterialColorTheme.tertiary,
+          height: height / 12,
+          width: height / 12,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 20,
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+          elevation: 3,
+          zIndex: 1,
+        }}>
+        <MaterialCommunityIcons
+          name="logout"
+          color={MaterialColorTheme.onTertiary}
+          size={height / 28}
+        />
+      </TouchableOpacity>
     </View>
   );
 }

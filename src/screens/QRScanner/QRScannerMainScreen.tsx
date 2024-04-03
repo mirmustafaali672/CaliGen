@@ -29,10 +29,12 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
       if (codes[0].value) {
-        if (codes[0].value == '/api/app/barcode-data/reporting-data') {
+        if (codes[0].value == '/api/app/barcode-data/reporting-data' || codes[0].value == 'CODE0001') {
           setOpenCamera(false);
           props.navigation.navigate('QRScannerResultScreen', {
             result: codes[0].value,
+            showTable: codes[0].value == '/api/app/barcode-data/reporting-data'  ? true: false,
+            ChartType: 1
           });
         }
         else 

@@ -9,3 +9,13 @@ export async function GetReportingData(url: string) {
     baseURL: env.hostURL,
   });
 }
+
+export async function GetChartTypeData(url: string)
+{
+  const env = await EnvSettings();
+  return api({
+    method: 'GET',
+    url: url,
+    baseURL: env.hostURL
+  })
+}

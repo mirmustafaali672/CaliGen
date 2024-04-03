@@ -72,6 +72,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             })
           }
           placeholder={props.placeholder}
+          placeholderTextColor={MaterialColorTheme.onSurface}
           onChangeText={value => {
             setInput({text: value, touched: true});
             props.onChangeText(value);
