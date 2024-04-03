@@ -117,20 +117,20 @@ function InsightComponent() {
   };
 
   const barData = [
-    {value: 250, label: 'M'},
-    {value: 500, label: 'T', frontColor: MaterialColorTheme.primary},
-    {value: 745, label: 'W', frontColor: MaterialColorTheme.primary},
-    {value: 320, label: 'T'},
-    {value: 600, label: 'F', frontColor: MaterialColorTheme.primary},
-    {value: 256, label: 'S'},
-    {value: 300, label: 'S'},
+    {value: 250, label: 'M', labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 500, label: 'T', frontColor: MaterialColorTheme.primary , labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 745, label: 'W', frontColor: MaterialColorTheme.primary, labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 320, label: 'T', labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 600, label: 'F', frontColor: MaterialColorTheme.primary, labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 256, label: 'S', labelTextStyle: { color: MaterialColorTheme.onSurface}},
+    {value: 300, label: 'S', labelTextStyle: { color: MaterialColorTheme.onSurface}},
   ];
   const stackData = [
     {
       stacks: [
         {value: 10, color: MaterialColorTheme.tertiary},
         {value: 20, color: MaterialColorTheme.primaryFixedDim, marginBottom: 2},
-      ],
+      ], labelTextStyle: { color: MaterialColorTheme.onSurface}, 
       label: 'Jan',
     },
     {
@@ -138,14 +138,14 @@ function InsightComponent() {
         {value: 10, color: MaterialColorTheme.primaryFixedDim},
         {value: 11, color: MaterialColorTheme.tertiary, marginBottom: 2},
         {value: 15, color: MaterialColorTheme.error, marginBottom: 2},
-      ],
+      ], labelTextStyle: { color: MaterialColorTheme.onSurface}, 
       label: 'Mar',
     },
     {
       stacks: [
         {value: 14, color: MaterialColorTheme.tertiary},
         {value: 18, color: MaterialColorTheme.primaryFixedDim, marginBottom: 2},
-      ],
+      ], labelTextStyle: { color: MaterialColorTheme.onSurface}, 
       label: 'Feb',
     },
     {
@@ -153,7 +153,7 @@ function InsightComponent() {
         {value: 7, color: MaterialColorTheme.primaryFixedDim},
         {value: 11, color: MaterialColorTheme.tertiary, marginBottom: 2},
         {value: 10, color: MaterialColorTheme.error, marginBottom: 2},
-      ],
+      ], labelTextStyle: { color: MaterialColorTheme.onSurface}, 
       label: 'Mar',
     },
   ];
@@ -180,10 +180,11 @@ function InsightComponent() {
           numberOfLines={0}
         />
         <BarChart
+         yAxisTextStyle={{color: MaterialColorTheme.onSurface}}
           barWidth={22}
           noOfSections={3}
           barBorderRadius={4}
-          frontColor="lightgray"
+          frontColor={MaterialColorTheme.secondaryContainer}
           data={barData}
           yAxisThickness={0}
           xAxisThickness={0}
@@ -197,6 +198,7 @@ function InsightComponent() {
           numberOfLines={0}
         />
         <BarChart
+        yAxisTextStyle={{color: MaterialColorTheme.onSurface}}
           width={340}
           rotateLabel
           noOfSections={4}
