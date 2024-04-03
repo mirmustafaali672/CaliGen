@@ -63,7 +63,7 @@ function DonutChart(props: DonutChartInterface): React.JSX.Element {
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
-    color: (opacity = 1) => hexToRgbA(MaterialColorTheme.surfaceContainer),
+    color: (opacity = 1) => hexToRgbA(MaterialColorTheme.surface),
     useShadowColorFromDataset: false,
   };
   return (
@@ -72,7 +72,7 @@ function DonutChart(props: DonutChartInterface): React.JSX.Element {
         width: width / 2.2,
         height: "auto",
         borderRadius: 40,
-        backgroundColor: props.backgroundcolor,
+        backgroundColor: MaterialColorTheme.surfaceContainer,
         margin: '2%',
         paddingBottom: "8%",
         justifyContent: 'center',
@@ -90,13 +90,13 @@ function DonutChart(props: DonutChartInterface): React.JSX.Element {
       />
       <RobotoText
         text={props.value.toString()}
-        textStyle={{color: MaterialColorTheme.surfaceContainer}}
+        textStyle={{color: MaterialColorTheme.onSurface}}
         isBold={true}
         numberOfLines={0}
       />
       <RobotoText
         text={props.title}
-        textStyle={{color: MaterialColorTheme.surfaceContainer}}
+        textStyle={{color: MaterialColorTheme.onSurface}}
         isBold={true}
         numberOfLines={0}
       />
