@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, TextInput} from 'react-native';
+import {View, TextInput, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import RobotoText from '../../components/Text/RobotoText';
-import { Schemes } from '../../styles/MaterialColorThemeInterface';
+import {Schemes} from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 
 interface InputFieldComponentInterface {
@@ -10,6 +10,9 @@ interface InputFieldComponentInterface {
   placeholder: string;
   label: string;
   required?: boolean;
+  inputTitleStyle?: StyleProp<TextStyle>;
+  inputFieldStyle?: StyleProp<ViewStyle>;
+  inputFieldTextStyle?: StyleProp<TextStyle>;
 }
 
 interface TextInputInterface {
@@ -33,11 +36,14 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
     <View style={{marginVertical: 10}}>
       <RobotoText
         text={props.label ?? '--'}
-        textStyle={{
-          margin: 10,
-          marginTop: 0,
-          color: MaterialColorTheme.onSurface,
-        }}
+        textStyle={[
+          {
+            margin: 10,
+            marginTop: 0,
+            color: MaterialColorTheme.onSurface,
+          },
+          props.inputTitleStyle,
+        ]}
         isBold={false}
         numberOfLines={0}
       />
@@ -51,6 +57,7 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             padding: 8,
           },
           inputFieldOnFocusBorderColor,
+          props.inputFieldStyle,
         ]}>
         <TextInput
           onBlur={() => {
@@ -77,7 +84,10 @@ function InputFieldComponent(props: InputFieldComponentInterface) {
             setInput({text: value, touched: true});
             props.onChangeText(value);
           }}
-          value={props.value} style={{color: MaterialColorTheme.onSurface}}></TextInput>
+          value={props.value}
+          style={
+            props.inputFieldTextStyle ?? {color: MaterialColorTheme.onSurface}
+          }></TextInput>
       </View>
       {input.text.length == 0 && input.touched && props.required && (
         <RobotoText
