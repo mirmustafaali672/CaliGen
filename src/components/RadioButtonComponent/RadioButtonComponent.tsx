@@ -41,7 +41,7 @@ function RadioButtonComponent(props: RadioButtonInterface) {
           alignItems: 'center',
         }}>
         {props.buttons.map((item, index) => (
-          <TouchableOpacity onPress={() => setSelected(index)}>
+          <TouchableOpacity key={item.name} onPress={() => setSelected(index)}>
             <View style={{flexDirection: 'row'}}>
               <MaterialCommunityIcons
                 name={selected == index ? 'circle-slice-8' : 'circle-outline'}
