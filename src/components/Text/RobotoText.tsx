@@ -1,8 +1,8 @@
-import {Text} from 'react-native';
+import {StyleProp, Text, TextStyle} from 'react-native';
 
 interface RobotoTextInterface {
   text: string;
-  textStyle: any;
+  textStyle: StyleProp<TextStyle>;
   isBold: boolean;
   numberOfLines: number;
 }

@@ -4,6 +4,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
 } from 'react-native';
 import RobotoText from '../Text/RobotoText';
 import {Schemes} from '../../styles/MaterialColorThemeInterface';
@@ -16,6 +19,8 @@ interface ButtonComponentInterface {
   iconAtEnd: boolean;
   isActivityOnButton?: boolean;
   disableButton?: boolean;
+  buttonStyle? : StyleProp<ViewStyle>; 
+  buttonTextStyle? :StyleProp<TextStyle>; 
   type: 'Primary' | 'Secondary' | 'Tertiary';
 }
 
@@ -57,14 +62,14 @@ function ButtonComponent(props: ButtonComponentInterface) {
     <View>
       <TouchableOpacity
       disabled={props.disableButton}
-        style={[styles.container]}
+        style={[styles.container, props.buttonStyle]}
         onPress={() => props.buttonClicked()}>
         {!props.isActivityOnButton && (
           <View>
             {!props.iconAtEnd && props.buttonIcon}
             <View>
               <RobotoText
-                textStyle={{color: textColor}}
+                textStyle={[{color: textColor}, props.buttonTextStyle]}
                 text={props.buttonTitle}
                 isBold={false}
                 numberOfLines={0}
