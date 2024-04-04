@@ -1,4 +1,4 @@
-import {TouchableOpacity, View} from 'react-native';
+import {StyleProp, TextStyle, TouchableOpacity, View, ViewStyle} from 'react-native';
 import RobotoText from '../Text/RobotoText';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useEffect, useState} from 'react';
@@ -10,6 +10,10 @@ export interface RadioButtonInterface {
   buttons: {name: any; value: any}[];
   selected: any;
   onSelection: any;
+  containerStyle?: StyleProp<ViewStyle>;
+  titleStyle?: StyleProp<TextStyle>;
+  buttonColor?: string;
+  buttonSize?: number;
 }
 
 function RadioButtonComponent(props: RadioButtonInterface) {
@@ -25,28 +29,28 @@ function RadioButtonComponent(props: RadioButtonInterface) {
     <View style={{marginVertical: 10}}>
       <RobotoText
         text={props.label ?? '--'}
-        textStyle={{
+        textStyle={[{
           margin: 10,
           marginTop: 0,
           color: MaterialColorTheme.onSurface,
-        }}
+        }, props.titleStyle]}
         isBold={false}
         numberOfLines={0}
       />
       <View
-        style={{
+        style={[{
           flexDirection: 'row',
           gap: 8,
           marginHorizontal: 20,
           alignItems: 'center',
-        }}>
+        }, props.containerStyle]}>
         {props.buttons.map((item, index) => (
           <TouchableOpacity key={item.name} onPress={() => setSelected(index)}>
             <View style={{flexDirection: 'row'}}>
               <MaterialCommunityIcons
                 name={selected == index ? 'circle-slice-8' : 'circle-outline'}
-                size={20}
-                color={MaterialColorTheme.primary}
+                size={props.buttonSize ?? 20}
+                color={props.buttonColor ?? MaterialColorTheme.primary}
               />
               <RobotoText
                 text={item.name}
