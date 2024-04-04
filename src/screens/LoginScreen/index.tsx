@@ -31,8 +31,8 @@ interface LoginScreenInterface {
 
 function LoginScreen(props: LoginScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('1q2w3E*');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isTransactionModalVisible, setIsTransactionModalVisible] =
     useState(false);
   const [transactionModalStatus, setTransactionModalStatus] = useState(0);
