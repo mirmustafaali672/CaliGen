@@ -1,4 +1,4 @@
-import { MaterialColorSchemeInterface, MaterialColorThemeInterface } from "./MaterialColorThemeInterface";
+import { CurrentAvaiableColor, CurrentAvaiableColors, MaterialColorSchemeInterface, MaterialColorThemeInterface } from "./MaterialColorThemeInterface";
 
 
 export   const Baseline: MaterialColorThemeInterface = {
@@ -2528,3 +2528,4 @@ export const MaterialColorScheme: MaterialColorSchemeInterface ={
     Blue: Blue,
     Pink: Pink
 }
+export const CurrentAvaiableColorData: CurrentAvaiableColors = ['Pink' , 'Blue' , 'Baseline' , 'Teal' , 'Orange' , 'Cyan']

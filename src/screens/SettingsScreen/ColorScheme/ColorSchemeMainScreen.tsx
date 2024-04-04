@@ -1,5 +1,5 @@
-import {View, ScrollView} from 'react-native';
-import {Schemes} from '../../../styles/MaterialColorThemeInterface';
+import {View, ScrollView, FlatList} from 'react-native';
+import {CurrentAvaiableColor, Schemes} from '../../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../../styles/MaterialColorSchemeSelector';
 import ObjectScreenHeader from '../../../components/ScreenHeader/ObjectScreenHeader';
 import TabNavItemListComponent from '../../../components/TabNavigationComponent/TabNavItemListComponent';
@@ -10,24 +10,36 @@ import {
   SetCurrentMaterialColor,
 } from '../../../styles/CurrentMaterialColor';
 import RobotoText from '../../../components/Text/RobotoText';
+import {CurrentAvaiableColorData} from '../../../styles/MaterialColorThemeData';
+import { useEffect, useState } from 'react';
+import { GetStringFromStorage } from '../../../AsyncStorageActions/AsyncDataAction';
 
 interface ColorSchemeMainScreenInterface {
   navigation: any;
 }
+
 function ColorSchemeMainScreen(props: ColorSchemeMainScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const [currentScheme, setCurrentScheme] = useState<CurrentAvaiableColor>();
+
   async function SetTheme(
-    theme: 'Pink' | 'Blue' | 'Baseline' | 'Teal' | 'Orange' | 'Cyan',
+    theme: CurrentAvaiableColor,
   ) {
-    // Appearance.setColorScheme(theme);
     AsyncStorage.setItem('UserColorScheme', theme != null ? theme : 'Baseline');
     SetCurrentMaterialColor(theme);
-    // await Appearance.setColorScheme(null);
-    // await Appearance.setColorScheme('light');
-    // await Appearance.setColorScheme('dark');
     Appearance.setColorScheme(Appearance.getColorScheme());
     props.navigation.navigate('ColorSchemeMainScreen');
   }
+
+  async function GetCurrentScheme()
+  {
+    let a: CurrentAvaiableColor = await GetStringFromStorage('UserColorScheme');
+    setCurrentScheme(a);
+  }
+  useEffect(()=>
+  {
+    GetCurrentScheme();
+  },[])
   return (
     <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ObjectScreenHeader
@@ -37,7 +49,7 @@ function ColorSchemeMainScreen(props: ColorSchemeMainScreenInterface) {
         createBuutonClickNavigationRoute={undefined}
         navigation={props.navigation}
       />
-      <View style={{flexDirection: "row", justifyContent:"center"}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <RobotoText
           text={'Note: '}
           textStyle={{color: MaterialColorTheme.onSurfaceVariant}}
@@ -51,32 +63,19 @@ function ColorSchemeMainScreen(props: ColorSchemeMainScreenInterface) {
           numberOfLines={0}
         />
       </View>
-      <ScrollView>
-        <TabNavItemListComponent
-          title={'Baseline'}
-          onItemClicked={() => SetTheme('Baseline')}
-        />
-        <TabNavItemListComponent
-          title={'Teal'}
-          onItemClicked={() => SetTheme('Teal')}
-        />
-        <TabNavItemListComponent
-          title={'Blue'}
-          onItemClicked={() => SetTheme('Blue')}
-        />
-        <TabNavItemListComponent
-          title={'Orange'}
-          onItemClicked={() => SetTheme('Orange')}
-        />
-        <TabNavItemListComponent
-          title={'Cyan'}
-          onItemClicked={() => SetTheme('Cyan')}
-        />
-        <TabNavItemListComponent
-          title={'Pink'}
-          onItemClicked={() => SetTheme('Pink')}
-        />
-      </ScrollView>
+      <FlatList
+        data={CurrentAvaiableColorData}
+        renderItem={({item}) => {
+          return (
+            <TabNavItemListComponent title={item} onItemClicked={()=>
+            {
+              SetTheme(item);
+              setCurrentScheme(item);
+            }} 
+            showAsSelected={currentScheme == item}/>
+          );
+        }}
+      />
     </View>
   );
 }

@@ -6,7 +6,7 @@ import RobotoText from '../Text/RobotoText';
 
 interface SanckbarComponentInterface {
   message: string;
-  duration: number;
+  duration?: number;
   position: 'top' | 'bottom';
   visible: boolean;
   onDurationEnd: any;

@@ -1,5 +1,5 @@
 import {Appearance, ColorSchemeName, useColorScheme} from 'react-native';
-import {Schemes} from './MaterialColorThemeInterface';
+import {CurrentAvaiableColor, CurrentAvaiableColors, Schemes} from './MaterialColorThemeInterface';
 import {Baseline, MaterialColorScheme} from './MaterialColorThemeData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect} from 'react';
@@ -11,12 +11,7 @@ import {
 export function MaterialColorThemeSelector(): Schemes {
   let theme: ColorSchemeName = useColorScheme();
   var UserColorScheme:
-    | 'Pink'
-    | 'Blue'
-    | 'Baseline'
-    | 'Teal'
-    | 'Orange'
-    | 'Cyan';
+   CurrentAvaiableColors;
   async function GetData() {
     UserColorScheme =
       (await AsyncStorage.getItem('UserColorScheme')) ?? CurrentMaterialColor;

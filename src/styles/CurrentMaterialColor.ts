@@ -1,17 +1,8 @@
-export var CurrentMaterialColor:
-  | 'Pink'
-  | 'Blue'
-  | 'Baseline'
-  | 'Teal'
-  | 'Orange'
-  | 'Cyan' = 'Baseline';
+import { CurrentAvaiableColor } from "./MaterialColorThemeInterface";
 
-  export function SetCurrentMaterialColor(Color:   | 'Pink'
-  | 'Blue'
-  | 'Baseline'
-  | 'Teal'
-  | 'Orange'
-  | 'Cyan')
+export var CurrentMaterialColor: CurrentAvaiableColor = 'Baseline';
+
+  export function SetCurrentMaterialColor(Color:   CurrentAvaiableColor)
   {
     CurrentMaterialColor =  Color;
   }
