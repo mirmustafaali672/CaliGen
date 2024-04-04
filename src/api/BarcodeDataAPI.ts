@@ -19,3 +19,13 @@ export async function GetChartTypeData(url: string)
     baseURL: env.hostURL
   })
 }
+
+export async function GetAreaChartDataForCallCount(elementName: string)
+{
+  const env = await EnvSettings();
+  return api({
+    method: 'GET',
+    url: `/api/app/barcode-data/area-chart-data-for-call-count?ElementName=${elementName}`,
+    baseURL: env.hostURL
+  })
+}

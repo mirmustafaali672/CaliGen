@@ -29,7 +29,7 @@ axiosInstance.interceptors.request.use(
             tokenExpired = true;
           }
         })
-        .catch(error => console.log(error));
+        .catch(error => {});
       if (tokenExpired) {
 
 

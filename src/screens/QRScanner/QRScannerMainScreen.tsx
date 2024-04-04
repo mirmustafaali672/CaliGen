@@ -29,12 +29,13 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
       if (codes[0].value) {
-        if (codes[0].value == '/api/app/barcode-data/reporting-data' || codes[0].value == 'CODE0001') {
+        if (codes[0].value == '/api/app/barcode-data/reporting-data' || codes[0].value == 'CODE0001' || codes[0].value.split('**/**').length == 2) {
           setOpenCamera(false);
           props.navigation.navigate('QRScannerResultScreen', {
             result: codes[0].value,
             showTable: codes[0].value == '/api/app/barcode-data/reporting-data'  ? true: false,
-            ChartType: 1
+            ChartType: codes[0].value.split('**/**').length == 2 ? 2 : 1,
+            elementName: codes[0].value.split('**/**').length == 2 ?   codes[0].value.split('**/**')[1] : "--"
           });
         }
         else 
@@ -57,7 +58,7 @@ function QRScannerMainScreen(props: QRScannerMainScreenInterface) {
           showActionButton={false}
           actibButtonText={'Action'}
           showCloseButton={true}
-          onActionButtonClick={()=> console.log("ActionButtonClicked")}
+          onActionButtonClick={()=> {}}
         />
       )}
       <ObjectScreenHeader

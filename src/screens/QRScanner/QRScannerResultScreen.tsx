@@ -3,10 +3,15 @@ import ObjectScreenHeader from '../../components/ScreenHeader/ObjectScreenHeader
 import RobotoText from '../../components/Text/RobotoText';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
 import {Schemes} from '../../styles/MaterialColorThemeInterface';
-import {GetChartTypeData, GetReportingData} from '../../api/BarcodeDataAPI';
+import {
+  GetAreaChartDataForCallCount,
+  GetChartTypeData,
+  GetReportingData,
+} from '../../api/BarcodeDataAPI';
 import {useEffect, useState} from 'react';
 import {
   CountOfUsageInterface,
+  LineChartInterface,
   ReportDataInterface,
 } from '../../interfaces/ReportingDataInterface';
 import {
@@ -27,6 +32,7 @@ interface QRScannerResultScreenInterface {
 }
 
 const width = Dimensions.get('screen').width;
+const borderRadius: number = 40;
 
 interface DonutChartInterface {
   title: string;
@@ -34,6 +40,21 @@ interface DonutChartInterface {
   value: number;
   backgroundcolor: string;
   valueColor: string;
+}
+
+function hexToRgbA(hex: string) {
+  var c: any;
+  if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+    c = hex.substring(1).split('');
+    if (c.length == 3) {
+      c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+    }
+    c = '0x' + c.join('');
+    return (
+      'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',1)'
+    );
+  }
+  throw new Error('Bad Hex');
 }
 
 function DonutChart(props: DonutChartInterface): React.JSX.Element {
@@ -45,36 +66,21 @@ function DonutChart(props: DonutChartInterface): React.JSX.Element {
     colors: [props.valueColor],
   };
 
-  function hexToRgbA(hex: string) {
-    var c;
-    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-      c = hex.substring(1).split('');
-      if (c.length == 3) {
-        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-      }
-      c = '0x' + c.join('');
-      return (
-        'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',1)'
-      );
-    }
-    throw new Error('Bad Hex');
-  }
-
   const chartConfig: AbstractChartConfig = {
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
-    color: (opacity = 1) => hexToRgbA(MaterialColorTheme.surface),
+    color: (opacity = 1) => hexToRgbA(MaterialColorTheme.secondaryContainer),
     useShadowColorFromDataset: false,
   };
   return (
     <View
       style={{
         width: width / 2.2,
-        height: "auto",
-        borderRadius: 40,
+        height: 'auto',
+        borderRadius: borderRadius,
         backgroundColor: MaterialColorTheme.surfaceContainer,
         margin: '2%',
-        paddingBottom: "8%",
+        paddingBottom: '8%',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
@@ -104,12 +110,61 @@ function DonutChart(props: DonutChartInterface): React.JSX.Element {
   );
 }
 
+interface AreaChartInterface {
+  categories: string[];
+  data: number[];
+}
+function AreaChart(props: AreaChartInterface): React.JSX.Element {
+  const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
+  const data = {
+    labels: props.categories,
+    datasets: [
+      {
+        data: props.data,
+        color: (opacity = 1) => MaterialColorTheme.primary, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+  };
+
+  const chartConfig: AbstractChartConfig = {
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientToOpacity: 0,
+    color: (opacity = 1) => hexToRgbA(MaterialColorTheme.onSurface),
+    useShadowColorFromDataset: false,
+  };
+
+  return (
+    <View
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: borderRadius,
+        margin: 5,
+        width: width / 1.1,
+        height: width * 1.4,
+        backgroundColor: MaterialColorTheme.surfaceContainer,
+      }}>
+      <LineChart
+        data={data}
+        width={width / 1.2}
+        height={width}
+        verticalLabelRotation={90}
+        chartConfig={chartConfig}
+        bezier
+      />
+    </View>
+  );
+}
+
 function QRScannerResultScreen(props: QRScannerResultScreenInterface) {
   const MaterialColorTheme: Schemes = MaterialColorThemeSelector();
   const [activity, setActivity] = useState(false);
   const [reportData, setReportData] = useState<ReportDataInterface>();
   const [chartTypeOneData, setChartTypeOneData] =
     useState<CountOfUsageInterface>();
+    const [chartTypeTwoData, setChartTypeTwoData] =
+    useState<LineChartInterface>();
   async function GetQRData() {
     await GetReportingData('/api/app/barcode-data/reporting-data')
       .then(data => setReportData(data.data))
@@ -119,32 +174,48 @@ function QRScannerResultScreen(props: QRScannerResultScreenInterface) {
       });
   }
 
-  async function GetChartType() {
-    await GetChartTypeData('/api/app/barcode-data/count-of-usages')
-      .then(res => {
-        setChartTypeOneData(res.data);
-      })
-      .catch(error => {
-        setActivity(false);
-      })
-      .then(res => {
-        setActivity(false);
-      });
+  async function GetChartType(type: number) {
+    if (type == 1) {
+      await GetChartTypeData('/api/app/barcode-data/count-of-usages')
+        .then(res => {
+          setChartTypeOneData(res.data);
+        })
+        .catch(error => {
+          setActivity(false);
+        })
+        .then(res => {
+          setActivity(false);
+        });
+    } else if (type == 2) {
+      await GetAreaChartDataForCallCount(props.route.params?.elementName)
+        .then(res => {
+          setChartTypeTwoData(res.data);
+        })
+        .catch(error => {
+          setActivity(false);
+        })
+        .then(res => {
+          setActivity(false);
+        });
+    }
   }
 
   useEffect(() => {
-    console.log(reportData, 'reportData');
   }, [reportData]);
   useEffect(() => {
     setActivity(true);
     if (props.route.params?.showTable) {
       GetQRData();
     } else {
-      if (props.route.params?.ChartType) {
-        GetChartType();
+      if (props.route.params?.ChartType == 1) {
+        GetChartType(1);
+      }
+      else if (props.route.params?.ChartType == 2) {
+        GetChartType(2);
       }
     }
   }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: MaterialColorTheme.surface}}>
       <ObjectScreenHeader
@@ -225,58 +296,70 @@ function QRScannerResultScreen(props: QRScannerResultScreenInterface) {
           </ScrollView>
         </View>
       )}
-      {!activity && !props.route.params?.showTable && (
-        <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false}>
-          <View style={{flexDirection: 'row'}}>
-            <DonutChart
-              title={'Total device count'}
-              total={chartTypeOneData?.totalDeviceCount ?? 0}
-              value={chartTypeOneData?.totalDeviceCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialDeepPurple}
-              valueColor={MaterialColors.MaterialDeepPurpleMono}
-            />
-            <DonutChart
-              title={'Reserved'}
-              total={chartTypeOneData?.totalDeviceCount ?? 0}
-              value={chartTypeOneData?.reservedCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialAmberLight}
-              valueColor={MaterialColors.MaterialAmberLightMono}
-            />
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <DonutChart
-              title={'Available'}
-              total={chartTypeOneData?.totalDeviceCount ?? 0}
-              value={chartTypeOneData?.availableCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialGreen}
-              valueColor={MaterialColors.MaterialGreenMono}
-            />
-            <DonutChart
-              title={'Calibrated'}
-              total={chartTypeOneData?.totalDeviceCount}
-              value={chartTypeOneData?.calibratedCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialGreen}
-              valueColor={MaterialColors.MaterialGreenMono}
-            />
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <DonutChart
-              title={'Not Calibrated'}
-              total={chartTypeOneData?.totalDeviceCount}
-              value={chartTypeOneData?.notCalibratedCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialRed}
-              valueColor={MaterialColors.MaterialRedMono}
-            />
-            <DonutChart
-              title={'Problem Reported'}
-              total={chartTypeOneData?.totalDeviceCount}
-              value={chartTypeOneData?.problemReportedCount ?? 0}
-              backgroundcolor={MaterialColors.MaterialRed}
-              valueColor={MaterialColors.MaterialRedMono}
-            />
-          </View>
-        </ScrollView>
-      )}
+      {!activity &&
+        !props.route.params?.showTable &&
+        props.route.params?.ChartType == 1 && (
+          <ScrollView
+            overScrollMode="never"
+            showsVerticalScrollIndicator={false}>
+            <View style={{flexDirection: 'row'}}>
+              <DonutChart
+                title={'Total device count'}
+                total={chartTypeOneData?.totalDeviceCount ?? 0}
+                value={chartTypeOneData?.totalDeviceCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialDeepPurple}
+                valueColor={MaterialColors.MaterialDeepPurpleMono}
+              />
+              <DonutChart
+                title={'Reserved'}
+                total={chartTypeOneData?.totalDeviceCount ?? 0}
+                value={chartTypeOneData?.reservedCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialAmberLight}
+                valueColor={MaterialColors.MaterialAmberLightMono}
+              />
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <DonutChart
+                title={'Available'}
+                total={chartTypeOneData?.totalDeviceCount ?? 0}
+                value={chartTypeOneData?.availableCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialGreen}
+                valueColor={MaterialColors.MaterialGreenMono}
+              />
+              <DonutChart
+                title={'Calibrated'}
+                total={chartTypeOneData?.totalDeviceCount}
+                value={chartTypeOneData?.calibratedCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialGreen}
+                valueColor={MaterialColors.MaterialGreenMono}
+              />
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <DonutChart
+                title={'Not Calibrated'}
+                total={chartTypeOneData?.totalDeviceCount}
+                value={chartTypeOneData?.notCalibratedCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialRed}
+                valueColor={MaterialColors.MaterialRedMono}
+              />
+              <DonutChart
+                title={'Problem Reported'}
+                total={chartTypeOneData?.totalDeviceCount}
+                value={chartTypeOneData?.problemReportedCount ?? 0}
+                backgroundcolor={MaterialColors.MaterialRed}
+                valueColor={MaterialColors.MaterialRedMono}
+              />
+            </View>
+          </ScrollView>
+        )}
+      {!activity &&
+        !props.route.params?.showTable &&
+        props.route.params?.ChartType == 2 && chartTypeTwoData?.categories.length != 0 && (
+          <ScrollView>
+          <View style={{alignItems: 'center'}}>
+            <AreaChart categories={chartTypeTwoData?.categories ?? ["null"]} data={chartTypeTwoData?.series[0].data ?? [0]} />
+          </View></ScrollView>
+        )}
     </View>
   );
 }

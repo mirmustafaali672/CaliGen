@@ -21,4 +21,14 @@ export interface ReportDataInterface {
     notCalibratedCount: number
     problemReportedCount: number
   }
+
+  export interface LineChartInterface {
+    categories: string[]
+    series: Series[]
+  }
+   
+  export interface Series {
+    name: string
+    data: number[]
+  }
   
