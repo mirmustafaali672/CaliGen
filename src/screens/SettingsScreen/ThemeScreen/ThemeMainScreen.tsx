@@ -43,10 +43,11 @@ function ThemeMainScreen(props: ThemeMainScreenInterface) {
   const theme = useColorScheme();
   const [currentTheme, setCurrentTheme] = useState<ColorSchemeName>();
   async function SetTheme(theme: ColorSchemeName) {
-    await Appearance.setColorScheme(theme);
+     Appearance.setColorScheme(theme);
     AsyncStorage.setItem('UserPreferedTheme', theme != null ? theme : 'System');
     props.navigation.navigate('ThemeMainScreen');
     setCurrentTheme(theme);
+     Appearance.setColorScheme(theme);
   }
 
   async function GetCurrentTheme() {
