@@ -181,4 +181,13 @@ export const MenuList: MenuListInterface[] = [
     ChildComponents: [],
     key: "saas"
   },
+  {
+    name: 'Development',
+    navigationRouteName: 'DevelopmentMainScreen',
+    icons: 'file-code',
+    isParent: false,
+    parentName: 'none',
+    ChildComponents: [],
+    key: "saas"
+  },
 ];

@@ -27,6 +27,7 @@ import ThemeMainScreen from '../SettingsScreen/ThemeScreen/ThemeMainScreen';
 import ColorSchemeMainScreen from '../SettingsScreen/ColorScheme/ColorSchemeMainScreen';
 import QRScannerMainScreen from '../QRScanner/QRScannerMainScreen';
 import QRScannerResultScreen from '../QRScanner/QRScannerResultScreen';
+import DevelopmentMainScreen from '../DevelopmentScreens/DevelopmentMainScreen';
 
 function MoreScreenNavigator() {
   const Stack = createNativeStackNavigator();
@@ -157,6 +158,11 @@ function MoreScreenNavigator() {
           options={{headerShown: false}}
           name="QRScannerResultScreen"
           component={QRScannerResultScreen}
+        />
+        <Stack.Screen 
+        options={{headerShown: false}}
+        name="DevelopmentMainScreen"
+        component={DevelopmentMainScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
