@@ -19,8 +19,8 @@ interface ButtonComponentInterface {
   iconAtEnd: boolean;
   isActivityOnButton?: boolean;
   disableButton?: boolean;
-  buttonStyle? : StyleProp<ViewStyle>; 
-  buttonTextStyle? :StyleProp<TextStyle>; 
+  buttonStyle?: StyleProp<ViewStyle>;
+  buttonTextStyle?: StyleProp<TextStyle>;
   type: 'Primary' | 'Secondary' | 'Tertiary';
 }
 
@@ -59,30 +59,25 @@ function ButtonComponent(props: ButtonComponentInterface) {
     },
   });
   return (
-    <View>
-      <TouchableOpacity
+    <TouchableOpacity
+      style={[styles.container, props.buttonStyle]}
       disabled={props.disableButton}
-        style={[styles.container, props.buttonStyle]}
-        onPress={() => props.buttonClicked()}>
-        {!props.isActivityOnButton && (
-          <View>
-            {!props.iconAtEnd && props.buttonIcon}
-            <View>
-              <RobotoText
-                textStyle={[{color: textColor}, props.buttonTextStyle]}
-                text={props.buttonTitle}
-                isBold={false}
-                numberOfLines={0}
-              />
-            </View>
-          </View>
-        )}
-        {props.iconAtEnd && props.buttonIcon}
-        {props.isActivityOnButton && (
-          <ActivityIndicator size="small" color={textColor} />
-        )}
-      </TouchableOpacity>
-    </View>
+      onPress={() => props.buttonClicked()}>
+      {!props.iconAtEnd && !props.isActivityOnButton && props.buttonIcon}
+      {!props.isActivityOnButton && (
+        <RobotoText
+          textStyle={[{color: textColor}, props.buttonTextStyle]}
+          text={props.buttonTitle}
+          isBold={false}
+          numberOfLines={0}
+        />
+      )}
+      {props.iconAtEnd && !props.isActivityOnButton && props.buttonIcon}
+
+      {props.isActivityOnButton && (
+        <ActivityIndicator size="small" color={textColor} />
+      )}
+    </TouchableOpacity>
   );
 }
 

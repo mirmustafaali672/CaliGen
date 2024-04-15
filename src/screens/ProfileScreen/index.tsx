@@ -15,6 +15,7 @@ import {CurrentUserDetailsInterface} from '../../interfaces/UsersInterface';
 import RobotoText from '../../components/Text/RobotoText';
 import {Schemes} from '../../styles/MaterialColorThemeInterface';
 import MaterialColorThemeSelector from '../../styles/MaterialColorSchemeSelector';
+import ButtonComponent from '../../components/Buttons';
 
 interface ProfileScreenInterface {
   navigation: any;
@@ -353,10 +354,19 @@ function ProfileScreen(props: ProfileScreenInterface) {
           </TouchableOpacity> */}
         </View>
       </ScrollView>
-      <TouchableOpacity
-        onPress={() => props.logout()}
-        style={{
-          backgroundColor: MaterialColorTheme.tertiary,
+      <ButtonComponent
+        buttonClicked={() => props.logout()}
+        buttonTitle={''}
+        buttonIcon={
+          <MaterialCommunityIcons
+            name="logout"
+            color={MaterialColorTheme.onTertiary}
+            size={height / 28}
+          />
+        }
+        iconAtEnd={false}
+        type={"Tertiary"}
+        buttonStyle={{
           height: height / 12,
           width: height / 12,
           alignItems: 'center',
@@ -367,13 +377,8 @@ function ProfileScreen(props: ProfileScreenInterface) {
           right: 20,
           elevation: 3,
           zIndex: 1,
-        }}>
-        <MaterialCommunityIcons
-          name="logout"
-          color={MaterialColorTheme.onTertiary}
-          size={height / 28}
-        />
-      </TouchableOpacity>
+        }}
+      />
     </View>
   );
 }
