@@ -21,7 +21,10 @@ interface ButtonComponentInterface {
   disableButton?: boolean;
   buttonStyle?: StyleProp<ViewStyle>;
   buttonTextStyle?: StyleProp<TextStyle>;
-  type: 'Primary' | 'Secondary' | 'Tertiary';
+  type: 'Primary' | 'Secondary' | 'Tertiary' | 'Danger';
+  inverse?: boolean;
+  radius?: number;
+  borderWidth?: number;
 }
 
 function ButtonComponent(props: ButtonComponentInterface) {
@@ -31,23 +34,39 @@ function ButtonComponent(props: ButtonComponentInterface) {
       ? MaterialColorTheme.primary
       : props.type == 'Secondary'
       ? MaterialColorTheme.secondaryContainer
-      : MaterialColorTheme.tertiary;
+      : props.type == 'Danger'
+      ? MaterialColorTheme.error
+      : MaterialColorTheme.tertiaryContainer;
   var textColor: string =
     props.type == 'Primary'
       ? MaterialColorTheme.onPrimary
       : props.type == 'Secondary'
       ? MaterialColorTheme.onSecondaryContainer
-      : MaterialColorTheme.onTertiary;
+      : props.type == 'Danger'
+      ? MaterialColorTheme.onError
+      : MaterialColorTheme.onTertiaryContainer;
+      var borderColor : string =
+      props.type == 'Primary'
+        ? MaterialColorTheme.primary
+        : props.type == 'Secondary'
+        ? MaterialColorTheme.secondaryContainer
+        : props.type == 'Danger'
+        ? MaterialColorTheme.error
+        : MaterialColorTheme.tertiaryContainer;
+  if (props.inverse) {
+    textColor = backgroundColor;
+    backgroundColor = MaterialColorTheme.surface;
+  }
   const styles = StyleSheet.create({
     container: {
       backgroundColor: backgroundColor,
       padding: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: 10,
+      borderRadius: props.radius ? props.radius : 10,
       flexDirection: 'row',
-      borderWidth: 2,
-      borderColor: backgroundColor,
+      borderWidth: props.borderWidth ? props.borderWidth : 0,
+      borderColor: borderColor,
       shadowColor: MaterialColorTheme.shadow,
       shadowOffset: {
         width: 0,
@@ -55,7 +74,7 @@ function ButtonComponent(props: ButtonComponentInterface) {
       },
       shadowOpacity: 0.25,
       shadowRadius: 4,
-      elevation: 1,
+      elevation: props.inverse ? 0 : 1,
     },
   });
   return (

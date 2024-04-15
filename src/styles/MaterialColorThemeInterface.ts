@@ -7,13 +7,15 @@ export type CurrentAvaiableColors = ('Pink'
   | 'Baseline'
   | 'Teal'
   | 'Orange'
-  | 'Cyan')[];
+  | 'Cyan' 
+  | 'Warm')[];
   export type CurrentAvaiableColor = 'Pink'
   | 'Blue'
   | 'Baseline'
   | 'Teal'
   | 'Orange'
-  | 'Cyan';
+  | 'Cyan' 
+  | 'Warm';
 
 export interface MaterialColorSchemeInterface {
   Baseline: MaterialColorThemeInterface;
@@ -22,6 +24,7 @@ export interface MaterialColorSchemeInterface {
   Cyan: MaterialColorThemeInterface;
   Blue: MaterialColorThemeInterface;
   Pink: MaterialColorThemeInterface;
+  Warm: MaterialColorSchemeInterface;
 }
 export interface MaterialColorThemeInterface {
   description: string;

@@ -365,7 +365,7 @@ function ProfileScreen(props: ProfileScreenInterface) {
           />
         }
         iconAtEnd={false}
-        type={"Tertiary"}
+        type={"Danger"}
         buttonStyle={{
           height: height / 12,
           width: height / 12,

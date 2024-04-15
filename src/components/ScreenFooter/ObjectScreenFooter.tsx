@@ -33,7 +33,8 @@ function ObjectScreenFooter(props: ObjectScreenFooterInterface) {
             buttonIcon={<View></View>}
             iconAtEnd={false}
             isActivityOnButton={props.isActivityOnTernaryButton}
-            type="Tertiary"
+            type="Danger"
+            inverse
           />
         )}
       </View>

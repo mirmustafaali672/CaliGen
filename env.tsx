@@ -11,7 +11,14 @@ import { EnvSettingInterface } from "./src/interfaces/EnvSettingInterface";
 
 export async function EnvSettings(): Promise<EnvSettingInterface> 
 {
-    const env = await GetDataFromStorage("EnvSettings");
+    // const env = await GetDataFromStorage("EnvSettings");
+    const env: EnvSettingInterface = {
+        authURL: "https://dmo2a.caliberuniversal.com:44370",
+        hostURL: "https://dmo2a.caliberuniversal.com:44375",
+        loaclization_DefaultResourceName: "FileUploader",
+        oAuthConfig_ClientId: "FileUploader_Mobile",
+        oAuthConfig_Scope: "offline_access FileUploader"
+    };
     return env;
 }
 
